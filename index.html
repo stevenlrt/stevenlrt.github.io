@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steven Rillo Torres — Virtual Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f0f0f0;
+      --surface:  #111111;
+      --surface2: #1a1a1a;
+      --surface3: #222222;
+      --border:   rgba(255,255,255,0.22);
+      --border-h: rgba(255,255,255,0.7);
+      --text:     #ffffff;
+      --muted:    #ffffff;
+      --muted2:   #ffffff;
+      --gray1:    #2a2a2a;
+      --gray2:    #1e1e1e;
+      --gray3:    #141414;
+      --radius:   15px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #141414;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.25rem 4rem;
+      cursor: none;
+    }
+
+    /* Subtle dot grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 26px 26px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Cursor */
+    #cursor {
+      position: fixed; width: 7px; height: 7px;
+      background: #fff; border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+    }
+    #cursor-ring {
+      position: fixed; width: 28px; height: 28px;
+      border: 1px solid rgba(255,255,255,0.35); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: width .3s, height .3s;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 940px;
+      width: 100%;
+      position: relative; z-index: 2;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #111111;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 28px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6);
+      transition: transform .35s cubic-bezier(.23,1,.32,1), border-color .3s, box-shadow .35s;
+      opacity: 0;
+      animation: fadeUp .5s forwards;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.55);
+      box-shadow: 0 0 45px rgba(0,0,0,0.95), 0 8px 32px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    .card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.06) 0%, transparent 60%);
+      opacity: 0; transition: opacity .4s; pointer-events: none;
+    }
+    .card:hover::after { opacity: 1; }
+
+    /* Stagger */
+    .card:nth-child(1)  { animation-delay:.03s }
+    .card:nth-child(2)  { animation-delay:.06s }
+    .card:nth-child(3)  { animation-delay:.09s }
+    .card:nth-child(4)  { animation-delay:.12s }
+    .card:nth-child(5)  { animation-delay:.15s }
+    .card:nth-child(6)  { animation-delay:.18s }
+    .card:nth-child(7)  { animation-delay:.21s }
+    .card:nth-child(8)  { animation-delay:.24s }
+    .card:nth-child(9)  { animation-delay:.27s }
+    .card:nth-child(10) { animation-delay:.30s }
+    .card:nth-child(11) { animation-delay:.33s }
+    .card:nth-child(12) { animation-delay:.36s }
+    .card:nth-child(13) { animation-delay:.39s }
+    .card:nth-child(14) { animation-delay:.42s }
+    .card:nth-child(15) { animation-delay:.45s }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .col-2 { grid-column: span 2; }
+    .col-3 { grid-column: span 3; }
+
+    * { font-family: 'Source Sans 3', sans-serif; color: #fff; }
+
+    .label {
+      font-size: .75rem; letter-spacing: .14em;
+      text-transform: uppercase; color: #ffffff;
+      margin-bottom: .85rem;
+      display: flex; align-items: center; gap: 6px;
+      font-weight: 700;
+    }
+    .label i { opacity: 1; }
+
+    /* ─── HERO ─── */
+    .hero { display:flex; align-items:center; gap:1.5rem; padding:1.7rem; }
+    .photo-outer { flex-shrink:0; position:relative; width:88px; height:88px; }
+    .photo-wrap {
+      width:88px; height:88px; border-radius:50%;
+      background:var(--gray1);
+      border:1.5px solid var(--border-h);
+      overflow:hidden; position:relative; z-index:1;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .photo-wrap img { width:100%; height:100%; object-fit:cover; }
+    .photo-placeholder { font-size:2.3rem; }
+    .photo-ring {
+      position:absolute; inset:-7px; border-radius:50%;
+      border:1.5px solid transparent;
+      border-top-color:rgba(255,255,255,0.55);
+      border-right-color:rgba(255,255,255,0.12);
+      animation:spin 10s linear infinite; z-index:0;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .hero-text h1 {
+      font-size:1.9rem; font-weight:700; line-height:1.15;
+      margin-bottom:.3rem; color:#fff; letter-spacing:-.01em;
+    }
+    .hero-text h1 span { color:#fff; font-weight:300; }
+    .hero-sub { font-size:.98rem; color:#fff; line-height:1.55; margin-bottom:.65rem; font-weight:400; }
+
+    .status-pill {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.4);
+      border-radius:100px; padding:5px 13px;
+      font-size:.8rem; color:#fff; font-weight:600;
+    }
+    .dot {
+      width:6px; height:6px; border-radius:50%;
+      background:#4ec994; animation:pulse 2.2s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1);}
+      50%{opacity:.3;transform:scale(.6);}
+    }
+
+    /* ─── CLOCK ─── */
+    .clock-num {
+      font-size:2.2rem; font-weight:550; letter-spacing:.01em;
+      line-height:1; margin-top:.4rem; color:#fff;
+    }
+    .clock-sub { font-size:.85rem; color:#fff; margin-top:.3rem; font-weight:400; }
+    .loc-row {
+      display:flex; align-items:center; gap:5px;
+      margin-top:.9rem; font-size:.85rem; color:#fff; font-weight:500;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-text { font-size:.95rem; line-height:1.78; color:#fff; font-weight:400; }
+    .about-text strong { color:#fff; font-weight:700; }
+
+    /* ─── VIDEO ─── */
+    .video-wrap {
+      position:relative; padding-bottom:56.25%; height:0;
+      border-radius:9px; overflow:hidden;
+      border:1.5px solid rgba(255,255,255,0.3);
+    }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
+    /* ─── SERVICES ─── */
+    .svc-icon { font-size:1.7rem; margin-bottom:.7rem; display:block; transition:transform .3s; }
+    .card:hover .svc-icon { transform:scale(1.12) rotate(-5deg); }
+    .svc-title { font-size:1.05rem; font-weight:700; margin-bottom:.4rem; color:#fff; }
+    .svc-desc  { font-size:.88rem; color:#fff; line-height:1.63; font-weight:400; }
+    .svc-tags  { display:flex; flex-wrap:wrap; gap:5px; margin-top:.85rem; }
+    .stag {
+      font-size:.75rem; padding:4px 10px; border-radius:4px;
+      border:1.5px solid rgba(255,255,255,0.5);
+      color:#fff; background:rgba(255,255,255,0.08); font-weight:600;
+    }
+
+    /* ─── TOOLS ─── */
+    .tool-group { margin-bottom:.9rem; }
+    .tool-group:last-child { margin-bottom:0; }
+    .tg-label {
+      font-size:.72rem; color:#fff; letter-spacing:.12em;
+      text-transform:uppercase; margin-bottom:.4rem;
+      display:flex; align-items:center; gap:5px; font-weight:700;
+    }
+    .tags-row { display:flex; flex-wrap:wrap; gap:5px; }
+    .tag {
+      font-size:.78rem; padding:5px 11px; border-radius:4px;
+      background:rgba(255,255,255,0.08);
+      border:1.5px solid rgba(255,255,255,0.3);
+      color:#fff; white-space:nowrap; font-weight:500;
+      transition:border-color .22s, background .22s;
+    }
+    .tag:hover { border-color:#fff; background:rgba(255,255,255,0.18); }
+
+    /* ─── QUICK STATS ─── */
+    .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:.3rem; }
+    .stat-item {
+      background:rgba(255,255,255,0.08);
+      border:1.5px solid rgba(255,255,255,0.25);
+      border-radius:9px; padding:.8rem .9rem; text-align:center;
+    }
+    .stat-num { font-size:1.6rem; font-weight:700; color:#fff; line-height:1; }
+    .stat-lbl { font-size:.75rem; color:#fff; margin-top:.25rem; font-weight:500; }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-item { margin-bottom:1.05rem; position:relative; padding-left:1.1rem; }
+    .exp-item::before { display:none; }
+    .exp-item:last-child { margin-bottom:0; }
+    .exp-dot {
+      position:absolute; left:-3.5px; top:8px;
+      width:8px; height:8px; border-radius:50%;
+      background:#fff; border:2px solid #111111;
+    }
+    .exp-role { font-size:.95rem; font-weight:700; color:#fff; margin-bottom:.13rem; }
+    .exp-org  { font-size:.83rem; color:#fff; margin-bottom:.13rem; font-weight:500; }
+    .exp-date { font-size:.75rem; color:#fff; margin-bottom:.38rem; font-weight:400; opacity:.75; }
+    .exp-list {
+      list-style: disc;
+      margin-left: 1rem;
+      margin-top: .1rem;
+    }
+    .exp-list li {
+      font-size:.83rem; color:#fff; line-height:1.65;
+      font-weight:400; margin-bottom:.2rem;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-block {
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:10px;
+      padding:1rem 1.1rem;
+    }
+    .edu-icon { font-size:1.7rem; margin-bottom:.5rem; display:block; }
+    .edu-name { font-size:.95rem; font-weight:700; color:#fff; margin-bottom:.25rem; }
+    .edu-deg  { font-size:.82rem; color:#fff; line-height:1.6; font-weight:400; }
+    .edu-loc  { color:#fff; font-size:.72rem; margin-top:.25rem; display:block; font-weight:500; opacity:.7; }
+
+    /* ─── CONTACT ─── */
+    .contact-list { list-style:none; display:flex; flex-direction:column; gap:14px; }
+    .contact-list li a {
+      display:flex; align-items:center; gap:14px;
+      font-size:.8rem; color:#fff; text-decoration:none;
+      transition:opacity .2s; font-weight:500;
+    }
+    .contact-list li a:hover { opacity:.75; }
+    .c-icon {
+      width:30px; height:30px; border-radius:7px;
+      background:rgba(255,255,255,0.1);
+      border:1.5px solid rgba(255,255,255,0.35);
+      display:grid; place-items:center; flex-shrink:0;
+      transition:border-color .22s, background .22s;
+    }
+    .contact-list li a:hover .c-icon {
+      border-color:#fff; background:rgba(255,255,255,0.2);
+    }
+
+    /* ─── CTA ─── */
+    .btn {
+      display:inline-flex; align-items:center; gap:7px;
+      padding:10px 24px; border-radius:6px;
+      background:rgba(255,255,255,0.12);
+      border:2px solid rgba(255,255,255,0.7);
+      color:#fff; font-size:.9rem; font-weight:700;
+      text-decoration:none; white-space:nowrap; cursor:none;
+      font-family:'Source Sans 3',sans-serif;
+      transition:transform .25s, box-shadow .25s, background .25s, border-color .25s;
+    }
+    .btn:hover {
+      transform:translateY(-2px);
+      background:rgba(255,255,255,0.22);
+      border-color:#fff;
+      box-shadow:0 8px 28px rgba(0,0,0,0.3);
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width:100%; height:1px;
+      background:rgba(255,255,255,0.2);
+      margin:.7rem 0;
+    }
+
+    footer {
+      max-width:940px; width:100%; margin-top:1.6rem;
+      text-align:center; font-size:.8rem;
+      color:rgba(255,255,255,0.3);
+      position:relative; z-index:2; font-weight:500;
+    }
+
+    @media(max-width:680px){
+      .grid{grid-template-columns:1fr 1fr;}
+      .col-2,.col-3{grid-column:span 2;}
+      .hero{flex-direction:column;text-align:center;}
+      .status-pill{margin:0 auto;}
+    }
+    @media(max-width:420px){
+      .grid{grid-template-columns:1fr;}
+      .col-2,.col-3{grid-column:span 1;}
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="grid">
+
+  <!-- 1. HERO col-2 -->
+  <div class="card hero col-2">
+    <div class="photo-outer">
+      <div class="photo-wrap">
+        <!-- Swap with: <img src="assets/photo.jpg" alt="Steven Rillo Torres" /> -->
+        <div class="photo-placeholder">👤</div>
+      </div>
+      <div class="photo-ring"></div>
+    </div>
+    <div class="hero-text">
+      <h1>Steven <span>Rillo Torres</span></h1>
+      <p class="hero-sub">✦ Virtual Assistant &nbsp;·&nbsp; Content Writing &nbsp;·&nbsp; Social Media Management<br>Podcast Production &nbsp;·&nbsp; Graphic Design</p>
+      <div class="status-pill"><span class="dot"></span> Open to work</div>
+    </div>
+  </div>
+
+  <!-- 2. CLOCK col-1 -->
+  <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
+    <div class="label"><i data-lucide="clock" style="width:12px;height:12px;"></i> Local Time</div>
+    <div>
+      <div class="clock-num" id="clock">--:--</div>
+      <div class="clock-sub"></div>
+    </div>
+    <div class="loc-row">🇵🇭 &nbsp;Quezon City, Philippines</div>
+  </div>
+
+  <!-- 3. ABOUT col-2 -->
+  <div class="card col-2">
+    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>👋About Me</div>
+    <p class="about-text">
+      Hi, I'm Steven!<br><br> 
+      
+      A Virtual Assistant with 5+ years experience helping clients.<br><br>
+      
+      I can edit articles, schedule posts, manage calendars, and optimize podcasts.<br><br>
+
+      I'm an English major who enjoys the gym in my free time.<br><br> 
+      
+      Feel free to connect with me!<br><br>
+      
+    </p>
+    <div class="divider"></div>
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-lbl">⏳ Years Experience</div>
+        </div>
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-lbl">🔧 Tools Mastered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">🌐</div>
+        <div class="stat-lbl">Working Remote</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- 4. CONTACT col 1, right side-->
+  <div class="card">
+    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>✏️ Get in Touch</div>
+    <ul class="contact-list">
+      <li>
+        <a href="mailto:stevenrillot@gmail.com">
+          <span class="c-icon"><i data-lucide="mail" style="width:13px;height:13px;stroke:#fff;"></i></span>
+          stevenrillot@gmail.com
+        </a>
+      </li>
+      <li>
+        <a href="tel:+639762105894">
+          <span class="c-icon"><i data-lucide="phone" style="width:13px;height:13px;stroke:#fff;"></i></span>
+          (+63) 976 210 5894
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/stevenlrt" target="_blank" rel="noopener">
+          <span class="c-icon"><i data-lucide="linkedin" style="width:13px;height:13px;stroke:#fff;"></i></span>
+          linkedin.com/in/stevenlrt
+        </a>
+      </li>
+      <li>
+        <a href="https://stevenlrt.github.io/" target="_blank" rel="noopener">
+          <span class="c-icon"><i data-lucide="github" style="width:13px;height:13px;stroke:#fff;"></i></span>
+          stevenlrt.github.io
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 5. VIDEO col-2 -->
+  <div class="card col-2">
+    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i> 🎬 Intro Video</div>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/W8x5hkimDJk?si=tisqvnzJTD9UcIuK"
+        title="Steven Rillo Torres — Intro Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- 6. TOOLS col-1 spanning rows 3+4+5 -->
+  <div class="card" style="grid-row:span 4;">
+    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i> 🔧 Tools I Use</div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>CRM</div>
+      <div class="tags-row">
+        <span class="tag">Pipedrive</span><span class="tag">Notion</span>
+        <span class="tag">Google Workspace</span><span class="tag">Calendly</span><span class="tag">LastPass</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Content</div>
+      <div class="tags-row">
+        <span class="tag">WordPress</span><span class="tag">Medium</span><span class="tag">Squarespace</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Social Media</div>
+      <div class="tags-row">
+        <span class="tag">Buffer</span><span class="tag">Hootsuite</span><span class="tag">Meta Business Suite</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Podcast & Audio</div>
+      <div class="tags-row">
+        <span class="tag">Libsyn</span><span class="tag">Buzzsprout</span><span class="tag">RedCircle</span>
+        <span class="tag">Descript</span><span class="tag">Audacity</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Design</div>
+      <div class="tags-row">
+        <span class="tag">Canva</span><span class="tag">Adobe Express</span>
+        <span class="tag">Photoshop</span><span class="tag">CapCut</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>AI</div>
+      <div class="tags-row">
+        <span class="tag">ChatGPT</span><span class="tag">Gemini</span>
+        <span class="tag">Claude</span><span class="tag">Grok</span>
+      </div>
+    </div>
+
+    <div style="font-size:.82rem;color:#fff;line-height:1.65;font-weight:400;margin-top:.1rem;">
+    </div>
+  </div>
+
+  <!-- 7. Content Writing -->
+  <div class="card">
+    <span class="svc-icon">✍️</span>
+    <div class="svc-title">Content Writing</div>
+    <div class="svc-desc">I proofread and SEO blog articles, website copy and social media content.</div>
+    <div class="svc-tags">
+      <span class="stag">📰 Blogs</span><span class="stag">🔍 SEO Copy</span><span class="stag">✅ Proofreading</span>
+    </div>
+  </div>
+
+  <!-- 8. Social Media -->
+  <div class="card">
+    <span class="svc-icon">📱</span>
+    <div class="svc-title">Social Media Management</div>
+    <div class="svc-desc">I manage social media accounts, make posts engaging and moderate the community.</div>
+    <div class="svc-tags">
+      <span class="stag">📸 Instagram</span><span class="stag">💼 LinkedIn</span><span class="stag">📊 Meta Ads</span>
+    </div>
+  </div>
+
+  <!-- 9. Podcast -->
+  <div class="card">
+    <span class="svc-icon">🎙️</span>
+    <div class="svc-title">Podcast Support</div>
+    <div class="svc-desc">I edit raw audio, add effects and transitions, draft show notes and upload onto platforms.</div>
+    <div class="svc-tags">
+      <span class="stag">✂️ Editing</span><span class="stag">📋 Show Notes</span><span class="stag">📤 Publishing</span>
+    </div>
+  </div>
+
+  <!-- 10. Graphics -->
+  <div class="card">
+    <span class="svc-icon">🎨</span>
+    <div class="svc-title">Graphic Design</div>
+    <div class="svc-desc">I create visuals, design templates and produce graphics to make your brand stand out.</div>
+    <div class="svc-tags">
+      <span class="stag">🖼️ Canva</span><span class="stag">🖌️ Photoshop</span><span class="stag">🎞️ Reels</span>
+    </div>
+  </div>
+
+  <!-- 11. EXPERIENCE col-3 -->
+  <div class="card col-3">
+  <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>💼 Experience</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;">
+
+      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
+        <div class="exp-role">🧑‍💻 Freelance Virtual Assistant</div>
+        <div class="exp-org">Remote</div>
+        <div class="exp-date">Sep 2020 – Jan 2026</div>
+        <ul class="exp-list">
+          <li>Managed social media accounts with content tools</li>
+          <li>Wrote, proofread, and edited articles for SEO</li>
+          <li>Edited audio files for upload to podcast platforms</li>
+        </ul>
+      </div>
+
+      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
+        <div class="exp-role">👩‍🏫 Practice English Teacher</div>
+        <div class="exp-org">Temple Hill International School</div>
+        <div class="exp-date">Sep 2024 – Feb 2025</div>
+        <ul class="exp-list">
+          <li>Crafted activities for English class using Montessori methods</li>
+          <li>Integrated EdTech in teaching interactive lessons</li>
+          <li>Provided feedback for students, teachers, and parents</li>
+        </ul>
+      </div>
+
+      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
+        <div class="exp-role">📚 English Language Tutor</div>
+        <div class="exp-org">Remote</div>
+        <div class="exp-date">Mar 2018 – Sep 2020</div>
+        <ul class="exp-list">
+          <li>Provided English language tutorials for learners</li>
+          <li>Delivered lessons tailored for each student's level</li>
+          <li>Guided pupils to achieve previously set lesson goals</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+<!-- 12. EDUCATION -->
+<div class="card col-3">
+  <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>🎓 Education</div>
+  <div class="edu-name">AMA University</div>
+  <div class="edu-deg">Bachelor of Secondary Education Major in English</div>
+</div>
+
+<!-- 13. CTA -->
+<div class="card col-3" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.8rem 2rem;">
+  <div>
+    <h2 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.3rem;">✨ Let's work together!</h2>
+    <p style="font-size:.88rem;color:#fff;line-height:1.58;font-weight:400;">I'm open to part-time, full-time and freelance roles</p>
+  </div>
+  <a class="btn" href="mailto:stevenrillot@gmail.com">
+    <i data-lucide="none" style="width:13px;height:13px;"></i>
+    📩 Send me a message
+  </a>
+</div>
+
+<footer>Steven Rillo Torres © 2026</footer>
+
+<script>
+  lucide.createIcons();
+
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function loop(){
+    rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
+  });
+
+  function tick(){
+    const pht = new Date(new Date().toLocaleString('en-US', {timeZone:'Asia/Manila'}));
+    let h = pht.getHours();
+    const m = String(pht.getMinutes()).padStart(2,'0');
+    const s = String(pht.getSeconds()).padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    document.getElementById('clock').textContent = `${h}:${m}${ampm}`;
+  }
+  tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
