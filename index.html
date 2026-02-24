@@ -39,7 +39,7 @@
       flex-direction: column;
       align-items: center;
       padding: 2rem 1.25rem 4rem;
-      cursor: none;
+      cursor: default;
     }
 
     /* Subtle dot grid */
@@ -49,21 +49,6 @@
       background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
       background-size: 26px 26px;
       pointer-events: none; z-index: 0;
-    }
-
-    /* Cursor */
-    #cursor {
-      position: fixed; width: 7px; height: 7px;
-      background: #fff; border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-    }
-    #cursor-ring {
-      position: fixed; width: 28px; height: 28px;
-      border: 1px solid rgba(255,255,255,0.35); border-radius: 50%;
-      pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
-      transition: width .3s, height .3s;
     }
 
     /* ── GRID ── */
@@ -204,8 +189,8 @@
     .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
     /* ─── SERVICES ─── */
-    .svc-icon { font-size:1.7rem; margin-bottom:.7rem; display:block; transition:transform .3s; }
-    .card:hover .svc-icon { transform:scale(1.12) rotate(-5deg); }
+    .svc-icon { font-size:1.7rem; margin-bottom:.7rem; display:block; transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
+    .card:hover .svc-icon { transform:scale(1.35) rotate(-10deg); }
     .svc-title { font-size:1.05rem; font-weight:700; margin-bottom:.4rem; color:#fff; }
     .svc-desc  { font-size:.88rem; color:#fff; line-height:1.63; font-weight:400; }
     .svc-tags  { display:flex; flex-wrap:wrap; gap:5px; margin-top:.85rem; }
@@ -214,6 +199,20 @@
       border:1.5px solid rgba(255,255,255,0.5);
       color:#fff; background:rgba(255,255,255,0.08); font-weight:600;
     }
+    /* Vigorous sub-box icon */
+    .ico { font-size:1.5rem; display:inline-block; margin-bottom:.55rem; transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
+    .sub-box:hover .ico { transform:scale(1.4) rotate(-12deg); }
+
+    /* ─── STAT ITEM HOVER ─── */
+    .stat-item { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+    .stat-item:hover { transform: scale(1.06); }
+    .stat-item .stat-num { transition: transform .3s cubic-bezier(.34,1.56,.64,1); display: inline-block; }
+    .stat-item:hover .stat-num { transform: scale(1.15) translateY(-2px); }
+
+    /* ─── REMOTE STAT HOVER ─── */
+    #remote-stat { cursor: default; }
+    #remote-globe { transition: transform .3s cubic-bezier(.34,1.56,.64,1); display: inline-block; }
+    #remote-stat:hover #remote-globe { transform: scale(1.4) rotate(-12deg); }
 
     /* ─── TOOLS ─── */
     .tool-group { margin-bottom:.9rem; }
@@ -232,6 +231,13 @@
       transition:border-color .22s, background .22s;
     }
     .tag:hover { border-color:#fff; background:rgba(255,255,255,0.18); }
+
+    /* ─── TOOLS CARD SMALLER TAGS ─── */
+    .tools-stag {
+      font-size:.68rem; padding:3px 7px; border-radius:4px;
+      border:1.5px solid rgba(255,255,255,0.5);
+      color:#fff; background:rgba(255,255,255,0.08); font-weight:600;
+    }
 
     /* ─── QUICK STATS ─── */
     .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:.3rem; }
@@ -294,7 +300,9 @@
     }
     .contact-list li a:hover .c-icon {
       border-color:#fff; background:rgba(255,255,255,0.2);
+      transform: scale(1.18) rotate(-8deg);
     }
+    .c-icon { transition: border-color .22s, background .22s, transform .3s cubic-bezier(.34,1.56,.64,1); }
 
     /* ─── CTA ─── */
     .btn {
@@ -342,9 +350,6 @@
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
 <div class="grid">
 
   <!-- 1. HERO col-2 -->
@@ -357,7 +362,7 @@
     </div>
     <div class="hero-text">
       <h1>Steven <span>Rillo Torres</span></h1>
-      <p class="hero-sub">✦ Virtual Assistant &nbsp;·&nbsp; Content Writing &nbsp;·&nbsp; Social Media Management<br>Podcast Production &nbsp;·&nbsp; Graphic Design</p>
+      <p class="hero-sub">Virtual Assistant &nbsp;·&nbsp; Content Writing &nbsp;·&nbsp; Social Media Management<br>Podcast Production &nbsp;·&nbsp; Graphic Design</p>
       <div class="status-pill"><span class="dot"></span> Open to work</div>
     </div>
   </div>
@@ -372,68 +377,10 @@
     <div class="loc-row">🇵🇭 &nbsp;Quezon City, Philippines</div>
   </div>
 
-  <!-- 3. ABOUT col-2 -->
-  <div class="card col-2">
-    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>👋About Me</div>
-    <p class="about-text">
-      Hi, I'm Steven!<br><br> 
-      
-      A Virtual Assistant with 5+ years experience helping clients.<br><br>
-      
-      I can edit articles, schedule posts, manage calendars, and optimize podcasts.<br><br>
-
-      I'm an English major who enjoys the gym in my free time.<br><br> 
-      
-      Feel free to connect with me!<br><br>
-      
-    </p>
-    <div class="divider"></div>
-    <div class="stat-grid">
-      <div class="stat-item">
-        <div class="stat-num">5+</div>
-        <div class="stat-lbl">⏳ Years Experience</div>
-        </div>
-      <div class="stat-item">
-        <div class="stat-num">20+</div>
-        <div class="stat-lbl">🔧 Tools Mastered</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">🌐</div>
-        <div class="stat-lbl">Working Remote</div>
-      </div>
-    </div>
-  </div>
-
-  
-  <!-- 4. CONTACT col 1, right side-->
-  <div class="card">
-    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>✏️ Get in Touch</div>
-    <ul class="contact-list">
-      <li>
-        <a href="mailto:stevenrillot@gmail.com">
-          <span class="c-icon"><i data-lucide="mail" style="width:13px;height:13px;stroke:#fff;"></i></span>
-          stevenrillot@gmail.com
-        </a>
-      </li>
-      <li>
-        <a href="tel:+639762105894">
-          <span class="c-icon"><i data-lucide="phone" style="width:13px;height:13px;stroke:#fff;"></i></span>
-          (+63) 976 210 5894
-        </a>
-      </li>
-      <li>
-        <a href="https://linkedin.com/in/stevenlrt" target="_blank" rel="noopener">
-          <span class="c-icon"><i data-lucide="linkedin" style="width:13px;height:13px;stroke:#fff;"></i></span>
-          linkedin.com/in/stevenlrt
-        </a>
-      </li>
-      <li>
-        <a href="https://stevenlrt.github.io/" target="_blank" rel="noopener">
-          <span class="c-icon"><i data-lucide="github" style="width:13px;height:13px;stroke:#fff;"></i></span>
-          stevenlrt.github.io
-        </a>
-      </li>
-    </ul>
+  <!-- 3. ABOUT col-3 full width -->
+  <div class="card col-3" style="align-self:start;">
+    <div class="label">👋 About Me</div>
+    <p class="about-text">Hi, I'm Steven! A virtual assistant with 5+ years experience helping clients. I can edit articles, schedule posts, manage calendars, and optimize podcasts. I'm an English major who enjoys the gym in my free time. Feel free to connect with me!</p>
   </div>
 
   <!-- 5. VIDEO col-2 -->
@@ -449,107 +396,148 @@
     </div>
   </div>
 
-  <!-- 6. TOOLS col-1 spanning rows 3+4+5 -->
-  <div class="card" style="grid-row:span 4;">
-    <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i> 🔧 Tools I Use</div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>CRM</div>
-      <div class="tags-row">
-        <span class="tag">Pipedrive</span><span class="tag">Notion</span>
-        <span class="tag">Google Workspace</span><span class="tag">Calendly</span><span class="tag">LastPass</span>
+  <!-- 6. CONTACT col-1 -->
+  <div class="card" style="display:flex;flex-direction:column;gap:0;">
+    <div class="label">✏️ Get in Touch</div>
+    <ul class="contact-list">
+<li>
+  <a href="mailto:stevenrillot@gmail.com">
+    <span class="c-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
+    stevenrillot@gmail.com
+  </a>
+</li>
+      <li>
+        <a href="tel:+639762105894">
+          <span class="c-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+          (+63) 976 210 5894
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/stevenlrt" target="_blank" rel="noopener">
+          <span class="c-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></span>
+          linkedin.com/in/stevenlrt
+        </a>
+      </li>
+      <li>
+        <a href="https://stevenlrt.github.io/" target="_blank" rel="noopener">
+          <span class="c-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></span>
+          stevenlrt.github.io
+        </a>
+      </li>
+    </ul>
+    <div class="divider" style="margin-top:1rem;"></div>
+    <div class="stat-grid" style="margin-top:.7rem;">
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-lbl">⏳ Years Experience</div>
       </div>
-    </div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Content</div>
-      <div class="tags-row">
-        <span class="tag">WordPress</span><span class="tag">Medium</span><span class="tag">Squarespace</span>
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-lbl">🔧 Tools Mastered</div>
       </div>
-    </div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Social Media</div>
-      <div class="tags-row">
-        <span class="tag">Buffer</span><span class="tag">Hootsuite</span><span class="tag">Meta Business Suite</span>
+      <div class="stat-item" style="grid-column:span 2;cursor:default;" id="remote-stat">
+        <div class="stat-num" id="remote-globe" style="transition:transform .3s cubic-bezier(.34,1.56,.64,1);display:inline-block;">🌐</div>
+        <div class="stat-lbl">Working Remote</div>
       </div>
-    </div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Podcast & Audio</div>
-      <div class="tags-row">
-        <span class="tag">Libsyn</span><span class="tag">Buzzsprout</span><span class="tag">RedCircle</span>
-        <span class="tag">Descript</span><span class="tag">Audacity</span>
-      </div>
-    </div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>Design</div>
-      <div class="tags-row">
-        <span class="tag">Canva</span><span class="tag">Adobe Express</span>
-        <span class="tag">Photoshop</span><span class="tag">CapCut</span>
-      </div>
-    </div>
-
-    <div class="tool-group">
-      <div class="tg-label"><i data-lucide="none" style="width:9px;height:9px;"></i>AI</div>
-      <div class="tags-row">
-        <span class="tag">ChatGPT</span><span class="tag">Gemini</span>
-        <span class="tag">Claude</span><span class="tag">Grok</span>
-      </div>
-    </div>
-
-    <div style="font-size:.82rem;color:#fff;line-height:1.65;font-weight:400;margin-top:.1rem;">
     </div>
   </div>
 
-  <!-- 7. Content Writing -->
-  <div class="card">
-    <span class="svc-icon">✍️</span>
-    <div class="svc-title">Content Writing</div>
-    <div class="svc-desc">I proofread and SEO blog articles, website copy and social media content.</div>
-    <div class="svc-tags">
-      <span class="stag">📰 Blogs</span><span class="stag">🔍 SEO Copy</span><span class="stag">✅ Proofreading</span>
-    </div>
-  </div>
-
-  <!-- 8. Social Media -->
-  <div class="card">
-    <span class="svc-icon">📱</span>
-    <div class="svc-title">Social Media Management</div>
-    <div class="svc-desc">I manage social media accounts, make posts engaging and moderate the community.</div>
-    <div class="svc-tags">
-      <span class="stag">📸 Instagram</span><span class="stag">💼 LinkedIn</span><span class="stag">📊 Meta Ads</span>
-    </div>
-  </div>
-
-  <!-- 9. Podcast -->
-  <div class="card">
-    <span class="svc-icon">🎙️</span>
-    <div class="svc-title">Podcast Support</div>
-    <div class="svc-desc">I edit raw audio, add effects and transitions, draft show notes and upload onto platforms.</div>
-    <div class="svc-tags">
-      <span class="stag">✂️ Editing</span><span class="stag">📋 Show Notes</span><span class="stag">📤 Publishing</span>
-    </div>
-  </div>
-
-  <!-- 10. Graphics -->
-  <div class="card">
-    <span class="svc-icon">🎨</span>
-    <div class="svc-title">Graphic Design</div>
-    <div class="svc-desc">I create visuals, design templates and produce graphics to make your brand stand out.</div>
-    <div class="svc-tags">
-      <span class="stag">🖼️ Canva</span><span class="stag">🖌️ Photoshop</span><span class="stag">🎞️ Reels</span>
-    </div>
-  </div>
-
-  <!-- 11. EXPERIENCE col-3 -->
+  <!-- 4. TOOLS col-3 main card with sub-boxes -->
   <div class="card col-3">
-  <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>💼 Experience</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;">
+    <div class="label">🔧 Tools I Use</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.3rem;align-items:stretch;">
 
-      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
-        <div class="exp-role">🧑‍💻 Freelance Virtual Assistant</div>
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🗂️</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">CRM</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;overflow:hidden;max-height:3.4em;"><span class="tools-stag">Pipedrive</span><span class="tools-stag">Notion</span><span class="tools-stag">Google Workspace</span><span class="tools-stag">Calendly</span><span class="tools-stag">LastPass</span></div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">✏️</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Content</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="tools-stag">WordPress</span><span class="tools-stag">Medium</span><span class="tools-stag">Squarespace</span></div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">📲</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Social Media</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="tools-stag">Buffer</span><span class="tools-stag">Hootsuite</span><span class="tools-stag">Meta Business Suite</span></div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🎧</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Podcast & Audio</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;overflow:hidden;max-height:3.4em;"><span class="tools-stag">Libsyn</span><span class="tools-stag">Buzzsprout</span><span class="tools-stag">RedCircle</span><span class="tools-stag">Descript</span><span class="tools-stag">Audacity</span></div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🎨</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Design</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="tools-stag">Canva</span><span class="tools-stag">Adobe Express</span><span class="tools-stag">Photoshop</span><span class="tools-stag">CapCut</span></div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🤖</span>
+        <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.5rem;">AI</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="tools-stag">ChatGPT</span><span class="tools-stag">Gemini</span><span class="tools-stag">Claude</span><span class="tools-stag">Grok</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 7-10. MY SERVICES main card with sub-boxes -->
+  <div class="card col-3">
+    <div class="label">⚡ My Services</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:.3rem;">
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">✍️</span>
+        <div class="svc-title">Content Writing</div>
+        <div class="svc-desc">I proofread and SEO blog articles, website copy and social media content.</div>
+        <div class="svc-tags" style="margin-top:.6rem;">
+          <span class="stag">Blogs</span><span class="stag">SEO Copy</span><span class="stag">Proofreading</span>
+        </div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">📱</span>
+        <div class="svc-title">Social Media Management</div>
+        <div class="svc-desc">I manage social media accounts, make posts engaging and moderate the community.</div>
+        <div class="svc-tags" style="margin-top:.6rem;">
+          <span class="stag">Instagram</span><span class="stag">LinkedIn</span><span class="stag">Meta Ads</span>
+        </div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🎨</span>
+        <div class="svc-title">Graphic Design</div>
+        <div class="svc-desc">I create visuals, design templates and produce graphics to make your brand stand out.</div>
+        <div class="svc-tags" style="margin-top:.6rem;">
+          <span class="stag">Canva</span><span class="stag">Photoshop</span><span class="stag">Reels</span>
+        </div>
+      </div>
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🎙️</span>
+        <div class="svc-title">Podcast Support</div>
+        <div class="svc-desc">I edit raw audio, add effects and transitions, draft show notes and upload onto platforms.</div>
+        <div class="svc-tags" style="margin-top:.6rem;">
+          <span class="stag">Editing</span><span class="stag">Show Notes</span><span class="stag">Publishing</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 11. EXPERIENCE - main card with 3 sub-boxes -->
+  <div class="card col-3">
+    <div class="label">💼 Experience</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:.3rem;">
+
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">🧑‍💻</span>
+        <div class="exp-role">Freelance Virtual Assistant</div>
         <div class="exp-org">Remote</div>
         <div class="exp-date">Sep 2020 – Jan 2026</div>
         <ul class="exp-list">
@@ -559,8 +547,9 @@
         </ul>
       </div>
 
-      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
-        <div class="exp-role">👩‍🏫 Practice English Teacher</div>
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">👩‍🏫</span>
+        <div class="exp-role">Practice English Teacher</div>
         <div class="exp-org">Temple Hill International School</div>
         <div class="exp-date">Sep 2024 – Feb 2025</div>
         <ul class="exp-list">
@@ -570,8 +559,9 @@
         </ul>
       </div>
 
-      <div class="exp-item" style="padding-left:1.1rem;margin-bottom:0;">
-        <div class="exp-role">📚 English Language Tutor</div>
+      <div class="sub-box" style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+        <span class="ico">📚</span>
+        <div class="exp-role">English Language Tutor</div>
         <div class="exp-org">Remote</div>
         <div class="exp-date">Mar 2018 – Sep 2020</div>
         <ul class="exp-list">
@@ -584,51 +574,36 @@
     </div>
   </div>
 
-<!-- 12. EDUCATION -->
-<div class="card col-3">
-  <div class="label"><i data-lucide="none" style="width:10px;height:10px;"></i>🎓 Education</div>
-  <div class="edu-name">AMA University</div>
-  <div class="edu-deg">Bachelor of Secondary Education Major in English</div>
-</div>
+<!-- 12 + 13. EDUCATION & CTA side by side, evenly spaced -->
+<div class="col-3" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch;">
 
-<!-- 13. CTA -->
-<div class="card col-3" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.8rem 2rem;">
-  <div>
-    <h2 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.3rem;">✨ Let's work together!</h2>
-    <p style="font-size:.88rem;color:#fff;line-height:1.58;font-weight:400;">I'm open to part-time, full-time and freelance roles</p>
+  <div class="card" style="display:flex;flex-direction:column;">
+    <div class="label">🎓 Education</div>
+    <div style="background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:.9rem 1rem;">
+      <div class="edu-name">AMA University</div>
+      <div class="edu-deg">Bachelor of Secondary Education Major in English</div>
+    </div>
   </div>
-  <a class="btn" href="mailto:stevenrillot@gmail.com">
-    <i data-lucide="none" style="width:13px;height:13px;"></i>
-    📩 Send me a message
-  </a>
+
+  <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:1.8rem 2rem;">
+    <div>
+      <h2 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.3rem;">✨ Let's work together!</h2>
+      <p style="font-size:.88rem;color:#fff;line-height:1.58;font-weight:400;">I'm open to part-time, full-time and freelance roles</p>
+    </div>
+    <div>
+      <a class="btn" href="mailto:stevenrillot@gmail.com">
+        📩 Send me a message
+      </a>
+    </div>
+  </div>
+
 </div>
 
-<footer>Steven Rillo Torres © 2026</footer>
+</div> <!-- end of grid -->
 
-<script>
-  lucide.createIcons();
+<p style="text-align:center;padding:1.5rem 0 1rem;font-size:.85rem;color:rgba(255,255,255,0.4);font-weight:400;width:100%;max-width:940px;margin:0 auto;">Steven Rillo Torres © 2026</p>
 
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => {
-    mx=e.clientX; my=e.clientY;
-    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
-  });
-  (function loop(){
-    rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(loop);
-  })();
-
-  document.querySelectorAll('.card').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
-      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
-    });
-  });
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function tick(){
     const pht = new Date(new Date().toLocaleString('en-US', {timeZone:'Asia/Manila'}));
     let h = pht.getHours();
@@ -636,9 +611,33 @@
     const s = String(pht.getSeconds()).padStart(2,'0');
     const ampm = h >= 12 ? 'PM' : 'AM';
     h = h % 12 || 12;
-    document.getElementById('clock').textContent = `${h}:${m}${ampm}`;
+    document.getElementById('clock').textContent = String(h).padStart(2,'0') + ':' + m + ' ' + ampm;
   }
-  tick(); setInterval(tick,1000);
+  tick();
+  setInterval(tick, 1000);
+
+  // Hover animation for Working Remote globe
+  const remoteStat = document.getElementById('remote-stat');
+  const remoteGlobe = document.getElementById('remote-globe');
+  if(remoteStat && remoteGlobe){
+    remoteStat.addEventListener('mouseenter', () => {
+      remoteGlobe.style.transform = 'scale(1.4) rotate(-12deg)';
+    });
+    remoteStat.addEventListener('mouseleave', () => {
+      remoteGlobe.style.transform = 'scale(1) rotate(0deg)';
+    });
+  }
+
+  // Mouse glow on cards
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('mousemove',e=>{
+      const r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    });
+  });
+
+  lucide.createIcons();
 </script>
 </body>
 </html>
