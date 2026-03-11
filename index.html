@@ -427,13 +427,14 @@ html[data-theme="dark"] .edu-card { background:var(--bg-raised); }
 
 /* ─── CTA ─── */
 .cta-wrap {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px;
   background:#FFFFFF; border:1.5px solid rgba(14,165,233,0.20);
   border-radius:22px; padding:56px 40px; text-align:center;
   box-shadow:0 0 0 4px rgba(14,165,233,0.06), var(--sh-md);
   transition:box-shadow 0.4s var(--smooth), border-color var(--fast) var(--smooth), transform var(--mid) var(--spring);
 }
 .cta-wrap:hover { border-color:rgba(26,26,26,0.28); box-shadow:0 0 0 8px rgba(13,17,23,0.06), 0 24px 64px rgba(13,17,23,0.14); transform:translateY(-4px); }
-.cta-wrap h2 { color:#1A1A1A; margin-bottom:12px; }
+.cta-wrap h2 { color:#1A1A1A; margin-bottom:10px; width:100%; }
 .cta-wrap p  { font-size:1.05rem; color:#4A4A4A; margin-bottom:28px; }
 @media (prefers-color-scheme: dark) {
   .cta-wrap { background:var(--bg-raised); border-color:rgba(14,165,233,0.25); box-shadow:0 0 0 4px rgba(14,165,233,0.08), var(--sh-md); }
@@ -513,6 +514,12 @@ footer {
   *,*::before,*::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
 }
 
+.cta-wrap { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.cta-wrap .cta-btn { display:inline-block; }
+@media (min-width:600px) {
+  .cta-wrap { flex-direction:row; justify-content:center; flex-wrap:wrap; }
+}
+
 </style>
 </head>
 <body>
@@ -555,6 +562,7 @@ footer {
       <a href="https://facebook.com/stevenrto" target="_blank" class="contact-link"><span class="contact-icon">📘</span>Facebook</a>
       <a href="https://linktr.ee/stevenlrt" target="_blank" class="contact-link"><span class="contact-icon">🌿</span>Linktree</a>
       <a href="https://stevenlrt.github.io" target="_blank" class="contact-link"><span class="contact-icon">🌐</span>Github</a>
+      <a href="https://calendly.com/stevenrillot" target="_blank" class="contact-link"><span class="contact-icon">📅</span>Calendly</a>
     </div>
   </div>
 
@@ -755,7 +763,8 @@ footer {
     <div class="cta-wrap">
       <h2>Let's work together</h2>
       <p></p>
-      <a href="mailto:stevenrillot@gmail.com" class="cta-btn">📩 Send me a message</a>
+      <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn">📅 Book a call</a>
+      <a href="mailto:stevenrillot@gmail.com" class="cta-btn">📩 Send a message</a>
     </div>
   </section>
 
