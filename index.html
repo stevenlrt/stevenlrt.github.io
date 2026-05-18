@@ -14,6 +14,16 @@
 
 <style>
 
+.topnav-cta {
+  white-space: nowrap;
+  overflow: visible;
+  opacity: 0.7;
+  transition: opacity var(--fast), background var(--fast), color var(--fast);
+}
+.topnav-cta:hover {
+  opacity: 1;
+}
+
 /* ─── LIGHT BASE ─── */
 :root {
   color-scheme: light;
@@ -187,7 +197,7 @@ html[data-theme="dark"] .badge:hover { background:rgba(14,165,233,0.26); border-
   width:8px; height:8px; background:#10B981; border-radius:50%;
   animation:pulse 2s ease-in-out infinite; box-shadow:0 0 8px rgba(16,185,129,0.5);
 }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+@keyframes pulse { 0%,100%{ box-shadow:0 0 6px rgba(16,185,129,0.4); } 50%{ box-shadow:0 0 12px rgba(16,185,129,0.8); } }
 
 /* ─── HERO NAME ─── */
 .hero-name {
@@ -245,6 +255,7 @@ html[data-theme="dark"] .contact-link { background:var(--bg-raised); border-colo
 @keyframes photoGlow { 0%,100%{transform:scale(1);opacity:0.15} 50%{transform:scale(1.08);opacity:0.25} }
 .photo-face {
   width:100%; height:100%; border-radius:50%;
+  object-fit:cover;
   background:linear-gradient(135deg,var(--ac),var(--ac-hi));
 }
 
@@ -273,7 +284,7 @@ html[data-theme="dark"] .contact-link { background:var(--bg-raised); border-colo
 .clock-loc  { font-size:0.82rem; color:var(--ink-2); margin-top:4px; font-weight:500; }
 
 /* ─── MAIN ─── */
-main { padding:76px 64px; max-width:960px; margin:0 auto; }
+main { padding:48px 64px; max-width:960px; margin:0 auto; }
 section {
   margin-bottom:96px; opacity:0; transform:translateY(30px);
   transition:opacity 0.7s var(--smooth), transform 0.7s var(--smooth);
@@ -293,14 +304,14 @@ h2 { font-size:2.2rem; font-weight:700; letter-spacing:-0.02em; color:var(--ink)
 @media (prefers-color-scheme: dark) { .card:hover { box-shadow:var(--card-sh); border-color:var(--ac-mid) !important; } }
 html[data-theme="dark"] .card:hover { box-shadow:var(--card-sh); border-color:var(--ac-mid) !important; }
 
-/* stat + clock box hover — gray light / blue dark (matches .card) */
+/* stat + clock box hover */
 .stat:hover, .clock-box:hover { box-shadow:0 16px 44px rgba(13,17,23,0.16) !important; border-color:rgba(26,26,26,0.28) !important; }
 @media (prefers-color-scheme: dark) {
   .stat:hover, .clock-box:hover { box-shadow:var(--card-sh) !important; border-color:var(--ac-mid) !important; }
 }
 html[data-theme="dark"] .stat:hover, html[data-theme="dark"] .clock-box:hover { box-shadow:var(--card-sh) !important; border-color:var(--ac-mid) !important; }
 
-/* tool-cat + tl-item hover — gray light / blue dark (matches .card) */
+/* tool-cat + tl-item hover */
 .tool-cat:hover, .tl-item:hover { box-shadow:0 16px 44px rgba(13,17,23,0.16) !important; border-color:rgba(26,26,26,0.28) !important; }
 @media (prefers-color-scheme: dark) {
   .tool-cat:hover, .tl-item:hover { box-shadow:var(--card-sh) !important; border-color:var(--ac-mid) !important; }
@@ -333,7 +344,7 @@ html[data-theme="dark"] .svc-card { background:var(--bg-raised); }
 .svc-title { font-size:1.15rem; font-weight:700; color:var(--ink); letter-spacing:-0.01em; }
 .svc-desc  { font-size:0.92rem; line-height:1.6; color:var(--ink-2); flex-grow:1; }
 
-/* ─── TAGS — blue tint always; hover deepens; individual hover works ─── */
+/* ─── TAGS ─── */
 .tags  { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
 .tag {
   background:var(--ac-lo); color:var(--ink-2);
@@ -505,11 +516,504 @@ footer {
   .cta-wrap { flex-direction:row; justify-content:center; flex-wrap:wrap; }
 }
 
+/* ─── TOP NAVBAR ─── */
+#topnav {
+  position:sticky; top:0; z-index:950;
+  background:rgba(255,255,255,0.82); backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  border-bottom:1px solid var(--bd);
+  display:flex; justify-content:center;
+  transition:background 0.35s var(--smooth);
+}
+@media (prefers-color-scheme:dark) { #topnav { background:rgba(13,17,23,0.82); } }
+html[data-theme="dark"] #topnav { background:rgba(13,17,23,0.82); }
+html[data-theme="light"] #topnav { background:rgba(255,255,255,0.82); }
+.topnav-inner {
+  display:flex; align-items:center; gap:4px;
+  max-width:1100px; width:100%; padding:0 32px; height:54px;
+  overflow-x:auto; scrollbar-width:none;
+}
+.topnav-inner::-webkit-scrollbar { display:none; }
+.topnav-logo {
+  font-weight:700; font-size:0.92rem; letter-spacing:-0.01em;
+  color:var(--ink); text-decoration:none; white-space:nowrap;
+  margin-right:12px; flex-shrink:0;
+}
+.topnav-logo span { color:var(--ac); }
+.nav-link {
+  padding:7px 14px; border-radius:999px; font-size:0.82rem; font-weight:600;
+  color:var(--ink-2); text-decoration:none; white-space:nowrap;
+  letter-spacing:0.01em; flex-shrink:0;
+  transition:background 0.18s, color 0.18s, transform 0.18s var(--spring);
+}
+.nav-link:hover { background:var(--ac-lo); color:var(--ac); transform:translateY(-1px); }
+.nav-link.active { background:var(--ac-lo); color:var(--ac); border:1px solid var(--ac-mid); }
+.topnav-cta {
+  margin-left:auto; flex-shrink:0;
+  padding:7px 18px; border-radius:999px; font-size:0.82rem; font-weight:700;
+  background:var(--ac); color:#fff; text-decoration:none;
+  letter-spacing:0.02em;
+  transition:transform 0.18s var(--spring), box-shadow 0.18s, background 0.18s;
+}
+.topnav-cta:hover { transform:translateY(-2px) scale(1.04); box-shadow:0 6px 18px rgba(14,165,233,0.35); background:var(--ac-hi); }
+@media (max-width:600px) {
+  .topnav-inner { padding:0 16px; gap:2px; }
+  .topnav-logo { font-size:0.85rem; margin-right:6px; }
+  .nav-link { padding:6px 10px; font-size:0.78rem; }
+  .topnav-cta { padding:6px 14px; font-size:0.78rem; }
+}
+
+/* ─── IDEAL CLIENTS ─── */
+.clients-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px; }
+.client-card {
+  background:var(--bg-raised); border:1.5px solid var(--bd);
+  border-radius:18px; padding:26px 22px; box-shadow:var(--sh-sm);
+  display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+  transition:transform var(--mid) var(--spring), box-shadow var(--mid) var(--smooth), border-color var(--fast);
+}
+.client-card:hover { transform:translateY(-6px) scale(1.013); box-shadow:var(--card-sh); border-color:var(--ac-mid); }
+.client-icon { font-size:2rem; line-height:1; }
+.client-title { font-size:1rem; font-weight:700; color:var(--ink); letter-spacing:-0.01em; }
+.client-desc { font-size:0.88rem; line-height:1.6; color:var(--ink-2); }
+
+/* ════════════════════════════════════════════════
+   ─── PORTFOLIO SECTION ───────────────────────
+   ════════════════════════════════════════════════ */
+
+/* Wrapper: stack cards vertically with gap */
+#portfolio .port-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Base card shell */
+#portfolio .port-card {
+  background: var(--bg-raised);
+  border: 1.5px solid var(--bd);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+  transition: transform var(--mid) var(--spring),
+              box-shadow var(--mid) var(--smooth),
+              border-color var(--fast) var(--smooth);
+}
+#portfolio .port-card:hover {
+  transform: translateY(-5px) scale(1.008);
+  box-shadow: var(--card-sh);
+  border-color: var(--ac-mid) !important;
+}
+@media (prefers-color-scheme: dark) {
+  #portfolio .port-card:hover { box-shadow: var(--card-sh); }
+}
+html[data-theme="dark"] #portfolio .port-card:hover { box-shadow: var(--card-sh); }
+
+/* Card header bar */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg-sunken);
+}
+.card-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.card-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--ac);
+  background: var(--ac-lo);
+  border: 1px solid var(--ac-mid);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* Card body */
+.card-body { padding: 22px; }
+
+/* ── Reel grid (YouTube 2×3) ── */
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.reel-cell {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  background: var(--bg-sunken);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.22s var(--spring);
+}
+.reel-cell:hover {
+  background: var(--ac-lo);
+  border-color: var(--ac-mid);
+  transform: translateY(-3px) scale(1.03);
+}
+/* Play button triangle */
+.play-icon {
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent var(--ink-3);
+  margin-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.reel-cell:hover .play-icon { border-color: transparent transparent transparent var(--ac); }
+
+.reel-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-align: center;
+  padding: 0 6px;
+  line-height: 1.3;
+  transition: color 0.2s;
+}
+.reel-cell:hover .reel-title { color: var(--ac); }
+
+.reel-num {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .reel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Podcast grid (2×1) ── */
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.podcast-cell {
+  background: var(--bg-sunken);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.22s var(--spring);
+}
+.podcast-cell:hover {
+  background: var(--ac-lo);
+  border-color: var(--ac-mid);
+  transform: translateY(-3px);
+}
+.ep-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ac);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ep-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.ep-meta {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin-top: 2px;
+}
+@media (max-width: 600px) {
+  .podcast-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Photo Carousel ── */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--bg-sunken);
+  border: 1px solid var(--bd);
+  user-select: none;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.42s var(--smooth);
+  will-change: transform;
+}
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+/* Slide with a real image */
+.carousel-slide.has-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Placeholder (no image yet) */
+.slide-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.slide-placeholder-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--bd);
+  position: relative;
+}
+.slide-placeholder-icon::after {
+  content: '🖼️';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 1;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.slide-placeholder-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+/* Caption bar */
+.slide-caption {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 10px 16px;
+  background: rgba(13,17,23,0.54);
+  backdrop-filter: blur(6px);
+  color: #F5F2ED;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+/* Prev / Next buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s var(--spring);
+}
+.carousel-btn:hover { background: rgba(14,165,233,0.55); transform: translateY(-50%) scale(1.12); }
+.carousel-btn.prev { left: 12px; }
+.carousel-btn.next { right: 12px; }
+/* Dots */
+.carousel-dots {
+  position: absolute;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+.carousel-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.22s, transform 0.22s var(--spring);
+}
+.carousel-dot.active {
+  background: var(--ac);
+  transform: scale(1.5);
+}
+/* Counter */
+.carousel-counter {
+  position: absolute;
+  bottom: 42px;
+  right: 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.70);
+  letter-spacing: 0.06em;
+  z-index: 10;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Writing grid: 3 cards, 1 row ── */
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.writing-cell {
+  background: var(--bg-raised);
+  border: 1px solid var(--bd-card);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.22s var(--spring);
+}
+.writing-cell:hover {
+  background: var(--bg-sunken);
+  border-color: var(--bd);
+  transform: translateY(-3px);
+}
+.writing-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.writing-cat {
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--ac);
+}
+.writing-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.writing-teaser {
+  font-size: 0.84rem;
+  color: var(--ink-2);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.expand-hint {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-style: italic;
+  margin-top: 4px;
+}
+.writing-full {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.writing-excerpt {
+  font-size: 0.84rem;
+  color: var(--ink-2);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.close-hint {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-style: italic;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bd-card);
+}
+.writing-cell.expanded .writing-preview { display: none; }
+.writing-cell.expanded .writing-full    { display: flex; }
+@media (max-width: 900px) { .writing-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px) { .writing-grid { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════════ */
+
+/* ─── OLD port-card styles kept for other sections ─── */
+.port-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:20px; }
+.port-cat {
+  font-size:0.72rem; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+  color:var(--ac); background:var(--ac-lo); border:1px solid var(--ac-mid);
+  padding:4px 12px; border-radius:999px; width:fit-content;
+}
+.port-icon { font-size:1.8rem; line-height:1; margin-top:4px; }
+.port-title { font-size:1.02rem; font-weight:700; color:var(--ink); letter-spacing:-0.01em; }
+.port-desc { font-size:0.88rem; line-height:1.6; color:var(--ink-2); flex-grow:1; }
+.port-link {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:6px; padding:9px 18px; border-radius:999px; font-size:0.82rem; font-weight:600;
+  background:var(--bg-sunken); color:var(--ink-2); text-decoration:none;
+  border:1px solid var(--bd); width:fit-content;
+  transition:background 0.2s, color 0.2s, border-color 0.2s, transform 0.18s var(--spring);
+}
+.port-link:hover { background:var(--ac-lo); color:var(--ac); border-color:var(--ac-mid); transform:translateY(-2px); }
+html[data-theme="dark"] .port-link { background:var(--ac-lo); color:var(--ink-2); border-color:var(--ac-mid); }
+html[data-theme="dark"] .port-link:hover { background:rgba(14,165,233,0.22); color:var(--ac-hi); border-color:var(--ac); }
+@media (prefers-color-scheme:dark) {
+  .port-link { background:var(--ac-lo); color:var(--ink-2); border-color:var(--ac-mid); }
+  .port-link:hover { background:rgba(14,165,233,0.22); color:var(--ac-hi); border-color:var(--ac); }
+}
+.port-placeholder {
+  font-size:0.78rem; color:var(--ink-3); font-style:italic; margin-top:6px;
+  padding:8px 14px; background:var(--bg-sunken); border-radius:10px; border:1px dashed var(--bd);
+}
+
 </style>
 </head>
 <body>
 
 <div id="progress-bar"></div>
+<nav id="topnav" aria-label="Main navigation">
+  <div class="topnav-inner" style="display:flex; align-items:center; justify-content:space-between;">
+    <a href="#top" class="topnav-logo" style="flex-shrink:0;">Steven's <span>Portfolio</span></a>
+    <div style="display:flex; align-items:center; gap:20px; position:absolute; left:50%; transform:translateX(-50%);">
+      <a href="#portfolio" class="nav-link" data-s="portfolio">Work Samples</a>
+      <a href="#video" class="nav-link" data-s="video">Intro Video</a>
+    </div>
+    <div style="display:flex; gap:12px; flex-shrink:0;">
+      <a href="https://calendly.com/stevenrillot" target="_blank" class="topnav-cta">📅 Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .topnav-cta { white-space: nowrap; }
+  .topnav-cta span, .topnav-cta { overflow: visible !important; }
+</style>
 
 <button id="theme-toggle" aria-label="Toggle theme">
   <span class="t-icon" id="ti">☀️</span>
@@ -520,6 +1024,8 @@ footer {
   <div class="nav-dot active" data-s="top"></div>
   <div class="nav-dot" data-s="about"></div>
   <div class="nav-dot" data-s="services"></div>
+  <div class="nav-dot" data-s="portfolio"></div>
+  <div class="nav-dot" data-s="clients"></div>
   <div class="nav-dot" data-s="tools"></div>
   <div class="nav-dot" data-s="experience"></div>
   <div class="nav-dot" data-s="education"></div>
@@ -544,17 +1050,14 @@ footer {
       <a href="mailto:stevenrillot@gmail.com" class="contact-link"><span class="contact-icon">✉️</span>Email</a>
       <a href="tel:+639762105894" class="contact-link"><span class="contact-icon">📞</span>Phone</a>
       <a href="https://linkedin.com/in/stevenlrt" target="_blank" class="contact-link"><span class="contact-icon">💼</span>Linkedin</a>
-      <a href="https://facebook.com/stevenrto" target="_blank" class="contact-link"><span class="contact-icon">📘</span>Facebook</a>
       <a href="https://linktr.ee/stevenlrt" target="_blank" class="contact-link"><span class="contact-icon">🌿</span>Linktree</a>
-      <a href="https://stevenlrt.github.io" target="_blank" class="contact-link"><span class="contact-icon">🌐</span>Github</a>
-      <a href="https://calendly.com/stevenrillot" target="_blank" class="contact-link"><span class="contact-icon">📅</span>Calendly</a>
     </div>
   </div>
 
   <div class="hero-right">
-<div class="photo-wrap">
-  <img class="photo-face" src="photo.png" alt="Steven Rillo Torres">
-</div>
+    <div class="photo-wrap">
+      <img class="photo-face" src="photo.png" alt="Steven Rillo Torres">
+    </div>
 
     <div class="stats">
       <div class="stat"><div class="stat-n">🚀</div><div class="stat-l">5+ Years Experience</div></div>
@@ -579,7 +1082,7 @@ footer {
     <div class="about-grid">
       <div class="about-txt">
         <p>👋​&nbsp;&nbsp;Hi! I'm Steven, a virtual assistant with 5+ years of experience helping clients grow their online presence.</p>
-        <p>👨‍💻​&nbsp;&nbsp;I edit articles, schedule posts, manage calendars, and optimize podcasts with an English major's precision.</p>
+        <p>👨‍💻​&nbsp;&nbsp;I proofread articles, create graphics, edit reels, and optimize podcasts with an English major's precision.</p>
         <p>💪​&nbsp;&nbsp;When I'm not working you'll find me at the gym. I'm always open to collaborate, feel free to reach out!</p>
       </div>
       <div class="about-aside">
@@ -607,74 +1110,289 @@ footer {
         <span class="svc-icon">✍️</span>
         <div class="svc-title">Content Writing</div>
         <p class="svc-desc">I proofread and optimize blog posts, website copy, and articles for SEO and clarity.</p>
-        <div class="tags"><span class="tag">SEO</span><span class="tag">Blogs</span><span class="tag">Proofreading</span><span class="tag">Copywriting</span></div>
+        <div class="tags"><span class="tag">Wordpress</span><span class="tag">Quillbot</span><span class="tag">Grammarly</span></div>
       </div>
       <div class="svc-card gc card">
         <span class="svc-icon">📱</span>
-        <div class="svc-title">Social Media Management</div>
-        <p class="svc-desc">I manage accounts, create posts, and moderate socials to grow your presence.</p>
-        <div class="tags"><span class="tag">Profiles</span><span class="tag">Ads</span><span class="tag">Engagement</span><span class="tag">Scheduling</span></div>
+        <div class="svc-title">Social Media Content</div>
+        <p class="svc-desc">I create engaging content for your social media platforms to boost your online presence.</p>
+        <div class="tags"><span class="tag">Capcut</span><span class="tag">Meta Suite</span><span class="tag">Buffer</span></div>
       </div>
       <div class="svc-card gc card">
         <span class="svc-icon">🎨</span>
         <div class="svc-title">Graphic Design</div>
         <p class="svc-desc">I create graphics, edit images, and produce illustrations for your needs.</p>
-        <div class="tags"><span class="tag">UI/UX Design</span><span class="tag">Brand Identity</span><span class="tag">Layouts</span></div>
+        <div class="tags"><span class="tag">Adobe Express</span><span class="tag">Photoshop</span><span class="tag">Canva</span></div>
       </div>
       <div class="svc-card gc card">
         <span class="svc-icon">🎙️</span>
         <div class="svc-title">Podcast Support</div>
         <p class="svc-desc">I edit audio, add effects and transitions, draft show notes, and publish episodes.</p>
-        <div class="tags"><span class="tag">Publishing</span><span class="tag">Editing</span><span class="tag">Transcriptions</span></div>
+        <div class="tags"><span class="tag">Audacity</span><span class="tag">Descript</span><span class="tag">Buzzsprout</span></div>
       </div>
     </div>
   </section>
 
-  <section id="tools" class="fade-in">
-    <div class="sec-label">My Stack</div>
-    <h2>Tools I Use</h2>
-    <div class="tools-grid">
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">🗂️ CRM</div>
-        <div class="tool-list">
-          <span class="pill">Pipedrive</span><span class="pill">Notion</span>
-          <span class="pill">Google Workspace</span><span class="pill">Calendly</span><span class="pill">Lastpass</span>
+  <!-- ─── PORTFOLIO ─── -->
+  <section id="portfolio" class="fade-in">
+    <div class="sec-label">Work Samples</div>
+    <h2>Portfolio</h2>
+
+    <div class="port-stack">
+
+      <!-- Card 1: YouTube Reels 3-column -->
+      <div class="port-card">
+        <div class="card-header">
+          <span class="card-label">Reels</span>
+        </div>
+        <div class="card-body">
+          <div class="reel-grid">
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/embed/Eg_j3RsX4DU" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+            </div>
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/cjIjvcFKdp8" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+            </div>
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/mg_IpsUEtao" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+            </div>
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/ymPRClt7T0U" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+            </div>
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/pVO_-pzVEfU" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+            </div>
+            <div class="reel-cell">
+              <div class="video-wrapper" style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden;">
+          <iframe 
+            src="https://www.youtube.com/embed/COaFwjH4zeA" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+          </div>
         </div>
       </div>
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">✏️ Content</div>
-        <div class="tool-list">
-          <span class="pill">Wordpress</span><span class="pill">Medium</span><span class="pill">Squarespace</span>
+    </div>  
+</div>
+
+    <!-- Card 2: Podcast 2-column -->
+      <div class="port-card">
+        <div class="card-header">
+          <span class="card-label">Podcasts</span>
+        </div>
+        <div class="card-body">
+          <div class="podcast-grid">
+            <div class="podcast-cell">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>            </div>
+            <div class="podcast-cell">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>            </div>
+          </div>
         </div>
       </div>
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">📲 Social Media</div>
-        <div class="tool-list">
-          <span class="pill">Buffer</span><span class="pill">Hootsuite</span><span class="pill">Meta Suite</span>
+
+      <!-- Card 3: Photo Carousel -->
+      <div class="port-card">
+        <div class="card-header">
+          <span class="card-label">Graphics</span>
+        </div>
+        <div class="card-body">
+          <div class="carousel" id="carousel">
+            <div class="carousel-track" id="carousel-track">
+
+              <!-- SLIDE 1 -->
+              <div class="carousel-slide has-image">
+  <img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/1.png" style="width: 100%; height: 100%; object-fit: contain; background-color: #000;" alt="Graphic 1">
+  <span class="slide-caption"></span>
+</div>
+
+              <!-- SLIDE 2 -->
+              <div class="carousel-slide has-image">
+  <img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/2.png" style="width: 100%; height: 100%; object-fit: contain; background-color: #000;" alt="Graphic 2">
+  <span class="slide-caption"></span>
+</div>
+
+              <!-- SLIDE 3 -->
+              <div class="carousel-slide has-image">
+  <img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/3.png" style="width: 100%; height: 100%; object-fit: contain; background-color: #000;" alt="Graphic 3">
+  <span class="slide-caption"></span>
+</div>
+
+              <!-- SLIDE 4 -->
+              <div class="carousel-slide has-image">
+  <img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/4.png" style="width: 100%; height: 100%; object-fit: contain; background-color: #000;" alt="Graphic 4">
+  <span class="slide-caption"></span>
+</div>
+
+            </div><!-- /carousel-track -->
+
+            <button class="carousel-btn prev" aria-label="Previous" id="carousel-prev">&#8592;</button>
+            <button class="carousel-btn next" aria-label="Next"     id="carousel-next">&#8594;</button>
+
+            <div class="carousel-dots" id="carousel-dots"></div>
+            <span class="carousel-counter" id="carousel-counter">1 / 4</span>
+          </div>
         </div>
       </div>
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">🎧 Podcast &amp; Audio</div>
-        <div class="tool-list">
-          <span class="pill">Libsyn</span><span class="pill">Buzzsprout</span>
-          <span class="pill">Redcircle</span><span class="pill">Descript</span><span class="pill">Audacity</span>
+
+<!-- Card 4: Writing Columns -->
+<div class="port-card">
+  <div class="card-header">
+    <span class="card-label">Writing</span>
+  </div>
+  <div class="card-body">
+    <div class="writing-grid">
+      
+      <!-- Tech Story -->
+      <div class="writing-cell" onclick="toggleStory(this)">
+        <div class="writing-preview">
+          <span class="writing-cat">Tech</span>
+          <span class="writing-title">The Quiet Revolution</span>
+          <span class="writing-teaser">Everyone's obsessing over AI replacing jobs. Meanwhile, the more interesting story is already happening...</span>
+          <span class="expand-hint">Click to read</span>
+        </div>
+        <div class="writing-full">
+          <span class="writing-cat">Tech</span>
+          <span class="writing-title">The Quiet Revolution</span>
+          <span class="writing-excerpt">Everyone's obsessing over AI replacing jobs. Meanwhile, the more interesting story is already happening, and it's not about replacement. It's about compression.
+ 
+A solo founder today can do what used to require a team of twelve. A freelance designer can ship a product in weeks that would've taken an agency months. A single creator can run a newsletter, a podcast, a community, and a consulting pipeline all at the same time.
+ 
+This is the quiet revolution: AI didn't kill the solo operator. It supercharged one.
+ 
+The tools aren't the story, though. The tools are cheap. What's rare and increasingly valuable is the person who knows how to wield them with taste, strategy, and a clear point of view.
+ 
+Because here's the thing about AI-generated content, code, everything: it's starting to look the same. It optimizes for average. The people winning right now aren't the ones using AI the most. They're the ones using it smartest, handling the commodity work while they double down on the parts that require genuine human judgment.
+ 
+The future of tech isn't man vs. machine. It's man plus machine, competing against man alone.
+ 
+And that gap is widening every single day.</span>
+          <span class="close-hint">Click to close</span>
         </div>
       </div>
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">🎨 Design</div>
-        <div class="tool-list">
-          <span class="pill">Canva</span><span class="pill">Adobe Express</span>
-          <span class="pill">Photoshop</span><span class="pill">Capcut</span>
+ 
+      <!-- Health Story -->
+      <div class="writing-cell" onclick="toggleStory(this)">
+        <div class="writing-preview">
+          <span class="writing-cat">Health</span>
+          <span class="writing-title">You're Not Tired, You're Overstimulated</span>
+          <span class="writing-teaser">We've built an entire wellness industry around the idea that people are tired. But what if the diagnosis is wrong?</span>
+          <span class="expand-hint">Click to read</span>
+        </div>
+        <div class="writing-full">
+          <span class="writing-cat">Health</span>
+          <span class="writing-title">You're Not Tired, You're Overstimulated</span>
+          <span class="writing-excerpt">We've built an entire wellness industry around the idea that people are tired.
+ 
+Supplements for energy. Routines for sleep. Retreats for burnout.
+ 
+But what if the diagnosis is wrong? What if the problem isn't that we don't have enough energy, but that we never actually stop spending it?
+ 
+Overstimulation looks a lot like fatigue. The brain, flooded with notifications, content, and noise, starts to feel sluggish and heavy. You crave rest, but rest doesn't come because the moment you lie down, you reach for your phone.
+ 
+The research points to something most wellness brands won't tell you: the antidote to mental exhaustion isn't more sleep. It's less input.
+ 
+That means unstructured time that isn't optimized. Walks without podcasts. Meals without screens. Conversations that don't get clipped for content.
+ 
+It sounds simple because it is. But simple and easy are different things in a world that's designed, deliberately and algorithmically, to keep your attention at full capacity.
+ 
+The most radical health decision you can make in 2025 isn't a new supplement or a new routine.
+ 
+It's protecting your attention like the finite resource it actually is.</span>
+          <span class="close-hint">Click to close</span>
         </div>
       </div>
-      <div class="tool-cat gc card">
-        <div class="tool-cat-t">🤖 AI</div>
-        <div class="tool-list">
-          <span class="pill">ChatGPT</span><span class="pill">Gemini</span>
-          <span class="pill">Claude</span><span class="pill">Grok</span>
+ 
+      <!-- Business Story -->
+      <div class="writing-cell" onclick="toggleStory(this)">
+        <div class="writing-preview">
+          <span class="writing-cat">Business</span>
+          <span class="writing-title">The Brand That Talks Back</span>
+          <span class="writing-teaser">The brands winning right now have one thing in common: they have a voice. Not a logo. Not a product...</span>
+          <span class="expand-hint">Click to read</span>
+        </div>
+        <div class="writing-full">
+          <span class="writing-cat">Business</span>
+          <span class="writing-title">The Brand That Talks Back</span>
+          <span class="writing-excerpt">The brands winning right now have one thing in common: they have a voice.
+ 
+Not a logo. Not a color palette. Not even a great product, though that helps. A voice. A point of view that's consistent enough to be recognizable and honest enough to feel human.
+ 
+This shift is recent, and it's accelerating. Consumers have developed a near-perfect filter for corporate speak. They can smell a PR-approved statement from three paragraphs away. What cuts through, what actually builds loyalty, is a brand that sounds like a person who gives a damn.
+ 
+The playbook isn't complicated. Say what you actually think, be consistent, and show up in the same places your audience does. Not to sell. To be present. To be part of the conversation before the conversation becomes a pitch.
+ 
+The brands doing this well, whether it's a one-person operation or a company with a hundred employees, tend to share one trait: someone at the top is willing to have a real opinion.
+ 
+Not an edgy opinion. Not a controversial take for engagement. A real one. The kind that attracts some people and repels others. Because a brand that everyone finds acceptable is a brand that no one finds remarkable.
+ 
+The brands that talk back, that respond, that take positions, that push back when they need to, aren't just building audiences. They're building something harder to copy. It's trust.</span>
+          <span class="close-hint">Click to close</span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+    </div><!-- /port-stack -->
+  </section>
+
+  <section id="clients" class="fade-in">
+    <div class="sec-label">Who I Work Best With</div>
+    <h2>Ideal Clients</h2>
+    <div class="clients-grid">
+      <div class="client-card gc">
+        <div class="client-icon">🎙️</div>
+        <div class="client-title">Podcasters</div>
+        <div class="client-desc">Shows needing editing, show notes, and distribution.</div>
+      </div>
+      <div class="client-card gc">
+        <div class="client-icon">📱</div>
+        <div class="client-title">Content Creators</div>
+        <div class="client-desc">YouTubers and influencers needing reels, graphics, and captions.</div>
+      </div>
+      <div class="client-card gc">
+        <div class="client-icon">🛍️</div>
+        <div class="client-title">Business Owners</div>
+        <div class="client-desc">Businesses needing branding, graphics, and social media presence.</div>
+      </div>
   </section>
 
   <section id="experience" class="fade-in">
@@ -683,44 +1401,32 @@ footer {
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-head">
-          <div class="tl-role">👨‍💻&nbsp;Freelance Virtual Assistant</div>
+          <div class="tl-role">👨‍💻&nbsp;Virtual Assistant</div>
           <span class="tl-date">Sep 2020 – Present</span>
         </div>
         <div class="tl-org">Remote</div>
         <ul class="tl-li">
-          <li>Managed social media accounts using content tools</li>
-          <li>Wrote, proofread, and edited articles optimized for SEO</li>
-          <li>Edited audio files and published episodes to podcast platforms</li>
+          <li>Contributed to significant growth in page views and purchases through content writing and copyediting</li>
+          <li>Helped drive audience engagement and click-throughs by optimizing short-form video content using Canva and Capcut</li>
+          <li>Supported podcast visibility growth and managed multi-platform distribution using Descript, Audacity, and Buzzsprout</li>
+          <li>Enhanced client productivity by streamlining workflows and schedules using Notion and Google Workspace</li>
         </ul>
       </div>
       <div class="tl-item">
         <div class="tl-head">
-          <div class="tl-role">🍎&nbsp;Practice English Teacher</div>
+          <div class="tl-role">🍎&nbsp;English Teacher</div>
           <span class="tl-date">Sep 2024 – Feb 2025</span>
         </div>
-        <div class="tl-org">Temple Hill International School</div>
+        <div class="tl-org">Temple Hill International School, Quezon City</div>
         <ul class="tl-li">
-          <li>Crafted activities for English class using Montessori methods</li>
-          <li>Integrated EdTech in teaching interactive lessons</li>
-          <li>Provided feedback for students, teachers, and parents</li>
-        </ul>
-      </div>
-      <div class="tl-item">
-        <div class="tl-head">
-          <div class="tl-role">📖&nbsp;English Language Tutor</div>
-          <span class="tl-date">Mar 2018 – Sep 2020</span>
-        </div>
-        <div class="tl-org">Remote</div>
-        <ul class="tl-li">
-          <li>Provided English language tutorials for learners</li>
-          <li>Delivered lessons tailored for each student's level</li>
-          <li>Guided pupils to consistently meet their learning objectives</li>
+          <li>Supported improvements in student literacy performance by integrating EdTech tools with Montessori principles</li>
+          <li>Fostered a more focused and compliant classroom environment through structured management techniques</li>
         </ul>
       </div>
     </div>
   </section>
 
-<section id="education" class="fade-in">
+  <section id="education" class="fade-in">
     <div class="sec-label">Academic Background</div>
     <h2>Education</h2>
     <div class="edu-card gc card">
@@ -751,8 +1457,8 @@ footer {
     <div class="cta-wrap">
       <h2>Let's work together</h2>
       <p></p>
-      <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn">📅 Book a call</a>
-      <a href="mailto:stevenrillot@gmail.com" class="cta-btn">📩 Send a message</a>
+      <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn">📅 Book a Call</a>
+      <a href="mailto:stevenrillot@gmail.com" class="cta-btn">📩 Send a Message</a>
     </div>
   </section>
 
@@ -823,7 +1529,7 @@ var rio = new IntersectionObserver(function(entries) {
 document.querySelectorAll('.fade-in').forEach(function(el) { rio.observe(el); });
 
 /* ── Nav dots ── */
-var secs = ['top','about','services','tools','experience','education','video'];
+var secs = ['top','about','services','portfolio','clients','tools','experience','education','video'];
 var dots = document.querySelectorAll('.nav-dot');
 dots.forEach(function(d) {
   d.addEventListener('click', function() {
@@ -837,12 +1543,59 @@ var dio = new IntersectionObserver(function(entries) {
       dots.forEach(function(d) { d.classList.remove('active'); });
       var dot = document.querySelector('.nav-dot[data-s="' + e.target.id + '"]');
       if (dot) dot.classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+      var nl = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+      if (nl) nl.classList.add('active');
     }
   });
-}, { threshold: 0.40 });
+}, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
 document.querySelectorAll('header, section').forEach(function(el) {
   if (el.id) dio.observe(el);
 });
+
+/* ── Carousel ── */
+(function() {
+  var track   = document.getElementById('carousel-track');
+  var dotsEl  = document.getElementById('carousel-dots');
+  var counter = document.getElementById('carousel-counter');
+  if (!track) return;
+
+  var slides = track.querySelectorAll('.carousel-slide');
+  var total  = slides.length;
+  var cur    = 0;
+
+  /* Build dots */
+  slides.forEach(function(_, i) {
+    var d = document.createElement('button');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.addEventListener('click', function() { goTo(i); });
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    cur = (n + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dotsEl.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === cur);
+    });
+    counter.textContent = (cur + 1) + ' / ' + total;
+  }
+
+  document.getElementById('carousel-prev').addEventListener('click', function() { goTo(cur - 1); });
+  document.getElementById('carousel-next').addEventListener('click', function() { goTo(cur + 1); });
+
+  /* Swipe support */
+  var startX = 0;
+  track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   function(e) {
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+  }, { passive: true });
+})();
+
+/* ── Writing cards toggle ── */
+function toggleStory(el) { el.classList.toggle('expanded'); }
 </script>
 </body>
 </html>
