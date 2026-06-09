@@ -1171,6 +1171,16 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <div class="port-stack">
 
 <!-- Card 1: YouTube Reels 3-column -->
+<style>
+.reel-cell { position: relative; }
+.reel-cell.expanded {
+  grid-column: 1 / -1;
+  z-index: 10;
+}
+.reel-cell.expanded .reel-player { display: block !important; }
+.reel-cell.expanded .reel-thumb { display: none; }
+</style>
+
 <div class="port-card">
   <div class="card-header">
     <span class="card-label">Reels</span>
@@ -1178,87 +1188,93 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
   <div class="card-body">
     <div class="reel-grid">
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'Eg_j3RsX4DU')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-Eg_j3RsX4DU">
+        <div class="reel-thumb" onclick="expandReel('Eg_j3RsX4DU')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/Eg_j3RsX4DU/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-Eg_j3RsX4DU" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('Eg_j3RsX4DU')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'cjIjvcFKdp8')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-cjIjvcFKdp8">
+        <div class="reel-thumb" onclick="expandReel('cjIjvcFKdp8')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/cjIjvcFKdp8/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-cjIjvcFKdp8" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('cjIjvcFKdp8')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'mg_IpsUEtao')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-mg_IpsUEtao">
+        <div class="reel-thumb" onclick="expandReel('mg_IpsUEtao')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/mg_IpsUEtao/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-mg_IpsUEtao" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('mg_IpsUEtao')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'ymPRClt7T0U')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-ymPRClt7T0U">
+        <div class="reel-thumb" onclick="expandReel('ymPRClt7T0U')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/ymPRClt7T0U/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-ymPRClt7T0U" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('ymPRClt7T0U')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'pVO_-pzVEfU')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-pVO_-pzVEfU">
+        <div class="reel-thumb" onclick="expandReel('pVO_-pzVEfU')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/pVO_-pzVEfU/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-pVO_-pzVEfU" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('pVO_-pzVEfU')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
-      <div class="reel-cell">
-        <div onclick="toggleReel(this, 'COaFwjH4zeA')" style="cursor:pointer;position:relative;">
+      <div class="reel-cell" id="reel-COaFwjH4zeA">
+        <div class="reel-thumb" onclick="expandReel('COaFwjH4zeA')" style="cursor:pointer;position:relative;">
           <img src="https://img.youtube.com/vi/COaFwjH4zeA/0.jpg" style="width:100%;display:block;border-radius:8px;" alt="Reel">
-          <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
-        <div class="reel-player" style="display:none;margin-top:8px;">
-          <div style="position:relative;padding-bottom:177.77%;height:0;overflow:hidden;border-radius:8px;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="reel-player" style="display:none;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">
+            <iframe id="iframe-COaFwjH4zeA" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
+          <button onclick="collapseReel('COaFwjH4zeA')" style="margin-top:8px;background:none;border:1px solid currentColor;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;opacity:0.6;">✕ Close</button>
         </div>
       </div>
 
@@ -1267,23 +1283,31 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 </div>
 
 <script>
-function toggleReel(thumb, id) {
-  const cell = thumb.closest('.reel-cell');
-  const player = cell.querySelector('.reel-player');
-  const iframe = player.querySelector('iframe');
-  const isOpen = player.style.display === 'block';
-
-  // Close all other open players
-  document.querySelectorAll('.reel-player').forEach(p => {
-    p.style.display = 'none';
-    p.querySelector('iframe').src = '';
+function expandReel(id) {
+  // Collapse any open reel first
+  document.querySelectorAll('.reel-cell.expanded').forEach(cell => {
+    const openId = cell.id.replace('reel-', '');
+    collapseReel(openId);
   });
 
-  if (!isOpen) {
-    iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
-    player.style.display = 'block';
-    cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+  const cell = document.getElementById('reel-' + id);
+  const player = cell.querySelector('.reel-player');
+  const iframe = document.getElementById('iframe-' + id);
+
+  iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&mute=0&controls=1&rel=0';
+  player.style.display = 'block';
+  cell.classList.add('expanded');
+  cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function collapseReel(id) {
+  const cell = document.getElementById('reel-' + id);
+  const player = cell.querySelector('.reel-player');
+  const iframe = document.getElementById('iframe-' + id);
+
+  iframe.src = '';
+  player.style.display = 'none';
+  cell.classList.remove('expanded');
 }
 </script>
 
