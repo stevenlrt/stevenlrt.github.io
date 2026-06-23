@@ -144,7 +144,7 @@ html[data-theme="light"] #progress-bar {
 /* ─── THEME TOGGLE ─── */
 #theme-toggle {
   position:fixed; bottom:28px; right:32px; z-index:900;
-  background:var(--glass-bg); border:none;
+  background:var(--glass-bg); border:1px solid var(--glass-bd);
   backdrop-filter: blur(32px) saturate(200%);
   -webkit-backdrop-filter: blur(32px) saturate(200%);
   border-radius:999px; padding:10px 22px; cursor:pointer;
@@ -152,7 +152,21 @@ html[data-theme="light"] #progress-bar {
   font-family:'Plus Jakarta Sans',sans-serif; font-size:0.8rem; font-weight:600;
   color:var(--ink); letter-spacing:0.02em;
   box-shadow:0 4px 16px rgba(0,0,0,0.12);
-  transition: color 0.3s var(--smooth), background 0.3s var(--smooth), transform 0.3s var(--smooth), box-shadow 0.3s var(--smooth);
+  transition: color 0.3s var(--smooth), background 0.3s var(--smooth), border-color 0.3s var(--smooth), transform 0.3s var(--smooth), box-shadow 0.3s var(--smooth);
+}
+html[data-theme="dark"] #theme-toggle {
+  background: rgba(245,242,237,0.10);
+  border-color: rgba(245,242,237,0.18);
+  color: rgba(245,242,237,0.75);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) #theme-toggle {
+    background: rgba(245,242,237,0.10);
+    border-color: rgba(245,242,237,0.18);
+    color: rgba(245,242,237,0.75);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+  }
 }
 #theme-toggle:hover,
 html[data-theme="dark"] #theme-toggle:hover,
@@ -986,31 +1000,41 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  background: var(--bg-sunken);
+  background: transparent;
   border: 1px solid var(--bd);
   user-select: none;
+  font-size: 0;
+  max-width: 85%;
+  margin: 0 auto;
 }
+.carousel-controls {
+  max-width: 85%;
+  margin: 0 auto;
+}
+
 .carousel-track {
   display: flex;
   transition: transform 0.42s var(--smooth);
   will-change: transform;
+  background: transparent;
 }
 .carousel-slide {
   min-width: 100%;
   position: relative;
-  aspect-ratio: 16 / 9;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: stretch;
   overflow: hidden;
+  background: transparent;
+  line-height: 0;
 }
 /* Slide with a real image */
 .carousel-slide.has-image img {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  object-fit: contain;
+  vertical-align: bottom;
 }
 /* Placeholder (no image yet) */
 .slide-placeholder {
@@ -1059,57 +1083,57 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
   font-weight: 500;
 }
 /* Prev / Next buttons */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 0 2px;
+}
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background: rgba(255,255,255,0.14);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.22);
-  color: #fff;
-  width: 36px; height: 36px;
+  background: var(--bg-raised);
+  border: 1px solid var(--bd);
+  color: var(--ink);
+  width: 32px; height: 32px;
   border-radius: 50%;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-.carousel-btn:hover { background: rgba(58,110,168,0.55); }
-.carousel-btn.prev { left: 12px; }
-.carousel-btn.next { right: 12px; }
+.carousel-btn:hover { background: #3A6EA8; border-color: #3A6EA8; color: #fff; }
 /* Dots */
 .carousel-dots {
-  position: absolute;
-  bottom: 42px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 6px;
-  z-index: 10;
+  align-items: center;
 }
 .carousel-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.45);
+  background: var(--ink-3);
+  opacity: 0.4;
   border: none;
   cursor: pointer;
   padding: 0;
+  transition: opacity 0.2s, transform 0.2s, background 0.2s;
 }
+.carousel-dot:hover { opacity: 0.8; }
 .carousel-dot.active {
-  background: var(--ac);
+  background: var(--ui-accent);
+  opacity: 1;
   transform: scale(1.5);
 }
 /* Counter */
 .carousel-counter {
-  position: absolute;
-  bottom: 42px;
-  right: 14px;
   font-size: 0.72rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.70);
+  color: var(--ink-3);
   letter-spacing: 0.06em;
-  z-index: 10;
   font-variant-numeric: tabular-nums;
+  min-width: 32px;
+  text-align: center;
 }
 
 /* ── Writing grid: 3 cards, 1 row ── */
@@ -1324,8 +1348,8 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <h2>About Me</h2>
     <div class="about-grid">
       <div class="about-txt">
-        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I'm Steven, a remote professional with 5+ years of experience helping clients grow their online presence.</p>
-        <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I optimize podcasts and write content with the precision and skills of a BSEd English graduate.</p>
+        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I'm Steven, an expert with 5+ years of experience optimizing content for clients.</p>
+        <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I manage podcasts and write copy with the precision of a BSEd English graduate.</p>
         <p><span class="about-emoji">🤝</span>&nbsp;&nbsp;I'm always open to connect, feel free to reach out!</p>
       </div>
     </div>
@@ -1468,16 +1492,16 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <span class="card-label" style="display:block;margin-bottom:14px;">Graphics</span>
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="carousel-track">
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/1.png" style="width:100%;height:100%;object-fit:contain;background-color:#000;" alt="Graphic 1"><span class="slide-caption"></span></div>
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/2.png" style="width:100%;height:100%;object-fit:contain;background-color:#000;" alt="Graphic 2"><span class="slide-caption"></span></div>
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/3.png" style="width:100%;height:100%;object-fit:contain;background-color:#000;" alt="Graphic 3"><span class="slide-caption"></span></div>
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/4.png" style="width:100%;height:100%;object-fit:contain;background-color:#000;" alt="Graphic 4"><span class="slide-caption"></span></div>
+        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/1.png" alt="Graphic 1"></div>
+        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/2.png" alt="Graphic 2"></div>
+        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/3.png" alt="Graphic 3"></div>
       </div>
-      <button class="carousel-btn prev" aria-label="Previous" id="carousel-prev">&#8592;</button>
-      <button class="carousel-btn next" aria-label="Next" id="carousel-next">&#8594;</button>
-      <div class="carousel-dots" id="carousel-dots"></div>
-      <span class="carousel-counter" id="carousel-counter">1 / 4</span>
     </div><!-- /carousel -->
+    <div class="carousel-controls">
+      <button class="carousel-btn prev" aria-label="Previous" id="carousel-prev">&#8592;</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-btn next" aria-label="Next" id="carousel-next">&#8594;</button>
+    </div>
 
     <div class="port-divider"></div>
 
@@ -1671,7 +1695,7 @@ The brands that talk back, that respond, that take positions, that push back whe
   <section class="fade-in">
     <div class="cta-wrap">
       <h2>Let's connect</h2>
-      <p><span class="val-emoji">🧑‍💻</span> I'm looking forward to showcase how my skills align with your needs!</p>
+      <p><span class="val-emoji">🧑‍💻</span> I'm looking forward to showing how my skills align with your needs!</p>
       <div class="cta-btn-row">
         <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn"><span class="val-emoji">📅</span> Book a Call</a>
         <a href="mailto:stevenrillot@gmail.com" class="cta-btn"><span class="val-emoji">📩</span> Send a Message</a>
