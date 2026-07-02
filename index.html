@@ -1138,11 +1138,12 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
 
 /* ── Writing grid: 3 cards, 1 row ── */
 .writing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 .writing-cell {
+  flex: 1 1 260px;
   border-radius: 14px;
   padding: 20px 22px;
   display: flex;
@@ -1207,8 +1208,7 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
 }
 .writing-cell.expanded .writing-preview { display: none; }
 .writing-cell.expanded .writing-full    { display: flex; }
-@media (max-width: 900px) { .writing-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 600px) { .writing-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .writing-cell { flex-basis: 100%; } }
 
 /* ════════════════════════════════════════════════ */
 
@@ -1489,7 +1489,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <div class="port-divider"></div>
 
     <!-- Graphics -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Graphics</span>
+    <span class="card-label" style="display:block;margin-bottom:14px;">Workflows</span>
     <div class="carousel" id="carousel">
       <div class="carousel-track" id="carousel-track">
         <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/1.png" alt="Graphic 1"></div>
@@ -1505,88 +1505,53 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 
     <div class="port-divider"></div>
 
-    <!-- Writing — 3 individual cards -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Writing</span>
+    <!-- Writing — 2 individual cards -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Writings</span>
     <div class="writing-grid">
       <div class="writing-cell hcard" onclick="toggleStory(this)">
         <div class="writing-preview">
           <span class="writing-cat">Tech</span>
-          <span class="writing-title">The Quiet Revolution</span>
-          <span class="writing-teaser">Everyone's obsessing over AI replacing jobs. Meanwhile, the more interesting story is already happening...</span>
+          <span class="writing-title">AI is a Smart Assistant NOT a Strict Boss</span>
+          <span class="writing-teaser">Today AI is an inseparable part of life. I’m writing this to explore how this tech can help us...</span>
           <span class="expand-hint">Click to read</span>
         </div>
         <div class="writing-full">
           <span class="writing-cat">Tech</span>
-          <span class="writing-title">The Quiet Revolution</span>
-          <span class="writing-excerpt">Everyone's obsessing over AI replacing jobs. Meanwhile, the more interesting story is already happening, and it's not about replacement. It's about compression.
- 
-A solo founder today can do what used to require a team of twelve. A freelance designer can ship a product in weeks that would've taken an agency months. A single creator can run a newsletter, a podcast, a community, and a consulting pipeline all at the same time.
- 
-This is the quiet revolution: AI didn't kill the solo operator. It supercharged one.
- 
-The tools aren't the story, though. The tools are cheap. What's rare and increasingly valuable is the person who knows how to wield them with taste, strategy, and a clear point of view.
- 
-Because here's the thing about AI-generated content, code, everything: it's starting to look the same. It optimizes for average. The people winning right now aren't the ones using AI the most. They're the ones using it smartest, handling the commodity work while they double down on the parts that require genuine human judgment.
- 
-The future of tech isn't man vs. machine. It's man plus machine, competing against man alone.
- 
-And that gap is widening every single day.</span>
+          <span class="writing-title">AI is a Smart Assistant NOT a Strict Boss</span>
+          <span class="writing-excerpt">Today AI is an inseparable part of life. I’m writing this to explore how this tech can help us further with day to day tasks, no matter how small or difficult. 
+
+From your early morning breakfast, to your daily drive around the city in a Tesla, to scrolling at night. It has become close to impossible to totally isolate yourself from AI. And we all use it – kids in elementary schools, programmers in their dark basements, those who have mobility issues or a kind of physical problem, for example.
+
+Activities like making this article have been enhanced and improved with these tools. This new tech is a superpower! They allow us to think on a deeper level and piece through the vast expanse of online knowledge easily. A life before these tools seem so slow and outdated. And to think it was just a few years ago that we had to do our tasks manually!
+
+It’s exciting to think that if tech can do this now, what more years from now? I hope that more people would be AI literate today, and we should all embrace AI as a productivity aid. The performance enhancing substances today are AI tools and not illicit medicines. Now, as life can no longer be imagined without AI, it’s a wise choice to treat these tools like an intelligent and helpful assistant to meet daily milestones, instead of a strict boss who makes no mistakes.
+
+I’m Steven, a virtual professional who works with content writing to help clients reach their goals. I use AI daily, and I always remember to treat the tool like a guide instead of a god. Feel free to reach out with me and discover how AI tools help virtual workers achieve their set tasks!
+
+#ai #artificialintelligence #virtualwork
+</span>
           <span class="close-hint">Click to close</span>
         </div>
       </div>
       <div class="writing-cell hcard" onclick="toggleStory(this)">
         <div class="writing-preview">
           <span class="writing-cat">Health</span>
-          <span class="writing-title">You're Not Tired, You're Overstimulated</span>
-          <span class="writing-teaser">We've built an entire wellness industry around the idea that people are tired. But what if the diagnosis is wrong?</span>
+          <span class="writing-title">Work Life Balance is the Key to Success</span>
+          <span class="writing-teaser">Wasting away on the keyboard for hours on end doesn’t make you more productive. With that said...</span>
           <span class="expand-hint">Click to read</span>
         </div>
         <div class="writing-full">
           <span class="writing-cat">Health</span>
-          <span class="writing-title">You're Not Tired, You're Overstimulated</span>
-          <span class="writing-excerpt">We've built an entire wellness industry around the idea that people are tired.
- 
-Supplements for energy. Routines for sleep. Retreats for burnout.
- 
-But what if the diagnosis is wrong? What if the problem isn't that we don't have enough energy, but that we never actually stop spending it?
- 
-Overstimulation looks a lot like fatigue. The brain, flooded with notifications, content, and noise, starts to feel sluggish and heavy. You crave rest, but rest doesn't come because the moment you lie down, you reach for your phone.
- 
-The research points to something most wellness brands won't tell you: the antidote to mental exhaustion isn't more sleep. It's less input.
- 
-That means unstructured time that isn't optimized. Walks without podcasts. Meals without screens. Conversations that don't get clipped for content.
- 
-It sounds simple because it is. But simple and easy are different things in a world that's designed, deliberately and algorithmically, to keep your attention at full capacity.
- 
-The most radical health decision you can make in 2025 isn't a new supplement or a new routine.
- 
-It's protecting your attention like the finite resource it actually is.</span>
-          <span class="close-hint">Click to close</span>
-        </div>
-      </div>
-      <div class="writing-cell hcard" onclick="toggleStory(this)">
-        <div class="writing-preview">
-          <span class="writing-cat">Business</span>
-          <span class="writing-title">The Brand That Talks Back</span>
-          <span class="writing-teaser">The brands winning right now have one thing in common: they have a voice. Not a logo. Not a product...</span>
-          <span class="expand-hint">Click to read</span>
-        </div>
-        <div class="writing-full">
-          <span class="writing-cat">Business</span>
-          <span class="writing-title">The Brand That Talks Back</span>
-          <span class="writing-excerpt">The brands winning right now have one thing in common: they have a voice.
- 
-Not a logo. Not a color palette. Not even a great product, though that helps. A voice. A point of view that's consistent enough to be recognizable and honest enough to feel human.
- 
-This shift is recent, and it's accelerating. Consumers have developed a near-perfect filter for corporate speak. They can smell a PR-approved statement from three paragraphs away. What cuts through, what actually builds loyalty, is a brand that sounds like a person who gives a damn.
- 
-The playbook isn't complicated. Say what you actually think, be consistent, and show up in the same places your audience does. Not to sell. To be present. To be part of the conversation before the conversation becomes a pitch.
- 
-The brands doing this well, whether it's a one-person operation or a company with a hundred employees, tend to share one trait: someone at the top is willing to have a real opinion.
- 
-Not an edgy opinion. Not a controversial take for engagement. A real one. The kind that attracts some people and repels others. Because a brand that everyone finds acceptable is a brand that no one finds remarkable.
- 
-The brands that talk back, that respond, that take positions, that push back when they need to, aren't just building audiences. They're building something harder to copy. It's trust.</span>
+          <span class="writing-title">Work Life Balance is the Key to Success</span>
+          <span class="writing-excerpt">Wasting away on the keyboard for hours on end doesn’t make you more productive. With that said, I believe that hustle culture should come to an end. It’s the cause of all kinds of disease and disorder, to say the very least. But not in the way you might think at first, in this article I will explain why I believe that balance is a key to career success.
+
+While it’s true that increased focus on a task paradoxically makes you less productive, it also isn’t true that we should stop and rest for too long. In long stretches spent online, I use the Pomodoro technique, where I take scheduled pauses from work to refresh my mind and body. I use an alarm to set when I must rest, and another to remind me when I should continue work.
+
+Just like Yin and Yang, work and life is a fragile balance that needs mediation. Without the Id, there cannot be the Superego. We must assume ​​the Ego roles for ourselves, and this is a practiced and a very deliberate action. We are not clockwork toys that tick and tock endlessly with a set mechanism, because we need to unwind frequently. At the same time, we are not in a state of Nirvana where we can relax for an eternity. Life needs a strong balancing act!
+
+Why I think the hustle culture so mindlessly proliferated on social media pages by influencers and content creators is a bad act because it’s extreme. It’s a philosophy that’s unhealthy because it doesn't allow balance. With all this, feel free to connect with me, Steven, who writes online as a career – I utilize a strong sense of work life balance to stay healthy.
+
+#worklifebalance #hustleculture #health</span>
           <span class="close-hint">Click to close</span>
         </div>
       </div>
@@ -1643,8 +1608,8 @@ The brands that talk back, that respond, that take positions, that push back whe
 <section id="certifications" class="fade-in">
   <h2>Certifications</h2>
   <div class="edu-card gc card hcard" style="margin-bottom: 1.5rem;">
-    <div style="width:100%; text-align:center;">
-      <div class="edu-school" style="margin-bottom: 0.25rem; justify-content:center;">Hubspot Academy</div>
+    <div style="width:100%; text-align:left;">
+      <div class="edu-school" style="margin-bottom: 0.25rem; justify-content:flex-start;">Hubspot Academy</div>
       <div class="edu-deg">Hubspot Content Marketing Certification</div>
       <img
         src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/TORRES-Hubspot-Content-Marketing.png"
@@ -1685,7 +1650,7 @@ The brands that talk back, that respond, that take positions, that push back whe
     <h2>Intro Video</h2>
     <div class="video-container">
       <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/W8x5hkimDJk?si=Id8d7-BagxpkY0Ov"
+        src="https://www.youtube.com/embed/PF_kLXK1smk"
         title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -1695,7 +1660,7 @@ The brands that talk back, that respond, that take positions, that push back whe
   <section class="fade-in">
     <div class="cta-wrap">
       <h2>Let's connect</h2>
-      <p><span class="val-emoji">🧑‍💻</span> I'm looking forward to showing how my skills align with your needs!</p>
+      <p><span class="val-emoji">🧑‍💻</span> I'm eager to discuss how my skills align with your needs!</p>
       <div class="cta-btn-row">
         <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn"><span class="val-emoji">📅</span> Book a Call</a>
         <a href="mailto:stevenrillot@gmail.com" class="cta-btn"><span class="val-emoji">📩</span> Send a Message</a>
