@@ -59,8 +59,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --bg:        #111113;
-    --bg-raised: #1C1C1E;
+    --bg:        #000000;
+    --bg-raised: #1E1E1E;
     --bg-sunken: #0A0A0C;
     --ink:       #F5F2ED;
     --ink-2:     #C8C5C0;
@@ -104,7 +104,7 @@ html[data-theme="light"] {
 }
 html[data-theme="dark"] {
   color-scheme: dark;
-  --bg:#111113; --bg-raised:#1C1C1E; --bg-sunken:#0A0A0C;
+  --bg:#000000; --bg-raised:#1E1E1E; --bg-sunken:#0A0A0C;
   --ink:#F5F2ED; --ink-2:#C8C5C0; --ink-3:#8A8780;
   --bd:rgba(245,242,237,0.08); --bd-card:rgba(245,242,237,0.06);
   --ac-lo:rgba(58,110,168,0.20); --ac-mid:rgba(58,110,168,0.32);
@@ -211,7 +211,7 @@ html[data-theme="light"] #theme-toggle:hover {
 }
 header {
   display:flex; flex-direction:row;
-  min-height:100vh; align-items:stretch;
+  min-height:80vh; align-items:stretch;
   width:100%; max-width:1100px;
 }
 
@@ -239,8 +239,7 @@ html[data-theme="dark"]  .hero-left { background:var(--bg); color:var(--ink); }
   justify-content:center; flex:44;
 }
 .hero-right .photo-wrap { margin-bottom:32px; }
-.hero-right .stats      { margin-bottom:14px; }
-.hero-right .clock-box  { margin-bottom:0; }
+.hero-right .stats      { margin-bottom:0; }
 
 /* ─── BADGE ─── */
 .badge {
@@ -259,7 +258,7 @@ html[data-theme="dark"] .badge { background:var(--bg-raised); border-color:var(-
 /* ─── HERO NAME ─── */
 .hero-name {
   font-size:3.0rem; font-weight:700; line-height:1.05;
-  letter-spacing:-0.03em; margin:6px 0; color:var(--ink);
+  letter-spacing:-0.03em; margin:36px 0 6px; color:var(--ink);
 }
 .hero-name em { font-style:normal; color:var(--ink); }
 html[data-theme="light"] .hero-name em { color:var(--ink); background:none; -webkit-text-fill-color:var(--ink); }
@@ -275,7 +274,14 @@ html[data-theme="dark"] .hero-name em {
 }
 
 /* ─── TAGLINE ─── */
-.tagline { font-size:1.05rem; color:var(--ink-3); font-weight:500; letter-spacing:0.01em; }
+.tagline { font-size:1.05rem; color:var(--ink-3); font-weight:500; letter-spacing:0.01em; margin-top:10px; }
+.hero-ad {
+  text-align:left; font-size:3.4rem; font-weight:900; letter-spacing:-0.04em;
+  line-height:1.02; color:var(--ink); text-transform:uppercase;
+  margin:0 0 20px; font-stretch:condensed; transform:scaleX(0.94); transform-origin:left;
+}
+.hero-ad-accent { color:#3A6EA8; }
+@media (max-width:600px) { .hero-ad { font-size:2.1rem; } }
 html[data-theme="light"] .tagline { color:var(--ink-3); }
 
 /* ─── CONTACT PILLS — neutral card style matching svc-cards ─── */
@@ -390,7 +396,7 @@ html[data-theme="light"] {
   --glass-hi:     rgba(255,255,255,0.95);
 }
 html[data-theme="dark"] {
-  --glass-bg:     rgba(20,20,22,0.72);
+  --glass-bg:     rgba(30,30,30,0.88);
   --glass-bd:     rgba(255,255,255,0.10);
   --glass-hi:     rgba(255,255,255,0.08);
 }
@@ -401,7 +407,7 @@ html[data-theme="dark"] {
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --glass-bg:   rgba(20,20,22,0.72);
+    --glass-bg:   rgba(30,30,30,0.88);
     --glass-bd:   rgba(255,255,255,0.10);
     --glass-hi:   rgba(255,255,255,0.08);
   }
@@ -517,7 +523,7 @@ html[data-theme="dark"] .tool-cat:hover { box-shadow:none; }
 
 /* ─── ABOUT ─── */
 .about-grid { display:grid; grid-template-columns:1fr; gap:36px; align-items:start; }
-.about-txt p { font-size:1.05rem; line-height:1.75; color:var(--ink-2); margin-bottom:16px; text-align:center; }
+.about-txt p { font-size:1.05rem; line-height:1.75; color:var(--ink-2); margin-bottom:16px; text-align:left; }
 .about-aside { display:flex; flex-direction:row; flex-wrap:wrap; gap:12px; align-items:stretch; min-width:0; margin-top:24px; }
 .info-card {
   background:var(--glass-bg); backdrop-filter:blur(32px) saturate(200%); -webkit-backdrop-filter:blur(32px) saturate(200%); border:none;
@@ -667,6 +673,11 @@ footer {
 .writing-cell, .edu-card, .clock-box,
 .stat, .podcast-cell { border-radius: 14px; }
 
+/* Ensure ALL cards & subcards are rounded, not square */
+.hcard, .card, .gc, .port-card, .workflow-item, .wf-photo, .wf-photo img,
+.reel-cell, .contact-row, .cf-field input, .cf-field textarea, .cf-field select,
+.cta-wrap, .connect-grid .info-card { border-radius: 18px; }
+
 /* Unified card padding */
 .svc-card    { padding: 20px; }
 .info-card   { padding: 14px 18px; }
@@ -782,6 +793,60 @@ h2      { margin-bottom: 28px; }
 .cta-wrap { display:flex; flex-direction:column; align-items:center; gap:14px; }
 .cta-wrap .cta-btn { display:inline-block; }
 .cta-btn-row { display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:14px; }
+
+/* ─── CONTACT FORM ─── */
+.contact-form {
+  max-width:520px; margin:0 auto; text-align:left;
+  display:flex !important; flex-direction:column !important; gap:8px !important;
+}
+.cf-field { flex:0 0 auto; display:flex; flex-direction:column; gap:4px; margin:0 !important; }
+.cf-field label {
+  font-size:0.78rem; font-weight:600; color:var(--ink-2); letter-spacing:0.01em; margin:0;
+}
+.cf-field input, .cf-field textarea, .cf-field select {
+  box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem;
+  color:var(--ink); background:var(--bg-raised);
+  border:1px solid var(--bd-card); border-radius:10px;
+  padding:9px 14px; resize:vertical; margin:0; line-height:1.4; height:40px;
+  transition: border-color var(--fast), box-shadow var(--fast);
+}
+.cf-field textarea { height:auto; min-height:80px; }
+.cf-field select {
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238A8780' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center; padding-right:36px;
+}
+.cf-field input:focus, .cf-field textarea:focus, .cf-field select:focus {
+  outline:none; border-color:var(--ac); box-shadow:0 0 0 3px var(--ac-lo);
+}
+.cf-submit { align-self:flex-start; border:none; cursor:pointer; font-family:inherit; height:40px; padding:0 20px; }
+.cf-status { font-size:0.85rem; color:var(--ink-2); margin-top:4px; }
+.connect-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:stretch; max-width:900px; margin:0 auto; }
+@media (max-width:720px) { .connect-grid { grid-template-columns:1fr; } }
+.connect-grid .contact-form { max-width:none; width:100%; margin:0; }
+.connect-grid .cta-wrap { padding:24px; justify-content:flex-start; }
+.contact-rows { display:flex; flex-direction:column; gap:12px; width:100%; }
+.contact-row {
+  display:flex; align-items:center; gap:12px; width:100%;
+  padding:20px 18px; border-radius:12px; border:1px solid var(--bd-card);
+  color:var(--ink); text-decoration:none;
+  transition: border-color var(--fast), background var(--fast), transform var(--fast);
+}
+.contact-row:hover { border-color:var(--ac); background:var(--ac-lo); transform:translateX(3px); }
+.contact-row .contact-icon { font-size:1.15rem; flex-shrink:0; }
+.contact-row .cr-text { display:flex; flex-direction:column; gap:4px; }
+.contact-row .cr-label { display:block; font-size:0.88rem; font-weight:600; }
+.contact-row .cr-val { display:block; font-size:0.78rem; color:var(--ink-3); overflow-wrap:anywhere; }
+.workflow-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+@media (max-width:640px) { .workflow-grid { grid-template-columns:1fr; } }
+.workflow-item { padding:22px; text-align:left; }
+.workflow-item h4 { margin:10px 0 8px; font-size:1rem; color:var(--ink); }
+.workflow-item p { font-size:0.88rem; color:var(--ink-2); margin:0; }
+.wf-photo {
+  width:100%; aspect-ratio:16/9; border-radius:10px; overflow:hidden;
+  background:var(--bg-sunken); border:1px solid var(--bd-card); margin-bottom:14px;
+}
+.wf-photo img { width:100%; height:100%; object-fit:cover; display:block; }
 @media (min-width:600px) {
   .cta-wrap { flex-direction:row; justify-content:center; flex-wrap:wrap; }
 }
@@ -914,7 +979,7 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
 .reel-cell {
   position: relative;
   aspect-ratio: 9 / 16;
-  border-radius: 12px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -922,6 +987,8 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
   gap: 8px;
   overflow: hidden;
   cursor: pointer;
+  width: 75%;
+  transform-origin: top left;
 }
 /* Play button triangle */
 .play-icon {
@@ -965,7 +1032,7 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
   gap: 12px;
 }
 .podcast-cell {
-  border-radius: 14px;
+  border-radius: 18px;
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
@@ -1285,7 +1352,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
       <a href="#top" class="nav-link" data-s="top">Home</a>
       <a href="#portfolio" class="nav-link" data-s="portfolio">Work Samples</a>
       <a href="#video" class="nav-link" data-s="video">Intro Video</a>
-      <a href="https://calendly.com/stevenrillot" target="_blank" class="topnav-cta"><span class="val-emoji">📅</span> Book a Call</a>
+      <a href="#connect" class="topnav-cta"><span class="val-emoji">📩</span> Contact Me</a>
     </div>
   </div>
 </nav>
@@ -1310,16 +1377,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 <div class="hero-wrapper">
 <header id="top">
   <div class="hero-left">
-    <h1 class="hero-name"><em>Steven Torres</em></h1>
-
-    <p class="tagline">Podcast Producer & Content Writer</p>
-
-    <div class="contacts">
-      <a href="mailto:stevenrillot@gmail.com" class="contact-link"><span class="contact-icon">✉️</span>Email</a>
-      <a href="tel:+639762105894" class="contact-link"><span class="contact-icon">📞</span>Phone</a>
-      <a href="https://linkedin.com/in/stevenlrt" target="_blank" class="contact-link"><span class="contact-icon">💼</span>Linkedin</a>
-      <a href="https://linktr.ee/stevenlrt" target="_blank" class="contact-link"><span class="contact-icon">🌿</span>Linktree</a>
-    </div>
+    <p class="hero-ad">YOUR <span class="hero-ad-accent">PODCAST</span> &amp;<br><span class="hero-ad-accent">CONTENT WRITING</span><br>EXPERT</p>
   </div>
 
   <div class="hero-right">
@@ -1327,16 +1385,12 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
       <img class="photo-face" src="photo.png" alt="Steven Rillo Torres">
     </div>
 
+    <h1 class="hero-name" style="text-align:center;margin:0 0 18px;"><em>Steven Torres</em></h1>
+
     <div class="stats">
       <div class="stat hcard"><div class="stat-n">🎙️</div><div class="stat-l">Podcast Production</div></div>
       <div class="stat hcard"><div class="stat-n">✍️</div><div class="stat-l">Content<br>Writing</div></div>
       <div class="stat hcard"><div class="stat-n">📱</div><div class="stat-l">Social Media Content</div></div>
-    </div>
-
-    <div class="clock-box hcard">
-      <div class="clock-time" id="clock">--:--</div>
-      <div class="clock-date" id="clock-date">Loading...</div>
-      <div class="clock-loc">Quezon City, PH</div>
     </div>
   </div>
 </header>
@@ -1348,9 +1402,10 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <h2>About Me</h2>
     <div class="about-grid">
       <div class="about-txt">
-        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I'm Steven, an expert with 5+ years of experience optimizing content for clients.</p>
-        <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I manage podcasts and write copy with the precision of a BSEd English graduate.</p>
-        <p><span class="about-emoji">🤝</span>&nbsp;&nbsp;I'm always open to connect, feel free to reach out!</p>
+        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I’m Steven, I can help you with podcast production and content writing. </p>
+                <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I’ve got 5+ years experience optimizing podcasts and proofreading written material.</p>
+        <p><span class="about-emoji">🎓</span>&nbsp;&nbsp;I have a BSEd English degree, native language skills and functional editing tools knowledge.</p>
+        <p><span class="about-emoji">🤝</span>&nbsp;&nbsp; I’m always open to connect, feel free to reach out!</p>
       </div>
     </div>
     <div class="about-aside">
@@ -1395,7 +1450,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <div class="svc-card gc card hcard">
       <span class="svc-icon">📱</span>
       <div class="svc-title">Social Media Content</div>
-      <p class="svc-desc">I create short-form videos for social media platforms.</p>
+      <p class="svc-desc">I create short form videos for social media platforms.</p>
       <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 4px; justify-content: center;">
         <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Canva</span>
         <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Adobe Express</span>
@@ -1412,6 +1467,50 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <div class="port-stack">
 
 <!-- Single portfolio card containing all 4 sections -->
+<div class="port-card hcard" style="padding:0;">
+  <div class="card-body" style="padding:28px 28px 32px;">
+    <!-- Workflows -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Workflows</span>
+    <div class="workflow-grid">
+      <div class="workflow-item hcard">
+        <div class="wf-photo"><img src="workflow-1.png" alt="Audio editing" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Audio Editing</h4>
+        <p>I clean up raw audio recordings using tools like Audacity and Descript.</p>
+      </div>
+      <div class="workflow-item hcard">
+        <div class="wf-photo"><img src="workflow-2.png" alt="Podcast hosting" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Podcast Hosting</h4>
+        <p>I publish and distribute episodes onto Spotify, Apple Podcasts, and other platforms.</p>
+      </div>
+      <div class="workflow-item hcard">
+        <div class="wf-photo"><img src="workflow-3.png" alt="Cover art and metadata" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Cover Art & Descriptions</h4>
+        <p>I design appealing cover art and create titles, tags, descriptions, and other data.</p>
+      </div>
+      <div class="workflow-item hcard">
+        <div class="wf-photo"><img src="workflow-4.png" alt="Organic content writing" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Organic Content Writing</h4>
+        <p>I edit and proofread written content with assistance from AI and other tools.</p>
+      </div>
+    </div>
+
+  </div><!-- /card-body -->
+</div><!-- /workflows port-card -->
+
+<div class="port-card hcard" style="padding:0;">
+  <div class="card-body" style="padding:28px 28px 32px;">
+    <!-- Podcasts -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
+    <div class="podcast-grid">
+      <div class="podcast-cell hcard">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
+      <div class="podcast-cell hcard">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
+    </div><!-- /podcast-grid -->
+
+  </div><!-- /card-body -->
+</div><!-- /podcasts port-card -->
+
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
 
@@ -1475,36 +1574,11 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 
     </div><!-- /reel-grid -->
 
-    <div class="port-divider"></div>
+  </div><!-- /card-body -->
+</div><!-- /reels port-card -->
 
-    <!-- Podcasts -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
-    <div class="podcast-grid">
-      <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
-      <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
-    </div><!-- /podcast-grid -->
-
-    <div class="port-divider"></div>
-
-    <!-- Graphics -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Workflows</span>
-    <div class="carousel" id="carousel">
-      <div class="carousel-track" id="carousel-track">
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/1.png" alt="Graphic 1"></div>
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/2.png" alt="Graphic 2"></div>
-        <div class="carousel-slide has-image"><img src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/3.png" alt="Graphic 3"></div>
-      </div>
-    </div><!-- /carousel -->
-    <div class="carousel-controls">
-      <button class="carousel-btn prev" aria-label="Previous" id="carousel-prev">&#8592;</button>
-      <div class="carousel-dots" id="carousel-dots"></div>
-      <button class="carousel-btn next" aria-label="Next" id="carousel-next">&#8594;</button>
-    </div>
-
-    <div class="port-divider"></div>
-
+<div class="port-card hcard" style="padding:0;">
+  <div class="card-body" style="padding:28px 28px 32px;">
     <!-- Writing — 2 individual cards -->
     <span class="card-label" style="display:block;margin-bottom:14px;">Writings</span>
     <div class="writing-grid">
@@ -1558,7 +1632,7 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
     </div><!-- /writing-grid -->
 
   </div><!-- /card-body -->
-</div><!-- /single port-card -->
+</div><!-- /writings port-card -->
 
 
 
@@ -1571,17 +1645,17 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
       <div class="client-card gc hcard">
         <div class="client-icon">🎙️</div>
         <div class="client-title">Podcasters</div>
-        <div class="client-desc">Podcast hosts who need help with editing and distribution.</div>
+        <div class="client-desc">I work with podcast hosts who need editing and distribution.</div>
       </div>
       <div class="client-card gc hcard">
         <div class="client-icon">📱</div>
         <div class="client-title">Content Creators</div>
-        <div class="client-desc">Content creators who need help with content writing and social media management.</div>
+        <div class="client-desc">I assist content creators with content writing and social media management.</div>
       </div>
       <div class="client-card gc hcard">
         <div class="client-icon">🛍️</div>
         <div class="client-title">Business Owners</div>
-        <div class="client-desc">Business owners who need help with branding and marketing.</div>
+        <div class="client-desc">I collaborate with business owners who need branding and marketing.</div>
       </div>
     </div>
   </section>
@@ -1657,13 +1731,56 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
     </div>
   </section>
 
-  <section class="fade-in">
-    <div class="cta-wrap">
-      <h2>Let's connect</h2>
-      <p><span class="val-emoji">🧑‍💻</span> I'm eager to discuss how my skills align with your needs!</p>
-      <div class="cta-btn-row">
-        <a href="https://calendly.com/stevenrillot" target="_blank" class="cta-btn"><span class="val-emoji">📅</span> Book a Call</a>
-        <a href="mailto:stevenrillot@gmail.com" class="cta-btn"><span class="val-emoji">📩</span> Send a Message</a>
+  <section id="connect" class="fade-in">
+    <h2 style="text-align:center;margin-bottom:10px;">Let's connect</h2>
+    <p style="text-align:center;color:var(--ink-2);margin-bottom:24px;"></span>Take some time to discuss how my skills align with your needs!</p>
+    <div class="connect-grid">
+      <div class="cta-wrap" style="text-align:left;align-items:stretch;">
+        <div class="contact-rows">
+          <a href="mailto:stevenrillot@gmail.com" class="contact-row">
+            <span class="contact-icon">✉️</span>
+            <span class="cr-text"><span class="cr-label">Send me an email</span><span class="cr-val">stevenrillot@gmail.com</span></span>
+          </a>
+          <a href="https://calendly.com/stevenrillot" target="_blank" class="contact-row">
+            <span class="contact-icon">📅</span>
+            <span class="cr-text"><span class="cr-label">Book a call with me</span><span class="cr-val">calendly.com/stevenrillot</span></span>
+          </a>
+          <a href="https://linkedin.com/in/stevenlrt" target="_blank" class="contact-row">
+            <span class="contact-icon">💼</span>
+            <span class="cr-text"><span class="cr-label">See my Linkedin profile</span><span class="cr-val">linkedin.com/in/stevenlrt</span></span>
+          </a>
+          <a href="https://linktr.ee/stevenlrt" target="_blank" class="contact-row">
+            <span class="contact-icon">🌿</span>
+            <span class="cr-text"><span class="cr-label">See my Linktree page</span><span class="cr-val">linktr.ee/stevenlrt</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="cta-wrap" style="align-items:stretch;">
+        <form class="contact-form" id="contact-form" onsubmit="return sendContactForm(event)">
+          <div class="cf-field">
+            <label for="cf-name">Your Name</label>
+            <input type="text" id="cf-name" name="name" required>
+          </div>
+          <div class="cf-field">
+            <label for="cf-email">Your Email</label>
+            <input type="email" id="cf-email" name="email" required>
+          </div>
+          <div class="cf-field">
+            <label for="cf-service">Service Needed</label>
+            <select id="cf-service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="Podcast Management">Podcast Management</option>
+              <option value="Content Writing">Content Writing</option>
+              <option value="Social Media Management">Social Media Management</option>
+              <option value="Multiple Services">Multiple Services</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label for="cf-message">Your Message</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="What tasks do you need help with? What tools do you use?"></textarea>
+          </div>
+          <button type="submit" class="cta-btn cf-submit"><span class="val-emoji">📩</span> Send Message</button>
+        </form>
       </div>
     </div>
   </section>
@@ -1675,22 +1792,6 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
 </footer>
 
 <script>
-/* ── Clock — Quezon City timezone (Asia/Manila, UTC+8) ── */
-function updateClock() {
-  var now = new Date();
-  var ph = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
-  var rawH = ph.getHours();
-  var ampm = rawH >= 12 ? 'PM' : 'AM';
-  var hh = String(rawH % 12 || 12).padStart(2, '0');
-  var mm = String(ph.getMinutes()).padStart(2, '0');
-  document.getElementById('clock').textContent = hh + ':' + mm + ' ' + ampm;
-  document.getElementById('clock-date').textContent = ph.toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Manila'
-  });
-}
-updateClock();
-setInterval(updateClock, 1000);
-
 /* ── Theme toggle ── */
 var html = document.documentElement;
 var ti   = document.getElementById('ti');
@@ -1761,49 +1862,21 @@ document.querySelectorAll('header, section').forEach(function(el) {
   if (el.id) dio.observe(el);
 });
 
-/* ── Carousel ── */
-(function() {
-  var track   = document.getElementById('carousel-track');
-  var dotsEl  = document.getElementById('carousel-dots');
-  var counter = document.getElementById('carousel-counter');
-  if (!track) return;
-
-  var slides = track.querySelectorAll('.carousel-slide');
-  var total  = slides.length;
-  var cur    = 0;
-
-  /* Build dots */
-  slides.forEach(function(_, i) {
-    var d = document.createElement('button');
-    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Slide ' + (i + 1));
-    d.addEventListener('click', function() { goTo(i); });
-    dotsEl.appendChild(d);
-  });
-
-  function goTo(n) {
-    cur = (n + total) % total;
-    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-    dotsEl.querySelectorAll('.carousel-dot').forEach(function(d, i) {
-      d.classList.toggle('active', i === cur);
-    });
-    counter.textContent = (cur + 1) + ' / ' + total;
-  }
-
-  document.getElementById('carousel-prev').addEventListener('click', function() { goTo(cur - 1); });
-  document.getElementById('carousel-next').addEventListener('click', function() { goTo(cur + 1); });
-
-  /* Swipe support */
-  var startX = 0;
-  track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend',   function(e) {
-    var dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
-  }, { passive: true });
-})();
-
 /* ── Writing cards toggle ── */
 function toggleStory(el) { el.classList.toggle('expanded'); }
+
+/* ── Contact form (mailto handoff) ── */
+function sendContactForm(e) {
+  e.preventDefault();
+  var name = document.getElementById('cf-name').value.trim();
+  var email = document.getElementById('cf-email').value.trim();
+  var service = document.getElementById('cf-service').value;
+  var message = document.getElementById('cf-message').value.trim();
+  var subject = encodeURIComponent('Portfolio inquiry from ' + name + ' — ' + service);
+  var body = encodeURIComponent('Service needed: ' + service + '\n\n' + message + '\n\n— ' + name + ' (' + email + ')');
+  window.location.href = 'mailto:stevenrillot@gmail.com?subject=' + subject + '&body=' + body;
+  return false;
+}
 </script>
 </body>
 </html>
