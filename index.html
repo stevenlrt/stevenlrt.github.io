@@ -281,6 +281,7 @@ html[data-theme="dark"] .hero-name em {
   margin:0 0 20px; font-stretch:condensed; transform:scaleX(0.94); transform-origin:left;
 }
 .hero-ad-accent { color:#3A6EA8; }
+.hero-ad-main   { color:var(--ink); }
 @media (max-width:600px) { .hero-ad { font-size:2.1rem; } }
 html[data-theme="light"] .tagline { color:var(--ink-3); }
 
@@ -1306,6 +1307,89 @@ html[data-theme="light"] .port-link:hover { color:var(--pill-col-hover); }
   padding:8px 14px; background:var(--bg-sunken); border-radius:10px; border:1px dashed var(--bd);
 }
 
+/* ─── CERTIFICATIONS GRID ─── */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.cert-card {
+  border-radius: 18px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cert-issuer {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--ink-3);
+}
+.cert-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+/* Placeholder cards: theme-matching glass style */
+.cert-card.cert-placeholder {
+  background: var(--bg-raised) !important;
+  border: 1px solid var(--bd-card) !important;
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+html[data-theme="dark"] .cert-card.cert-placeholder {
+  background: var(--bg-raised) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+}
+html[data-theme="light"] .cert-card.cert-placeholder {
+  background: var(--bg-raised) !important;
+  border: 1px solid rgba(26,26,26,0.10) !important;
+}
+.cert-card.cert-placeholder .cert-issuer { color: var(--ink-3); }
+.cert-card.cert-placeholder .cert-title  { color: var(--ink); }
+.cert-card.cert-placeholder .cert-badge  { background: rgba(58,110,168,0.10); color: #3A6EA8; border-color: rgba(58,110,168,0.25); }
+html[data-theme="dark"] .cert-card.cert-placeholder .cert-badge { background: rgba(58,110,168,0.18); color: #B0CBE4; border-color: rgba(74,144,196,0.30); }
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #3A6EA8;
+  background: rgba(58,110,168,0.10);
+  border: 1px solid rgba(58,110,168,0.25);
+  border-radius: 999px;
+  padding: 3px 10px;
+  width: fit-content;
+  margin-top: 4px;
+}
+/* cert image inside card */
+.cert-img-wrap { margin-top: 10px; }
+.cert-img-wrap img {
+  width: 40%;
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition: width 0.4s ease;
+  display: inline-block;
+}
+.cert-img-wrap img.zoomed {
+  width: 100%;
+  cursor: zoom-out;
+}
+@media (max-width: 600px) {
+  .cert-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cert-card  { padding: 16px; }
+  .cert-img-wrap img { width: 55%; }
+}
+@media (max-width: 800px) {
+  .cert-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+}
+
 </style>
 </head>
 <body>
@@ -1349,9 +1433,9 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
   <div class="topnav-inner" style="display:flex; align-items:center; justify-content:space-between;">
     <div class="topnav-logo" style="flex-shrink:0;">Steven's <span>Portfolio</span></div>
     <div style="display:flex; align-items:center; gap:8px; margin-left:auto;">
-      <a href="#top" class="nav-link" data-s="top">Home</a>
-      <a href="#portfolio" class="nav-link" data-s="portfolio">Work Samples</a>
-      <a href="#video" class="nav-link" data-s="video">Intro Video</a>
+      <a href="#top" class="nav-link" data-s="top">🏠</span> Home</a>
+      <a href="#portfolio" class="nav-link" data-s="portfolio">💼</span> Work Samples</a>
+      <a href="#video" class="nav-link" data-s="video">🎥</span> Intro Video</a>
       <a href="#connect" class="topnav-cta"><span class="val-emoji">📩</span> Contact Me</a>
     </div>
   </div>
@@ -1377,7 +1461,8 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 <div class="hero-wrapper">
 <header id="top">
   <div class="hero-left">
-    <p class="hero-ad">YOUR <span class="hero-ad-accent">PODCAST</span> &amp;<br><span class="hero-ad-accent">CONTENT WRITING</span><br>EXPERT</p>
+    <p class="hero-ad"><span class="hero-ad-main">YOUR EXPERT</span><br><span class="hero-ad-accent">CONTENT SPECIALIST</span></p>
+    <p class="tagline"></p>
   </div>
 
   <div class="hero-right">
@@ -1388,9 +1473,13 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <h1 class="hero-name" style="text-align:center;margin:0 0 18px;"><em>Steven Torres</em></h1>
 
     <div class="stats">
+      <div class="stat hcard"><div class="stat-n">🎥</div><div class="stat-l">Short Form Video Editing</div></div>
+      <div class="stat hcard"><div class="stat-n">📱</div><div class="stat-l">Social Media Management</div></div>
+      <div class="stat hcard"><div class="stat-n">🎨</div><div class="stat-l">Graphic Design</div></div>
+      <div class="stat hcard"><div class="stat-n">✏️</div><div class="stat-l">SEO Copywriting</div></div>
       <div class="stat hcard"><div class="stat-n">🎙️</div><div class="stat-l">Podcast Production</div></div>
-      <div class="stat hcard"><div class="stat-n">✍️</div><div class="stat-l">Content<br>Writing</div></div>
-      <div class="stat hcard"><div class="stat-n">📱</div><div class="stat-l">Social Media Content</div></div>
+
+
     </div>
   </div>
 </header>
@@ -1402,16 +1491,16 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <h2>About Me</h2>
     <div class="about-grid">
       <div class="about-txt">
-        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I’m Steven, I can help you with podcast production and content writing. </p>
-                <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I’ve got 5+ years experience optimizing podcasts and proofreading written material.</p>
-        <p><span class="about-emoji">🎓</span>&nbsp;&nbsp;I have a BSEd English degree, native language skills and functional editing tools knowledge.</p>
-        <p><span class="about-emoji">🤝</span>&nbsp;&nbsp; I’m always open to connect, feel free to reach out!</p>
+        <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I’m Steven, a Content Specialist helping creators and brands produce engaging content.</p>
+        <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I have 5+ years of experience creating media including reels, graphics, podcasts, and copywriting.</p>
+        <p><span class="about-emoji">🎓</span>&nbsp;&nbsp;I have a BSEd English degree, native language skills and editing tools knowledge.</p>
+        <p><span class="about-emoji">🤝</span>&nbsp;&nbsp;I’m always open to connect, feel free to reach out!</p>
       </div>
     </div>
     <div class="about-aside">
       <div class="info-card gc card hcard">
         <div class="lbl">Availability</div>
-        <div class="val"><span class="val-emoji">🟢</span>&nbsp;&nbsp;Full-time</div>
+        <div class="val"><span class="val-emoji">⏱️</span>&nbsp;&nbsp;Full-time</div>
       </div>
       <div class="info-card gc card hcard">
         <div class="lbl">Location</div>
@@ -1428,33 +1517,44 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
   <h2>Services</h2>
   <div class="svc-grid">
     <div class="svc-card gc card hcard">
-      <span class="svc-icon">🎙️</span>
-      <div class="svc-title">Podcast Support</div>
-      <p class="svc-desc">I edit raw audio and optimize podcast episodes.</p>
+      <span class="svc-icon">🎥</span>
+      <div class="svc-title">Short Form Video</div>
+      <p class="svc-desc">I edit and produce reels for Instagram, TikTok, and YouTube Shorts.</p>
       <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 4px; justify-content: center;">
-        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Audacity</span>
-        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Descript</span>
-        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Buzzsprout</span>
-      </div>
-    </div>
-    <div class="svc-card gc card hcard">
-      <span class="svc-icon">✍️</span>
-      <div class="svc-title">Content Writing</div>
-      <p class="svc-desc">I proofread social media posts for accuracy.</p>
-      <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 3px; justify-content: center;">
-        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Google Docs</span>
-        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Notion</span>
-        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Wordpress</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">CapCut</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Canva</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Adobe Express</span>
       </div>
     </div>
     <div class="svc-card gc card hcard">
       <span class="svc-icon">📱</span>
       <div class="svc-title">Social Media Content</div>
-      <p class="svc-desc">I create short form videos for social media platforms.</p>
+      <p class="svc-desc">I manage content calendars, publishing, and social media workflows.</p>
+      <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 3px; justify-content: center;">
+        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Notion</span>
+        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Buffer</span>
+        <span class="tag" style="font-size: 0.75rem; padding: 4px 6px; white-space: nowrap; flex:0 1 auto; min-width:0;">Meta Business Suite</span>
+      </div>
+    </div>
+    <div class="svc-card gc card hcard">
+      <span class="svc-icon">🎨</span>
+      <div class="svc-title">Graphic Design</div>
+      <p class="svc-desc">I design graphics, marketing assets, and visual content for brands.</p>
       <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 4px; justify-content: center;">
         <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Canva</span>
         <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Adobe Express</span>
-        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Capcut</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Photoshop</span>
+
+      </div>
+    </div>
+    <div class="svc-card gc card hcard">
+      <span class="svc-icon">🎙️</span>
+      <div class="svc-title">Podcast Production</div>
+      <p class="svc-desc">I edit raw audio and publish optimized podcast episodes end to end.</p>
+      <div class="tags" style="display: flex; flex-wrap: nowrap; gap: 4px; justify-content: center;">
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Audacity</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Descript</span>
+        <span class="tag" style="font-size: 0.8rem; padding: 4px 8px; white-space: nowrap; flex:0 1 auto; min-width:0;">Buzzsprout</span>
       </div>
     </div>
   </div>
@@ -1473,24 +1573,24 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <span class="card-label" style="display:block;margin-bottom:14px;">Workflows</span>
     <div class="workflow-grid">
       <div class="workflow-item hcard">
-        <div class="wf-photo"><img src="workflow-1.png" alt="Audio editing" loading="lazy" onerror="this.style.display='none'"></div>
-        <h4>Audio Editing</h4>
-        <p>I clean up raw audio recordings using tools like Audacity and Descript.</p>
+        <div class="wf-photo"><img src="workflow-1.png" alt="Short form video editing" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Short Form Video Editing</h4>
+        <p>I produce reels for Instagram, TikTok, and YouTube Shorts using CapCut and Canva.</p>
       </div>
       <div class="workflow-item hcard">
-        <div class="wf-photo"><img src="workflow-2.png" alt="Podcast hosting" loading="lazy" onerror="this.style.display='none'"></div>
-        <h4>Podcast Hosting</h4>
-        <p>I publish and distribute episodes onto Spotify, Apple Podcasts, and other platforms.</p>
+        <div class="wf-photo"><img src="workflow-2.png" alt="Social media content" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Social Media Content</h4>
+        <p>I manage content calendars, publishing workflows, and platform scheduling.</p>
       </div>
       <div class="workflow-item hcard">
-        <div class="wf-photo"><img src="workflow-3.png" alt="Cover art and metadata" loading="lazy" onerror="this.style.display='none'"></div>
-        <h4>Cover Art & Descriptions</h4>
-        <p>I design appealing cover art and create titles, tags, descriptions, and other data.</p>
+        <div class="wf-photo"><img src="workflow-3.png" alt="Graphic design" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Graphic Design</h4>
+        <p>I design marketing graphics, cover art, and brand visuals using Canva and Adobe Express.</p>
       </div>
       <div class="workflow-item hcard">
-        <div class="wf-photo"><img src="workflow-4.png" alt="Organic content writing" loading="lazy" onerror="this.style.display='none'"></div>
-        <h4>Organic Content Writing</h4>
-        <p>I edit and proofread written content with assistance from AI and other tools.</p>
+        <div class="wf-photo"><img src="workflow-4.png" alt="Podcast production" loading="lazy" onerror="this.style.display='none'"></div>
+        <h4>Podcast Production</h4>
+        <p>I edit audio, write show notes, and publish episodes across podcast platforms.</p>
       </div>
     </div>
 
@@ -1503,9 +1603,9 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
     <div class="podcast-grid">
       <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
       <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;">Steven Rillo Torres</a> · <a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
     </div><!-- /podcast-grid -->
 
   </div><!-- /card-body -->
@@ -1514,8 +1614,8 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
 
-    <!-- Reels -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Reels</span>
+    <!-- Short Form Videos -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Short Form Videos</span>
     <div class="reel-grid">
 
       <div class="reel-cell hcard" onclick="playReel(this,'Eg_j3RsX4DU')" style="cursor:pointer;">
@@ -1575,12 +1675,12 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
     </div><!-- /reel-grid -->
 
   </div><!-- /card-body -->
-</div><!-- /reels port-card -->
+</div><!-- /short-form-videos port-card -->
 
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
     <!-- Writing — 2 individual cards -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Writings</span>
+    <span class="card-label" style="display:block;margin-bottom:14px;">Copywriting</span>
     <div class="writing-grid">
       <div class="writing-cell hcard" onclick="toggleStory(this)">
         <div class="writing-preview">
@@ -1632,7 +1732,7 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
     </div><!-- /writing-grid -->
 
   </div><!-- /card-body -->
-</div><!-- /writings port-card -->
+</div><!-- /copywriting port-card -->
 
 
 
@@ -1643,19 +1743,19 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
     <h2>Ideal Clients</h2>
     <div class="clients-grid">
       <div class="client-card gc hcard">
-        <div class="client-icon">🎙️</div>
-        <div class="client-title">Podcasters</div>
-        <div class="client-desc">I work with podcast hosts who need editing and distribution.</div>
-      </div>
-      <div class="client-card gc hcard">
-        <div class="client-icon">📱</div>
+        <div class="client-icon">🎬</div>
         <div class="client-title">Content Creators</div>
-        <div class="client-desc">I assist content creators with content writing and social media management.</div>
+        <div class="client-desc">I help creators optimize their content including short form video, graphics, and copywriting.</div>
       </div>
       <div class="client-card gc hcard">
-        <div class="client-icon">🛍️</div>
-        <div class="client-title">Business Owners</div>
-        <div class="client-desc">I collaborate with business owners who need branding and marketing.</div>
+        <div class="client-icon">🚀</div>
+        <div class="client-title">Tech Startups</div>
+        <div class="client-desc">I work with startups that need consistent branded content to grow their audience and reach.</div>
+      </div>
+      <div class="client-card gc hcard">
+        <div class="client-icon">🏢</div>
+        <div class="client-title">Small Businesses</div>
+        <div class="client-desc">I collaborate with small businesses who need branding, marketing, and content strategy.</div>
       </div>
     </div>
   </section>
@@ -1665,44 +1765,72 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
     <div class="timeline">
       <div class="tl-item hcard">
         <div class="tl-head">
-          <div class="tl-role"><span class="val-emoji">👨‍💻</span>Podcast Producer & Content Writer</div>
+          <div class="tl-role"><span class="val-emoji">👨‍💻</span>Content Specialist</div>
           <span class="tl-date">Sep 2020 – Present</span>
         </div>
         <div class="tl-org">Remote</div>
         <ul class="tl-li">
-          <li>Edited raw audio recordings and produced podcast episodes including titles, descriptions, cover art, and tags.</li>
-          <li>Published episodes across platforms including Buzzsprout, Libsyn, and Spotify, growing podcast discoverability.</li>
-          <li>Drove an increase in page views and conversions through blog writing, copyediting, and email campaigns.</li>
-          <li>Increased audience engagement by producing short form video content using Canva and Capcut.</li>
-          <li>Saved clients time by building content calendars and publishing workflows in Notion and Google Workspace.</li>
+          <li>Produced short form videos for Instagram Reels, TikTok, and YouTube Shorts.</li>
+          <li>Designed brand and marketing graphics using Canva and Adobe Express.</li>
+          <li>Managed content calendars, publishing, and social media workflows.</li>
+          <li>Produced podcast episodes, show notes, titles, descriptions, and cover art.</li>
+          <li>Wrote SEO optimized blogs, newsletters, website copy, and social media captions.</li>
         </ul>
     </div>
   </section>
 
 <section id="certifications" class="fade-in">
   <h2>Certifications</h2>
-  <div class="edu-card gc card hcard" style="margin-bottom: 1.5rem;">
-    <div style="width:100%; text-align:left;">
-      <div class="edu-school" style="margin-bottom: 0.25rem; justify-content:flex-start;">Hubspot Academy</div>
-      <div class="edu-deg">Hubspot Content Marketing Certification</div>
-      <img
-        src="https://raw.githubusercontent.com/stevenlrt/stevenlrt.github.io/refs/heads/main/TORRES-Hubspot-Content-Marketing.png"
-        alt="Hubspot Content Marketing Certificate"
-        id="cert-img"
-        style="margin-top: 1rem; width: 35%; border-radius: 8px; cursor: zoom-in; transition: width 0.4s ease; display:inline-block;"
-        onclick="
-          const img = this;
-          if (img.style.width === '100%') {
-            img.style.width = '35%';
-            img.style.cursor = 'zoom-in';
-          } else {
-            img.style.width = '100%';
-            img.style.cursor = 'zoom-out';
-            img.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        "
-      />
+  <div class="cert-grid">
+
+    <!-- HubSpot -->
+    <div class="cert-card gc hcard">
+      <div class="cert-issuer">HubSpot Academy</div>
+      <div class="cert-title">HubSpot Content Marketing Certification</div>
+      <div class="cert-img-wrap">
+        <img
+          src="cert-0.png" alt="HubSpot Content Marketing Certificate"
+          onclick="
+            const img = this;
+            img.classList.toggle('zoomed');
+            if (img.classList.contains('zoomed')) {
+              img.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          "
+        />
+      </div>
     </div>
+
+    <!-- Google Cloud #1 -->
+    <div class="cert-card cert-placeholder hcard">
+      <div class="cert-issuer">Google Cloud Skills Boost</div>
+      <div class="cert-title">Introduction to Generative AI</div>
+      <div class="cert-img-wrap">
+        <img src="cert-1.png" alt="Introduction to Generative AI Certificate"
+          onclick="const img=this;img.classList.toggle('zoomed');if(img.classList.contains('zoomed')){img.scrollIntoView({behavior:'smooth',block:'nearest'});}" />
+      </div>
+    </div>
+
+    <!-- Google Cloud #2 -->
+    <div class="cert-card cert-placeholder hcard">
+      <div class="cert-issuer">Google Cloud Skills Boost</div>
+      <div class="cert-title">Introduction to Large Language Models</div>
+      <div class="cert-img-wrap">
+        <img src="cert-2.png" alt="Introduction to Large Language Models Certificate"
+          onclick="const img=this;img.classList.toggle('zoomed');if(img.classList.contains('zoomed')){img.scrollIntoView({behavior:'smooth',block:'nearest'});}" />
+      </div>
+    </div>
+
+    <!-- Google Cloud #3 -->
+    <div class="cert-card cert-placeholder hcard">
+      <div class="cert-issuer">Google Cloud Skills Boost</div>
+      <div class="cert-title">Introduction to Responsible AI</div>
+      <div class="cert-img-wrap">
+        <img src="cert-3.png" alt="Introduction to Responsible AI Certificate"
+          onclick="const img=this;img.classList.toggle('zoomed');if(img.classList.contains('zoomed')){img.scrollIntoView({behavior:'smooth',block:'nearest'});}" />
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1769,9 +1897,11 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
             <label for="cf-service">Service Needed</label>
             <select id="cf-service" name="service" required>
               <option value="" disabled selected>Select a service</option>
-              <option value="Podcast Management">Podcast Management</option>
-              <option value="Content Writing">Content Writing</option>
+              <option value="Video Editing">Video Editing</option>
               <option value="Social Media Management">Social Media Management</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="SEO Copywriting">SEO Copywriting</option>
+              <option value="Podcast Production">Podcast Production</option>
               <option value="Multiple Services">Multiple Services</option>
             </select>
           </div>
