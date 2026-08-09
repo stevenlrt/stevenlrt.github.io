@@ -1476,9 +1476,8 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
       <div class="stat hcard"><div class="stat-n">🎥</div><div class="stat-l">Short Form Video Editing</div></div>
       <div class="stat hcard"><div class="stat-n">📱</div><div class="stat-l">Social Media Management</div></div>
       <div class="stat hcard"><div class="stat-n">🎨</div><div class="stat-l">Graphic Design</div></div>
-      <div class="stat hcard"><div class="stat-n">✏️</div><div class="stat-l">SEO Copywriting</div></div>
       <div class="stat hcard"><div class="stat-n">🎙️</div><div class="stat-l">Podcast Production</div></div>
-
+      <div class="stat hcard"><div class="stat-n">✏️</div><div class="stat-l">Copywriting</div></div>
 
     </div>
   </div>
@@ -1884,7 +1883,7 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
         </div>
       </div>
       <div class="cta-wrap" style="align-items:stretch;">
-        <form class="contact-form" id="contact-form" onsubmit="return sendContactForm(event)">
+        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return submitContactForm(event)">
           <div class="cf-field">
             <label for="cf-name">Your Name</label>
             <input type="text" id="cf-name" name="name" required>
@@ -1900,8 +1899,8 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
               <option value="Video Editing">Video Editing</option>
               <option value="Social Media Management">Social Media Management</option>
               <option value="Graphic Design">Graphic Design</option>
-              <option value="SEO Copywriting">SEO Copywriting</option>
               <option value="Podcast Production">Podcast Production</option>
+              <option value="Copywriting">Copywriting</option>
               <option value="Multiple Services">Multiple Services</option>
             </select>
           </div>
@@ -1909,7 +1908,9 @@ Why I think the hustle culture so mindlessly proliferated on social media pages 
             <label for="cf-message">Your Message</label>
             <textarea id="cf-message" name="message" rows="5" required placeholder="What tasks do you need help with? What tools do you use?"></textarea>
           </div>
-          <button type="submit" class="cta-btn cf-submit"><span class="val-emoji">📩</span> Send Message</button>
+          <input type="hidden" name="access_key" value="9ff19a72-c3b6-49fc-8465-e15c095c96d0">
+          <button type="submit" class="cta-btn cf-submit" id="cf-submit"><span class="val-emoji">📩</span> <span id="cf-submit-text">Send Message</span></button>
+          <p id="cf-status" style="display:none;margin-top:12px;color:var(--ink-2);font-size:0.9rem;"></p>
         </form>
       </div>
     </div>
@@ -1995,16 +1996,50 @@ document.querySelectorAll('header, section').forEach(function(el) {
 /* ── Writing cards toggle ── */
 function toggleStory(el) { el.classList.toggle('expanded'); }
 
-/* ── Contact form (mailto handoff) ── */
-function sendContactForm(e) {
+/* ── Contact form submits in-page to Web3Forms so the user stays on the site ── */
+function submitContactForm(e) {
   e.preventDefault();
-  var name = document.getElementById('cf-name').value.trim();
-  var email = document.getElementById('cf-email').value.trim();
-  var service = document.getElementById('cf-service').value;
-  var message = document.getElementById('cf-message').value.trim();
-  var subject = encodeURIComponent('Portfolio inquiry from ' + name + ' — ' + service);
-  var body = encodeURIComponent('Service needed: ' + service + '\n\n' + message + '\n\n— ' + name + ' (' + email + ')');
-  window.location.href = 'mailto:stevenrillot@gmail.com?subject=' + subject + '&body=' + body;
+
+  var form = e.target;
+  var submitBtn = document.getElementById('cf-submit');
+  var submitText = document.getElementById('cf-submit-text');
+  var statusEl = document.getElementById('cf-status');
+
+  if (submitBtn) submitBtn.disabled = true;
+  if (submitText) submitText.textContent = 'Sending...';
+  if (statusEl) {
+    statusEl.textContent = '';
+    statusEl.style.display = 'none';
+  }
+
+  var formData = new FormData(form);
+
+  fetch(form.action, {
+    method: form.method,
+    body: formData
+  })
+  .then(function(response) {
+    if (!response.ok) throw new Error('Submission failed');
+    return response.json().catch(function() { return {}; });
+  })
+  .then(function() {
+    if (statusEl) {
+      statusEl.textContent = 'Thanks! Your message was sent.';
+      statusEl.style.display = 'block';
+    }
+    form.reset();
+  })
+  .catch(function() {
+    if (statusEl) {
+      statusEl.textContent = 'Something went wrong. Please try again.';
+      statusEl.style.display = 'block';
+    }
+  })
+  .finally(function() {
+    if (submitBtn) submitBtn.disabled = false;
+    if (submitText) submitText.textContent = 'Send Message';
+  });
+
   return false;
 }
 </script>
