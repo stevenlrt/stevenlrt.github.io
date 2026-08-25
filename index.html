@@ -1099,9 +1099,9 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
 /* Slide with a real image */
 .carousel-slide.has-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   vertical-align: bottom;
 }
 /* Placeholder (no image yet) */
@@ -1202,6 +1202,57 @@ html[data-theme="light"] .nav-link.active { color:#FFFFFF !important; }
   font-variant-numeric: tabular-nums;
   min-width: 32px;
   text-align: center;
+}
+/* ── Graphic design rows (static, 5 images per line, 4:5) ── */
+.graphic-carousels-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.gc-carousel-wrap { display: flex; flex-direction: column; gap: 10px; }
+.gc-carousel-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-align: left;
+}
+.gc-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.gc-row-slide {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+  background: transparent;
+  aspect-ratio: 4 / 5;
+  line-height: 0;
+  transition: aspect-ratio 0.4s ease, grid-column 0.4s ease;
+}
+.gc-row-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: zoom-in;
+  transition: width 0.4s ease;
+}
+.gc-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:999;padding:24px;}
+.gc-modal-overlay.open{display:flex;}
+.gc-modal-overlay img{max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.gc-modal-close{position:absolute;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:var(--bg-raised);border:1px solid var(--bd);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.gc-modal-close:hover{opacity:0.8;}
+.gc-modal-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--bg-raised);border:1px solid var(--bd);color:var(--ink);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.gc-modal-nav:hover{opacity:0.8;}
+.gc-modal-prev{left:24px;}
+.gc-modal-next{right:24px;}
+@media (max-width: 900px) {
+  .gc-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .gc-row { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── Writing grid: 3 cards, 1 row ── */
@@ -1436,7 +1487,6 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
       <a href="#top" class="nav-link" data-s="top">🏠</span> Home</a>
       <a href="#portfolio" class="nav-link" data-s="portfolio">💼</span> Work Samples</a>
       <a href="#video" class="nav-link" data-s="video">🎥</span> Intro Video</a>
-      <a href="#connect" class="topnav-cta"><span class="val-emoji">📩</span> Contact Me</a>
     </div>
   </div>
 </nav>
@@ -1463,6 +1513,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
   <div class="hero-left">
     <p class="hero-ad"><span class="hero-ad-main">YOUR EXPERT</span><br><span class="hero-ad-accent">CONTENT SPECIALIST</span></p>
     <p class="tagline"></p>
+    <a href="#connect" class="cta-btn" style="width:fit-content;"><span class="val-emoji">📩</span> Contact Me</a>
   </div>
 
   <div class="hero-right">
@@ -1492,7 +1543,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
       <div class="about-txt">
         <p><span class="about-emoji">👋</span>&nbsp;&nbsp;Hi! I’m Steven, a Content Specialist helping creators and brands produce engaging content.</p>
         <p><span class="about-emoji">👨‍💻</span>&nbsp;&nbsp;I have 5+ years of experience creating media including reels, graphics, podcasts, and copywriting.</p>
-        <p><span class="about-emoji">🎓</span>&nbsp;&nbsp;I have a BSEd English degree, native language skills and editing tools knowledge.</p>
+        <p><span class="about-emoji">🎓</span>&nbsp;&nbsp;I have a BSEd English degree, native language skills, and editing tools knowledge.</p>
         <p><span class="about-emoji">🤝</span>&nbsp;&nbsp;I’m always open to connect, feel free to reach out!</p>
       </div>
     </div>
@@ -1608,6 +1659,53 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
+    <!-- Graphic Design Carousels -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Graphic Design</span>
+    <div class="graphic-carousels-grid">
+
+      <!-- Row 1 -->
+      <div class="gc-carousel-wrap">
+        <h4 class="gc-carousel-title">Clothing Graphics</h4>
+        <div class="gc-row">
+          <div class="gc-row-slide"><img src="graphic1-1.png" alt="Graphic 1-1" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 1</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic1-2.png" alt="Graphic 1-2" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 2</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic1-3.png" alt="Graphic 1-3" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 3</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic1-4.png" alt="Graphic 1-4" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 4</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic1-5.png" alt="Graphic 1-5" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 5</span></div>')"></div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="gc-carousel-wrap">
+        <h4 class="gc-carousel-title">Fitness Carousel</h4>
+        <div class="gc-row">
+          <div class="gc-row-slide"><img src="graphic2-1.png" alt="Graphic 2-1" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 1</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic2-2.png" alt="Graphic 2-2" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 2</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic2-3.png" alt="Graphic 2-3" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 3</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic2-4.png" alt="Graphic 2-4" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 4</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic2-5.png" alt="Graphic 2-5" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 5</span></div>')"></div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="gc-carousel-wrap">
+        <h4 class="gc-carousel-title">Wellness Branding</h4>
+        <div class="gc-row">
+          <div class="gc-row-slide"><img src="graphic3-1.png" alt="Graphic 3-1" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 1</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic3-2.png" alt="Graphic 3-2" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 2</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic3-3.png" alt="Graphic 3-3" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 3</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic3-4.png" alt="Graphic 3-4" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 4</span></div>')"></div>
+          <div class="gc-row-slide"><img src="graphic3-5.png" alt="Graphic 3-5" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 5</span></div>')"></div>
+        </div>
+      </div>
+
+    </div><!-- /graphic-carousels-grid -->
+
+  </div><!-- /card-body -->
+</div><!-- /graphics port-card -->
+
+<div class="port-card hcard" style="padding:0;">
+  <div class="card-body" style="padding:28px 28px 32px;">
     <!-- Podcasts -->
     <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
     <div class="podcast-grid">
@@ -1654,27 +1752,54 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
         </div>
       </div>
 
-      <div class="reel-cell hcard" onclick="playReel(this,'ymPRClt7T0U')" style="cursor:pointer;">
+      <div class="reel-cell hcard" onclick="playReel(this,'HSfO50lwmZY')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
-          <img src="https://img.youtube.com/vi/ymPRClt7T0U/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <img src="https://img.youtube.com/vi/HSfO50lwmZY/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
       </div>
 
-      <div class="reel-cell hcard" onclick="playReel(this,'pVO_-pzVEfU')" style="cursor:pointer;">
+      <div class="reel-cell hcard" onclick="playReel(this,'2vIRDJtf2K8')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
-          <img src="https://img.youtube.com/vi/pVO_-pzVEfU/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <img src="https://img.youtube.com/vi/2vIRDJtf2K8/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
       </div>
 
-      <div class="reel-cell hcard" onclick="playReel(this,'COaFwjH4zeA')" style="cursor:pointer;">
+      <div class="reel-cell hcard" onclick="playReel(this,'_QzbExYKFjQ')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
-          <img src="https://img.youtube.com/vi/COaFwjH4zeA/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <img src="https://img.youtube.com/vi/_QzbExYKFjQ/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reel-cell hcard" onclick="playReel(this,'9ql8miKVk6w')" style="cursor:pointer;">
+        <div style="position:absolute;inset:0;">
+          <img src="https://img.youtube.com/vi/9ql8miKVk6w/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reel-cell hcard" onclick="playReel(this,'hhSaq8Te_l8')" style="cursor:pointer;">
+        <div style="position:absolute;inset:0;">
+          <img src="https://img.youtube.com/vi/hhSaq8Te_l8/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reel-cell hcard" onclick="playReel(this,'C_mVJjaBfEE')" style="cursor:pointer;">
+        <div style="position:absolute;inset:0;">
+          <img src="https://img.youtube.com/vi/C_mVJjaBfEE/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
@@ -2052,6 +2177,30 @@ function submitContactForm(e) {
 
   return false;
 }
+</script>
+<div class="gc-modal-overlay" id="gcModal" onclick="if(event.target===this)gcClose()">
+  <button class="gc-modal-close" onclick="gcClose()">&times;</button>
+  <button class="gc-modal-nav gc-modal-prev" onclick="gcNav(-1)">&#8249;</button>
+  <img id="gcModalImg" src="" alt="">
+  <button class="gc-modal-nav gc-modal-next" onclick="gcNav(1)">&#8250;</button>
+</div>
+<script>
+var gcImgs = [], gcIdx = 0;
+function gcOpen(img){
+  gcImgs = Array.from(document.querySelectorAll('.gc-row-slide img'));
+  gcIdx = gcImgs.indexOf(img);
+  gcShow();
+  document.getElementById('gcModal').classList.add('open');
+}
+function gcShow(){ document.getElementById('gcModalImg').src = gcImgs[gcIdx].src; }
+function gcNav(dir){ gcIdx = (gcIdx + dir + gcImgs.length) % gcImgs.length; gcShow(); }
+function gcClose(){ document.getElementById('gcModal').classList.remove('open'); }
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('gcModal').classList.contains('open')) return;
+  if(e.key==='Escape') gcClose();
+  if(e.key==='ArrowLeft') gcNav(-1);
+  if(e.key==='ArrowRight') gcNav(1);
+});
 </script>
 </body>
 </html>
