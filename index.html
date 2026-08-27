@@ -1677,7 +1677,7 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 
       <!-- Row 2 -->
       <div class="gc-carousel-wrap">
-        <h4 class="gc-carousel-title">Fitness Carousel</h4>
+        <h4 class="gc-carousel-title">Fitness Carousels</h4>
         <div class="gc-row">
           <div class="gc-row-slide"><img src="graphic2-1.png" alt="Graphic 2-1" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 1</span></div>')"></div>
           <div class="gc-row-slide"><img src="graphic2-2.png" alt="Graphic 2-2" loading="lazy" onclick="gcOpen(this)" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<div class=\'slide-placeholder\'><div class=\'slide-placeholder-icon\'></div><span class=\'slide-placeholder-label\'>GRAPHIC 2</span></div>')"></div>
@@ -1704,25 +1704,14 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
   </div><!-- /card-body -->
 </div><!-- /graphics port-card -->
 
-<div class="port-card hcard" style="padding:0;">
-  <div class="card-body" style="padding:28px 28px 32px;">
-    <!-- Podcasts -->
-    <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
-    <div class="podcast-grid">
-      <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
-      <div class="podcast-cell hcard">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
-    </div><!-- /podcast-grid -->
-
-  </div><!-- /card-body -->
-</div><!-- /podcasts port-card -->
 
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
 
     <!-- Short Form Videos -->
     <span class="card-label" style="display:block;margin-bottom:14px;">Short Form Videos</span>
+
+    <h4 class="gc-carousel-title" style="margin-bottom:14px;">Talking Head Videos</h4>
     <div class="reel-grid">
 
       <div class="reel-cell hcard" onclick="playReel(this,'Eg_j3RsX4DU')" style="cursor:pointer;">
@@ -1752,14 +1741,10 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
         </div>
       </div>
 
-      <div class="reel-cell hcard" onclick="playReel(this,'HSfO50lwmZY')" style="cursor:pointer;">
-        <div style="position:absolute;inset:0;">
-          <img src="https://img.youtube.com/vi/HSfO50lwmZY/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
-          </div>
-        </div>
-      </div>
+    </div><!-- /reel-grid row 1 -->
+
+    <h4 class="gc-carousel-title" style="margin:24px 0 14px;">Trend & Meme Reels</h4>
+    <div class="reel-grid">
 
       <div class="reel-cell hcard" onclick="playReel(this,'2vIRDJtf2K8')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
@@ -1779,18 +1764,32 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
         </div>
       </div>
 
-      <div class="reel-cell hcard" onclick="playReel(this,'9ql8miKVk6w')" style="cursor:pointer;">
+      <div class="reel-cell hcard" onclick="playReel(this,'HSfO50lwmZY')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
-          <img src="https://img.youtube.com/vi/9ql8miKVk6w/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <img src="https://img.youtube.com/vi/HSfO50lwmZY/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
         </div>
       </div>
 
+    </div><!-- /reel-grid row 2 -->
+
+    <h4 class="gc-carousel-title" style="margin:24px 0 14px;">Personal Brand Content</h4>
+    <div class="reel-grid">
+
       <div class="reel-cell hcard" onclick="playReel(this,'hhSaq8Te_l8')" style="cursor:pointer;">
         <div style="position:absolute;inset:0;">
           <img src="https://img.youtube.com/vi/hhSaq8Te_l8/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reel-cell hcard" onclick="playReel(this,'9ql8miKVk6w')" style="cursor:pointer;">
+        <div style="position:absolute;inset:0;">
+          <img src="https://img.youtube.com/vi/9ql8miKVk6w/0.jpg" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;" alt="Reel thumbnail">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;">
             <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid white;margin-left:4px;"></div>
           </div>
@@ -1810,6 +1809,20 @@ document.getElementById('yt-modal').addEventListener('click', function(e) {
 
   </div><!-- /card-body -->
 </div><!-- /short-form-videos port-card -->
+
+<div class="port-card hcard" style="padding:0;">
+  <div class="card-body" style="padding:28px 28px 32px;">
+    <!-- Podcasts -->
+    <span class="card-label" style="display:block;margin-bottom:14px;">Podcasts</span>
+    <div class="podcast-grid">
+      <div class="podcast-cell hcard">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322777461&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-1" title="Podcast Demo 1" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 1</a></div>      </div>
+      <div class="podcast-cell hcard">
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2322781298&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/steven-rillo-torres" title="Steven Rillo Torres" target="_blank" style="color: #cccccc; text-decoration: none;"></a><a href="https://soundcloud.com/steven-rillo-torres/podcast-demo-2" title="Podcast Demo 2" target="_blank" style="color: #cccccc; text-decoration: none;">Podcast Demo 2</a></div>      </div>
+    </div><!-- /podcast-grid -->
+
+  </div><!-- /card-body -->
+</div><!-- /podcasts port-card -->
 
 <div class="port-card hcard" style="padding:0;">
   <div class="card-body" style="padding:28px 28px 32px;">
