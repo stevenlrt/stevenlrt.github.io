@@ -429,3 +429,5 @@ main > section:not(.hero), .footer { margin-inline: clamp(0px, 3vw, 40px); }
 .split { padding: clamp(28px, 4vw, 48px) 0; }
 .block { padding: clamp(24px, 3.5vw, 44px) 0; }
 .nav > nav { margin-left: auto; margin-right: 12px; }
+.video-embed { padding-bottom: 0; height: auto; aspect-ratio: 16 / 9; width: 100%; }
+.video-embed iframe { width: 100%; height: 100%; display: block; }
