@@ -40,8 +40,7 @@
     <h1 id="hero-heading">Executive VA for Founders & Creators</h1>
     <p class="subline">I help busy founders, creators, and small businesses with outreach, appointment setting, inbox management, calendar coordination, and administrative support.</p>
     <div class="hero-actions">
-      <a href="https://calendly.com/stevenrillot" target="_blank" rel="noopener noreferrer" class="pill-btn pill-btn-light">Book a call</a>
-      <a href="#" id="resume-link-hero" class="link-plain" target="_blank" rel="noopener noreferrer">See my resume</a>
+      <a href="#" id="resume-link-hero" class="pill-btn pill-btn-outline" target="_blank" rel="noopener noreferrer">See my resume</a>
     </div>
     </div>
   </div>
@@ -146,13 +145,20 @@
   <div class="block-head">
     <h2 id="voice-heading">Intro video</h2>
   </div>
-  <div class="video-embed">
-    <iframe
-      src="https://www.youtube.com/embed/TGqg9kjQZW4?rel=0"
-      title="Intro video: Steven Torres, Executive VA"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen></iframe>
+  <style>
+    .yt-card { width: fit-content; max-width: 100%; background: #eceff4; border: 1px solid #d5dae3; border-radius: 24px; padding: 36px; box-sizing: border-box; }
+    .yt-frame { position: relative; width: 520px; max-width: 100%; margin-inline: 0; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+    .yt-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  </style>
+  <div class="yt-card">
+    <div class="yt-frame">
+      <iframe
+        src="https://www.youtube.com/embed/TGqg9kjQZW4?rel=0"
+        title="Intro video: Steven Torres, Executive VA"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
+    </div>
   </div>
 </section>
 
@@ -279,7 +285,6 @@
   </div>
   <div class="btn-row">
     <a href="https://calendly.com/stevenrillot" target="_blank" rel="noopener noreferrer" class="pill-btn pill-btn-light" aria-label="Book a call with Steven Torres">Book a call</a>
-    <a href="#" id="resume-link-contact" class="link-plain" target="_blank" rel="noopener noreferrer" aria-label="Download Steven Torres resume">See my resume</a>
   </div>
 
 </div>

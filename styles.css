@@ -431,3 +431,13 @@ main > section:not(.hero), .footer { margin-inline: clamp(0px, 3vw, 40px); }
 .nav > nav { margin-left: auto; margin-right: 12px; }
 .video-embed { padding-bottom: 0; height: auto; aspect-ratio: 16 / 9; width: 100%; }
 .video-embed iframe { width: 100%; height: 100%; display: block; }
+.hero-name { background: none; color: #fff; padding: 0; border-radius: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.01em; }
+.pill-btn-outline { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+.pill-btn-outline:hover { background: var(--navy); color: #fff; }
+.hero .pill-btn-outline { border-color: #fff; color: #fff; }
+.hero .pill-btn-outline:hover { background: #fff; color: var(--navy); }
+.pill-btn-outline, .hero .pill-btn-outline { background: #2f6fc0; border: 2px solid #2f6fc0; color: #fff; transition: none; transform: none; }
+.pill-btn-outline:hover, .hero .pill-btn-outline:hover { background: #2f6fc0; border-color: #2f6fc0; color: #fff; transform: none; box-shadow: none; }
+.hero .pill-btn-outline, .hero .pill-btn-outline:hover { background: #0a1226; border-color: #0a1226; color: #fff; }
+.contact .pill-btn-outline, .contact .pill-btn-outline:hover { background: #fff; border-color: #0a1226; color: #0a1226; }
+.hero .pill-btn-outline, .hero .pill-btn-outline:hover { background: #fff; border-color: #fff; color: #0a1226; }
