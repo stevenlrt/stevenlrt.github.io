@@ -109,9 +109,9 @@ document.querySelectorAll('.faq-btn').forEach(function (btn) {
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
   items.forEach(function (el, i) {
-    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    el.style.transitionDelay = (i % 4) * 60 + 'ms';
     io.observe(el);
   });
 })();

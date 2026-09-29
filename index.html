@@ -15,29 +15,34 @@
 
 <!-- NAV -->
 <header class="nav">
-  <a href="#hero" class="nav-logo">Steven Torres | Executive VA</a>
+  <a href="#hero" class="nav-logo"><span class="nav-name">Steven Torres</span><span class="nav-role">Executive VA</span></a>
   <nav aria-label="Main navigation">
     <ul class="nav-links">
       <li><a href="#about" class="is-active">About</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#work-samples">Samples</a></li>
+      <li><a href="#work-samples">Portfolio</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
-  <a href="https://calendly.com/stevenrillot" target="_blank" rel="noopener noreferrer" class="pill-btn">Book a call <span aria-hidden="true">↗</span></a>
+  <a href="https://calendly.com/stevenrillot" target="_blank" rel="noopener noreferrer" class="pill-btn">Book a call<span aria-hidden="true"></span></a>
 </header>
 
 <main>
 <!-- HERO -->
 <section id="hero" class="hero" aria-labelledby="hero-heading">
   <div class="hero-card">
-    <img src="photo.png" alt="Photo of Steven Torres" class="hero-photo" />
+    <div class="hero-id">
+      <img src="photo.png" alt="Photo of Steven Torres" class="hero-photo" />
+      <span class="hero-name">Steven Torres</span>
+    </div>
+    <div class="hero-text">
     <h1 id="hero-heading">Executive VA for Founders & Creators</h1>
     <p class="subline">I help busy founders, creators, and small businesses with outreach, appointment setting, inbox management, calendar coordination, and administrative support.</p>
     <div class="hero-actions">
       <a href="https://calendly.com/stevenrillot" target="_blank" rel="noopener noreferrer" class="pill-btn pill-btn-light">Book a call</a>
       <a href="#" id="resume-link-hero" class="link-plain" target="_blank" rel="noopener noreferrer">See my resume</a>
+    </div>
     </div>
   </div>
 </section>
@@ -55,7 +60,7 @@
 <!-- SERVICES -->
 <section id="services" class="block" aria-labelledby="services-heading">
   <div class="block-head">
-    <h2 id="services-heading">What I do</h2>
+    <h2 id="services-heading">Services</h2>
   </div>
   <div class="cards cards-3">
     <article class="card card-dark reveal">
@@ -94,7 +99,7 @@
 <!-- WORK SAMPLES -->
 <section id="work-samples" class="block" aria-labelledby="samples-heading">
   <div class="block-head">
-    <h2 id="samples-heading">Work samples</h2>
+    <h2 id="samples-heading">Portfolio</h2>
   </div>
   <div class="cards cards-2">
     <article class="sample reveal">
@@ -143,10 +148,10 @@
   </div>
   <div class="video-embed">
     <iframe
-      src="https://www.youtube.com/embed/TGqg9kjQZW4?si=sbfz_zXK9EU3hqaZ"
+      src="https://www.youtube.com/embed/TGqg9kjQZW4?rel=0"
       title="Intro video: Steven Torres, Executive VA"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen></iframe>
   </div>
 </section>
@@ -188,7 +193,7 @@
 <!-- TOOLS -->
 <section id="tools" class="block" aria-labelledby="tools-heading">
   <div class="block-head">
-    <h2 id="tools-heading">Tools I use</h2>
+    <h2 id="tools-heading">Tools</h2>
   </div>
   <div class="chips">
     <span class="chip">Google Workspace</span>
@@ -208,7 +213,7 @@
 <!-- CREDENTIALS -->
 <section id="credentials" class="block" aria-labelledby="cred-heading">
   <div class="block-head">
-    <h2 id="cred-heading">Credentials</h2>
+    <h2 id="cred-heading">Certifications</h2>
   </div>
   <div class="cert-grid">
     <article class="cert-card reveal">
@@ -265,8 +270,9 @@
 
 <!-- CONTACT -->
 <section id="contact" class="contact" aria-labelledby="contact-heading">
-  <h2 id="contact-heading">Let's work together</h2>
-  <p class="contact-lead">Book a short call and we can talk about what you need.</p>
+<div class="contact-info">
+  <h2 id="contact-heading">Let's collaborate!</h2>
+  <p class="contact-lead">Book a call and we can talk about what you need.</p>
   <div class="contact-links">
     <a href="mailto:stevenrillot@gmail.com" class="contact-link" aria-label="Email Steven Torres">stevenrillot@gmail.com</a>
     <a href="https://linkedin.com/in/stevenlrt" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Steven Torres on LinkedIn">linkedin.com/in/stevenlrt</a>
@@ -276,6 +282,7 @@
     <a href="#" id="resume-link-contact" class="link-plain" target="_blank" rel="noopener noreferrer" aria-label="Download Steven Torres resume">See my resume</a>
   </div>
 
+</div>
   <div class="contact-form-wrap">
     <h3>Or send a message</h3>
     <form id="contact-form" class="contact-form">
