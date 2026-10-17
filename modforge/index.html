@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modforge Retro — Console Mods & Restorations</title>
+<style>
+  :root{
+    --bg:#0b0d0a;
+    --panel:#12160f;
+    --line:#25301f;
+    --phosphor:#5fff8f;
+    --amber:#ffb238;
+    --text:#d7e8d2;
+    --dim:#7c8f76;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Courier New', monospace;
+    line-height:1.5;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:1000; pointer-events:none;
+    background:repeating-linear-gradient(
+      to bottom, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px,
+      transparent 1px, transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+  .wrap{max-width:1140px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  /* NAV */
+  nav{
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:rgba(11,13,10,0.94); z-index:100;
+    backdrop-filter:blur(4px);
+  }
+  .nav-inner{
+    max-width:1140px; margin:0 auto; padding:18px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo{font-weight:700; font-size:18px; letter-spacing:0.02em;}
+  .logo span{color:var(--phosphor);}
+  .nav-links{list-style:none; display:flex; gap:28px; font-size:13px; text-transform:uppercase; letter-spacing:0.06em;}
+  .nav-links a{text-decoration:none; color:var(--dim); cursor:pointer;}
+  .nav-links a:hover, .nav-links a.active{color:var(--phosphor);}
+  .cart-btn{
+    font-size:13px; text-transform:uppercase; letter-spacing:0.06em;
+    border:1px solid var(--line); padding:8px 14px; background:transparent;
+    color:var(--text); cursor:pointer; position:relative;
+  }
+  .cart-btn:hover{border-color:var(--phosphor); color:var(--phosphor);}
+  .cart-count{
+    position:absolute; top:-8px; right:-8px;
+    background:var(--amber); color:var(--bg);
+    font-size:10px; font-weight:700; border-radius:50%;
+    width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+  }
+
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* terminal prompt line */
+  .prompt{
+    font-size:12px; color:var(--dim); margin-bottom:10px;
+  }
+  .prompt::before{content:"$ "; color:var(--phosphor);}
+
+  /* HOME HERO */
+  .hero{
+    padding:100px 24px 80px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse at 30% 0%, rgba(95,255,143,0.06), transparent 50%);
+  }
+  h1{
+    font-size:clamp(34px, 6vw, 58px);
+    font-weight:700; line-height:1.1;
+    max-width:680px;
+    text-transform:uppercase;
+  }
+  h1 .glow{color:var(--phosphor); text-shadow:0 0 18px rgba(95,255,143,0.5);}
+  .hero p{max-width:520px; color:var(--dim); margin-top:20px; font-size:15px;}
+  .btn{
+    display:inline-block; margin-top:30px;
+    background:var(--phosphor); color:var(--bg);
+    padding:14px 26px; font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:0.06em;
+    text-decoration:none; border:none; cursor:pointer;
+  }
+  .btn:hover{background:#7dffab;}
+  .btn.ghost{
+    background:transparent; color:var(--phosphor); border:1px solid var(--phosphor);
+  }
+  .btn.ghost:hover{background:rgba(95,255,143,0.08);}
+  .btn:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  /* SECTION */
+  section{padding:70px 24px;}
+  .section-head{display:flex; justify-content:space-between; align-items:end; margin-bottom:40px; flex-wrap:wrap; gap:14px;}
+  .section-head h2{font-size:22px; text-transform:uppercase; letter-spacing:0.02em;}
+  .section-head h2 span{color:var(--phosphor);}
+
+  /* PRODUCT GRID */
+  .grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .card{
+    background:var(--panel); padding:22px; cursor:pointer;
+    display:flex; flex-direction:column; transition:background 0.15s ease;
+  }
+  .card:hover{background:#161c11;}
+  .card-thumb{
+    aspect-ratio:1; background:#0e120c; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--dim); text-transform:uppercase; margin-bottom:16px;
+  }
+  .card h3{font-size:15px; margin-bottom:6px;}
+  .card .tag{font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px;}
+  .card .price{color:var(--amber); font-weight:700; font-size:16px; margin-top:auto;}
+
+  /* FEATURED strip */
+  .featured-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+
+  /* PRODUCT DETAIL */
+  .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;}
+  .detail-thumb{
+    aspect-ratio:1; background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--dim); font-size:13px; text-transform:uppercase;
+  }
+  .detail-info .tag{color:var(--phosphor); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;}
+  .detail-info h2{font-size:30px; margin-bottom:14px; text-transform:none;}
+  .detail-info .price{font-size:26px; color:var(--amber); font-weight:700; margin-bottom:20px;}
+  .detail-info p.desc{color:var(--dim); font-size:14px; margin-bottom:24px; max-width:460px;}
+  .spec-list{border-top:1px solid var(--line); margin-bottom:26px;}
+  .spec-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px;}
+  .spec-row span:first-child{color:var(--dim);}
+  .back-link{display:inline-block; margin-bottom:30px; font-size:12px; color:var(--dim); cursor:pointer;}
+  .back-link:hover{color:var(--phosphor);}
+
+  /* CART */
+  .cart-panel{max-width:640px;}
+  .cart-row{
+    display:grid; grid-template-columns:auto 1fr auto auto; gap:18px; align-items:center;
+    padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-row .thumb{width:56px; height:56px; background:var(--panel); border:1px solid var(--line); display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dim);}
+  .cart-row h4{font-size:14px;}
+  .cart-row .qty{font-size:12px; color:var(--dim);}
+  .cart-row .amt{color:var(--amber); font-weight:700; font-size:14px;}
+  .cart-total{display:flex; justify-content:space-between; padding-top:24px; font-size:18px; font-weight:700;}
+  .cart-total span:last-child{color:var(--amber);}
+  .empty{color:var(--dim); font-size:14px; padding:40px 0;}
+
+  /* ABOUT/CONTACT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  .about-grid p{color:var(--dim); font-size:15px; margin-bottom:14px; max-width:460px;}
+  .contact-lines{margin-top:20px;}
+  .contact-lines div{font-size:13px; color:var(--dim); margin-bottom:8px;}
+  .contact-lines span{color:var(--phosphor);}
+
+  footer{
+    text-align:center; padding:36px 24px; border-top:1px solid var(--line);
+    color:var(--dim); font-size:12px;
+  }
+
+  @media (max-width:900px){
+    .grid, .featured-strip{grid-template-columns:repeat(2,1fr);}
+    .detail-grid, .about-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">MOD<span>FORGE</span> RETRO</div>
+    <ul class="nav-links">
+      <li><a data-page="home" class="active">Home</a></li>
+      <li><a data-page="shop">Shop</a></li>
+      <li><a data-page="about">About</a></li>
+      <li><a data-page="contact">Contact</a></li>
+    </ul>
+    <button class="cart-btn" data-page="cart">Cart<span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <section class="hero">
+    <div class="prompt">boot sequence complete</div>
+    <h1>Your old hardware<br>deserves a <span class="glow">second life.</span></h1>
+    <p>Custom mods, shell restorations, and modded units for PS3, iPod, and other retro consoles. Built by hand, tested before it ships.</p>
+    <a class="btn" data-page="shop">Browse Shop</a>
+    <a class="btn ghost" data-page="contact" style="margin-left:12px;">Book a Custom Mod</a>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Featured <span>Mods</span></h2>
+        <a data-page="shop" style="font-size:12px; color:var(--dim); text-decoration:underline; cursor:pointer;">View all →</a>
+      </div>
+      <div class="featured-strip" id="featuredGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- SHOP -->
+<div class="page" id="shop">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Shop <span>All Mods</span></h2>
+      </div>
+      <div class="grid" id="shopGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div class="page" id="product">
+  <section>
+    <div class="wrap">
+      <div class="back-link" data-page="shop">&larr; Back to shop</div>
+      <div class="detail-grid" id="productDetail"></div>
+    </div>
+  </section>
+</div>
+
+<!-- CART -->
+<div class="page" id="cart">
+  <section>
+    <div class="wrap cart-panel">
+      <div class="section-head"><h2>Your <span>Cart</span></h2></div>
+      <div id="cartItems"></div>
+      <div class="cart-total"><span>Total</span><span id="cartTotal">$0</span></div>
+      <a class="btn" style="margin-top:26px;" data-page="contact">Checkout →</a>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="about">
+  <section>
+    <div class="wrap about-grid">
+      <div>
+        <div class="prompt">cat about.txt</div>
+        <h2 style="text-transform:uppercase; font-size:24px; margin-bottom:16px;">Who we are</h2>
+        <p>Modforge Retro started in a spare bedroom, soldering iron in hand, bringing dead PS3s and forgotten iPods back to life. What began as a hobby turned into a shop built on one rule: every unit gets tested before it ships.</p>
+        <p>We specialize in shell swaps, internal upgrades, capacitor replacements, and full restorations for hardware most repair shops won't touch anymore.</p>
+      </div>
+      <div>
+        <div class="prompt">ls services/</div>
+        <ul style="list-style:none; margin-top:16px;">
+          <li style="padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;">→ Console shell mods & custom paint</li>
+          <li style="padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;">→ Internal hardware upgrades</li>
+          <li style="padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;">→ Full restorations (PS3, iPod Classic)</li>
+          <li style="padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;">→ Custom builds, made to order</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="contact">
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Get In <span>Touch</span></h2></div>
+      <div class="about-grid">
+        <div>
+          <p>Have a custom build in mind, or a unit you want restored? Send the details and we'll quote it.</p>
+          <div class="contact-lines">
+            <div><span>Email:</span> orders@modforgeretro.co</div>
+            <div><span>Turnaround:</span> 5–10 business days</div>
+            <div><span>Shipping:</span> Worldwide</div>
+          </div>
+        </div>
+        <form onsubmit="return false;" style="display:flex; flex-direction:column; gap:14px;">
+          <input type="text" placeholder="Name" style="background:var(--panel); border:1px solid var(--line); color:var(--text); padding:12px; font-family:inherit;">
+          <input type="email" placeholder="Email" style="background:var(--panel); border:1px solid var(--line); color:var(--text); padding:12px; font-family:inherit;">
+          <textarea placeholder="Tell us about your project..." style="background:var(--panel); border:1px solid var(--line); color:var(--text); padding:12px; font-family:inherit; min-height:100px;"></textarea>
+          <button class="btn" type="submit">Send Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>Modforge Retro — Console Mods & Restorations. Design sample project.</footer>
+
+<script>
+  const products = [
+    {id:1, name:"PS3 Slim — Phosphor Green Shell", tag:"PlayStation 3", price:249, desc:"Full custom shell swap with translucent phosphor-green panels, internal thermal paste refresh, and quiet-fan mod.", specs:[["Base Unit","PS3 Slim 250GB"],["Shell","Custom translucent green"],["Cooling","Refreshed thermal paste + fan mod"],["Warranty","90 days"]]},
+    {id:2, name:"iPod Classic 160GB — SSD Mod", tag:"iPod Classic", price:189, desc:"Original spinning disk swapped for a 256GB SSD mod. Faster boot, silent operation, new battery.", specs:[["Storage","256GB SSD (mod)"],["Battery","Replaced, new cell"],["Click Wheel","Original, refurbished"],["Warranty","90 days"]]},
+    {id:3, name:"PS3 Fat — Backwards Compatible Restore", tag:"PlayStation 3", price:329, desc:"Original launch-model PS3 with PS2 backwards compatibility, fully restored internals and new thermal system.", specs:[["Base Unit","PS3 Fat 60GB (BC)"],["Cooling","Full thermal rebuild"],["Ports","All original ports tested"],["Warranty","90 days"]]},
+    {id:4, name:"iPod Mini — Custom Anodized Shell", tag:"iPod Mini", price:159, desc:"Hand-anodized aluminum shell in your choice of color, paired with a battery and headphone jack refresh.", specs:[["Shell","Hand-anodized aluminum"],["Battery","Replaced"],["Audio Jack","Refreshed"],["Warranty","60 days"]]},
+    {id:5, name:"PS3 Super Slim — Stealth Build", tag:"PlayStation 3", price:219, desc:"Matte-black stealth shell with a quieter fan mod and refreshed internals for late-night sessions.", specs:[["Base Unit","PS3 Super Slim 500GB"],["Shell","Matte black stealth"],["Cooling","Quiet-fan mod"],["Warranty","90 days"]]},
+    {id:6, name:"iPod Classic — Amber Display Mod", tag:"iPod Classic", price:199, desc:"Retro amber-tinted display mod paired with an SSD upgrade for that CRT-adjacent look with modern storage.", specs:[["Display","Amber-tint mod"],["Storage","128GB SSD"],["Battery","Replaced"],["Warranty","90 days"]]},
+    {id:7, name:"PS3 Slim — Amber CRT Edition", tag:"PlayStation 3", price:259, desc:"Amber acrylic shell inspired by old CRT monitors, paired with internal fan and thermal refresh.", specs:[["Base Unit","PS3 Slim 320GB"],["Shell","Amber acrylic"],["Cooling","Fan + thermal refresh"],["Warranty","90 days"]]},
+    {id:8, name:"iPod Nano — Full Refurb", tag:"iPod Nano", price:99, desc:"Base refurbishment: new battery, cleaned click wheel, tested ports. Great entry point into the lineup.", specs:[["Battery","Replaced"],["Click Wheel","Cleaned & tested"],["Ports","Fully tested"],["Warranty","60 days"]]},
+  ];
+
+  let cart = {};
+
+  function cardHTML(p){
+    return `<div class="card" data-id="${p.id}">
+      <div class="card-thumb">Product Image</div>
+      <h3>${p.name}</h3>
+      <div class="tag">${p.tag}</div>
+      <div class="price">$${p.price}</div>
+    </div>`;
+  }
+
+  document.getElementById('shopGrid').innerHTML = products.map(cardHTML).join('');
+  document.getElementById('featuredGrid').innerHTML = products.slice(0,4).map(cardHTML).join('');
+
+  function showProduct(id){
+    const p = products.find(x=>x.id==id);
+    document.getElementById('productDetail').innerHTML = `
+      <div class="detail-thumb">Product Image</div>
+      <div class="detail-info">
+        <div class="tag">${p.tag}</div>
+        <h2>${p.name}</h2>
+        <div class="price">$${p.price}</div>
+        <p class="desc">${p.desc}</p>
+        <div class="spec-list">
+          ${p.specs.map(s=>`<div class="spec-row"><span>${s[0]}</span><span>${s[1]}</span></div>`).join('')}
+        </div>
+        <button class="btn" onclick="addToCart(${p.id})">Add to Cart — $${p.price}</button>
+      </div>
+    `;
+    goTo('product');
+  }
+
+  function addToCart(id){
+    cart[id] = (cart[id]||0)+1;
+    renderCart();
+  }
+
+  function renderCart(){
+    const ids = Object.keys(cart);
+    document.getElementById('cartCount').textContent = ids.reduce((a,id)=>a+cart[id],0);
+    const container = document.getElementById('cartItems');
+    if(ids.length===0){
+      container.innerHTML = '<div class="empty">Your cart is empty. Browse the shop to add a mod.</div>';
+      document.getElementById('cartTotal').textContent = '$0';
+      return;
+    }
+    let total = 0;
+    container.innerHTML = ids.map(id=>{
+      const p = products.find(x=>x.id==id);
+      const qty = cart[id];
+      total += p.price*qty;
+      return `<div class="cart-row">
+        <div class="thumb">IMG</div>
+        <div><h4>${p.name}</h4><div class="qty">Qty: ${qty}</div></div>
+        <div></div>
+        <div class="amt">$${p.price*qty}</div>
+      </div>`;
+    }).join('');
+    document.getElementById('cartTotal').textContent = '$'+total;
+  }
+
+  function goTo(pageId){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll(`.nav-links a[data-page="${pageId}"]`).forEach(a=>a.classList.add('active'));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      goTo(el.getAttribute('data-page'));
+    });
+  });
+
+  document.body.addEventListener('click', e=>{
+    const card = e.target.closest('.card');
+    if(card) showProduct(card.getAttribute('data-id'));
+  });
+
+  renderCart();
+</script>
+
+</body>
+</html>

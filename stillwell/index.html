@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stillwell — Yoga Studio</title>
+<style>
+  :root{
+    --sand:#f2ece0;
+    --stone:#d8cdb8;
+    --clay:#a9855f;
+    --moss:#5c6b52;
+    --ink:#2c2820;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Georgia', 'Iowan Old Style', serif;
+    line-height:1.6;
+  }
+  .sans{font-family:'Helvetica Neue', Arial, sans-serif;}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,236,224,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--stone);
+  }
+  .nav-inner{
+    max-width:1020px;margin:0 auto;padding:20px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo{font-size:22px; letter-spacing:0.02em;}
+  .logo em{font-style:italic; color:var(--moss);}
+  .nav-links{list-style:none; display:flex; gap:34px;}
+  .nav-links a{
+    text-decoration:none; color:var(--ink);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:14px; letter-spacing:0.05em; text-transform:uppercase;
+    padding-bottom:4px; border-bottom:2px solid transparent;
+    transition:border-color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{border-color:var(--clay);}
+  .nav-toggle{display:none;}
+
+  .page{display:none; animation:fade 0.4s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0} to{opacity:1}}
+
+  /* HOME HERO */
+  .hero{
+    padding:110px 24px 90px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .ripple{
+    position:absolute; border-radius:50%;
+    border:1px solid var(--stone);
+    left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .r1{width:340px;height:340px;}
+  .r2{width:560px;height:560px; opacity:0.6;}
+  .r3{width:800px;height:800px; opacity:0.35;}
+  .hero-content{position:relative;}
+  .eyebrow{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:13px; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--moss); margin-bottom:22px;
+  }
+  h1{
+    font-size:clamp(38px, 6vw, 64px);
+    font-weight:400;
+    font-style:italic;
+    max-width:640px;
+    margin:0 auto 22px;
+    line-height:1.15;
+  }
+  .hero p.lead{
+    max-width:480px; margin:0 auto;
+    color:#5a5344; font-size:18px;
+  }
+  .btn{
+    display:inline-block; margin-top:34px;
+    background:var(--moss); color:var(--sand);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:14px; letter-spacing:0.06em; text-transform:uppercase;
+    text-decoration:none;
+    padding:16px 32px; border-radius:2px;
+    transition:background 0.2s ease;
+  }
+  .btn:hover{background:#4a5643;}
+  .btn:focus-visible{outline:3px solid var(--clay); outline-offset:3px;}
+
+  /* SECTION SHARED */
+  section{padding:80px 24px;}
+  .section-head{
+    text-align:center; max-width:560px; margin:0 auto 56px;
+  }
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(28px,4vw,40px); font-weight:400; font-style:italic;}
+
+  /* class intro (home) */
+  .intro-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:50px;
+    align-items:center; padding:60px 24px 100px;
+  }
+  .intro-grid p{color:#5a5344; font-size:17px; margin-bottom:16px;}
+  .intro-visual{
+    aspect-ratio:4/5; background:var(--stone);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Helvetica Neue',sans-serif; font-size:13px; letter-spacing:0.1em;
+    color:#8a8069; text-transform:uppercase;
+  }
+
+  /* SERVICES page */
+  .class-list{display:flex; flex-direction:column; gap:0;}
+  .class-row{
+    display:grid; grid-template-columns:1fr 2fr auto;
+    gap:24px; align-items:center;
+    padding:28px 0; border-bottom:1px solid var(--stone);
+  }
+  .class-row h3{font-size:22px; font-style:italic; font-weight:400;}
+  .class-row p{font-family:'Helvetica Neue',sans-serif; font-size:14px; color:#5a5344;}
+  .class-time{
+    font-family:'Helvetica Neue',sans-serif; font-size:13px;
+    color:var(--moss); text-transform:uppercase; letter-spacing:0.05em;
+    text-align:right; white-space:nowrap;
+  }
+
+  /* ABOUT page */
+  .bio-grid{display:grid; grid-template-columns:220px 1fr; gap:40px; margin-bottom:56px; align-items:start;}
+  .bio-photo{
+    aspect-ratio:1; background:var(--stone); border-radius:2px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Helvetica Neue',sans-serif; font-size:12px; color:#8a8069; text-transform:uppercase;
+  }
+  .bio-grid h3{font-size:24px; font-style:italic; font-weight:400; margin-bottom:10px;}
+  .bio-grid p{color:#5a5344;}
+  .story{max-width:640px; margin:70px auto 0; text-align:center;}
+  .story p{color:#5a5344; font-size:17px; margin-bottom:16px;}
+
+  /* CONTACT page */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  .contact-info h3{font-family:'Helvetica Neue',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--moss); margin-bottom:10px; margin-top:26px;}
+  .contact-info h3:first-child{margin-top:0;}
+  .contact-info p{font-family:'Helvetica Neue',sans-serif; font-size:15px; color:#5a5344;}
+  form{display:flex; flex-direction:column; gap:16px; font-family:'Helvetica Neue',sans-serif;}
+  label{font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--moss);}
+  input, select, textarea{
+    padding:12px 14px; border:1px solid var(--stone); background:#fff;
+    font-family:inherit; font-size:15px; border-radius:2px;
+  }
+  textarea{resize:vertical; min-height:90px;}
+  .submit-btn{
+    background:var(--moss); color:var(--sand); border:none;
+    padding:14px; font-size:14px; text-transform:uppercase; letter-spacing:0.06em;
+    cursor:pointer; border-radius:2px; margin-top:6px;
+  }
+  .submit-btn:hover{background:#4a5643;}
+
+  footer{
+    text-align:center; padding:40px 24px;
+    font-family:'Helvetica Neue',sans-serif; font-size:13px;
+    color:#8a8069; border-top:1px solid var(--stone);
+  }
+
+  @media (max-width:720px){
+    .nav-links{gap:18px;}
+    .intro-grid, .bio-grid, .contact-grid{grid-template-columns:1fr;}
+    .class-row{grid-template-columns:1fr; text-align:left;}
+    .class-time{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><em>Still</em>well</div>
+    <ul class="nav-links">
+      <li><a href="#" data-page="home" class="active">Home</a></li>
+      <li><a href="#" data-page="services">Services</a></li>
+      <li><a href="#" data-page="about">About</a></li>
+      <li><a href="#" data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <section class="hero">
+    <div class="ripple r3"></div>
+    <div class="ripple r2"></div>
+    <div class="ripple r1"></div>
+    <div class="hero-content">
+      <div class="eyebrow sans">Yoga Studio · Quiet Root District</div>
+      <h1>Room to breathe, in a life that rarely offers it.</h1>
+      <p class="lead">Stillwell is a small studio built around slow mornings, honest practice, and teachers who know your name.</p>
+      <a href="#" class="btn" data-page="services">View Class Schedule</a>
+    </div>
+  </section>
+
+  <div class="wrap intro-grid">
+    <div>
+      <div class="eyebrow sans">What We Teach</div>
+      <p>From grounding Hatha to sweat-through Vinyasa flow, every class at Stillwell is capped small so your teacher can actually see you — your breath, your alignment, your day.</p>
+      <p>No mirrors. No performance. Just an hour that belongs to you.</p>
+      <a href="#" class="btn" data-page="services">Explore Classes</a>
+    </div>
+    <div class="intro-visual">Studio Image</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="services">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow sans">Classes & Schedule</div>
+        <h2>Find your practice</h2>
+      </div>
+      <div class="class-list">
+        <div class="class-row">
+          <h3>Hatha Grounding</h3>
+          <p>Slow, held postures for beginners and anyone craving stillness.</p>
+          <div class="class-time">Mon · Wed &nbsp; 7:00 AM</div>
+        </div>
+        <div class="class-row">
+          <h3>Vinyasa Flow</h3>
+          <p>Breath-linked movement, building heat through a dynamic sequence.</p>
+          <div class="class-time">Tue · Thu &nbsp; 6:00 PM</div>
+        </div>
+        <div class="class-row">
+          <h3>Restorative</h3>
+          <p>Supported, prop-heavy poses for deep rest and nervous system reset.</p>
+          <div class="class-time">Sunday &nbsp; 5:00 PM</div>
+        </div>
+        <div class="class-row">
+          <h3>Prenatal</h3>
+          <p>Gentle, trimester-aware practice for expecting mothers.</p>
+          <div class="class-time">Saturday &nbsp; 9:00 AM</div>
+        </div>
+        <div class="class-row">
+          <h3>Candlelight Yin</h3>
+          <p>Long-held floor postures by candlelight to close out the week.</p>
+          <div class="class-time">Friday &nbsp; 7:30 PM</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="about">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow sans">Our Story</div>
+        <h2>Rooted in a quiet corner</h2>
+      </div>
+      <div class="story">
+        <p>Stillwell opened in 2021 in a converted corner storefront, built on one idea: yoga doesn't need to be loud, trendy, or crowded to change how you move through your day.</p>
+        <p>We kept our class sizes small on purpose. Every teacher here knows your name, your injuries, and where you're holding tension before you say a word.</p>
+      </div>
+
+      <div class="section-head" style="margin-top:90px;">
+        <div class="eyebrow sans">Meet the Teachers</div>
+        <h2>Your instructors</h2>
+      </div>
+      <div class="bio-grid">
+        <div class="bio-photo">Photo</div>
+        <div>
+          <h3>Renata Okafor</h3>
+          <p>Founder & lead instructor. 12 years teaching Hatha and Vinyasa across three countries before settling into Stillwell's studio.</p>
+        </div>
+      </div>
+      <div class="bio-grid">
+        <div class="bio-photo">Photo</div>
+        <div>
+          <h3>Dev Anand</h3>
+          <p>Restorative & Yin specialist. Trained in trauma-informed movement, Dev leads our slowest, most therapeutic classes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="contact">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow sans">Get In Touch</div>
+        <h2>Visit or reach out</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Location</h3>
+          <p>214 Quiet Root Lane<br>Studio B, Ground Floor</p>
+          <h3>Hours</h3>
+          <p>Mon–Fri: 6:30 AM – 8:00 PM<br>Sat–Sun: 8:00 AM – 4:00 PM</p>
+          <h3>Contact</h3>
+          <p>hello@stillwellyoga.co<br>(555) 019-2231</p>
+        </div>
+        <form onsubmit="return false;">
+          <div>
+            <label for="name">Name</label><br>
+            <input type="text" id="name" style="width:100%; margin-top:6px;">
+          </div>
+          <div>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" style="width:100%; margin-top:6px;">
+          </div>
+          <div>
+            <label for="class">Interested Class</label><br>
+            <select id="class" style="width:100%; margin-top:6px;">
+              <option>Hatha Grounding</option>
+              <option>Vinyasa Flow</option>
+              <option>Restorative</option>
+              <option>Prenatal</option>
+              <option>Candlelight Yin</option>
+            </select>
+          </div>
+          <div>
+            <label for="msg">Message</label><br>
+            <textarea id="msg" style="width:100%; margin-top:6px;"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">Request Booking</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>Stillwell Yoga Studio — Design sample project.</footer>
+
+<script>
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = el.getAttribute('data-page');
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+      document.querySelectorAll(`.nav-links a[data-page="${target}"]`).forEach(a=>a.classList.add('active'));
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

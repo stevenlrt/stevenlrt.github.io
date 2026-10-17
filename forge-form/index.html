@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge & Form — Strength Coaching</title>
+<style>
+  :root{
+    --iron:#14140f;
+    --iron-2:#1e1e17;
+    --steel:#3a3a30;
+    --bone:#ece7db;
+    --ember:#d84b2a;
+    --ember-dim:#8f3320;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--iron);
+    color:var(--bone);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* HERO */
+  .hero{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding:80px 24px;
+    background:
+      radial-gradient(ellipse at 70% 20%, rgba(216,75,42,0.12), transparent 55%),
+      var(--iron);
+  }
+  .plate-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:28px;
+  }
+  .plate{
+    width:36px;height:36px;border-radius:50%;
+    border:5px solid var(--steel);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .plate.on{border-color:var(--ember);}
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:700;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Arial Black', 'Helvetica Neue', sans-serif;
+    font-weight:900;
+    font-size:clamp(48px, 9vw, 108px);
+    line-height:0.92;
+    letter-spacing:-0.02em;
+    text-transform:uppercase;
+    max-width:900px;
+  }
+  h1 span{color:var(--ember);}
+  .hero-sub{
+    max-width:520px;
+    margin-top:26px;
+    font-size:19px;
+    color:#c9c3b4;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    margin-top:38px;
+    background:var(--ember);
+    color:var(--iron);
+    font-weight:800;
+    font-size:17px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:18px 34px;
+    text-decoration:none;
+    width:fit-content;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.15s ease, background 0.15s ease;
+  }
+  .cta:hover{background:#ef5a37; transform:translateY(-2px);}
+  .cta:focus-visible{outline:3px solid var(--bone); outline-offset:3px;}
+
+  /* WHY */
+  .why{padding:110px 24px; border-top:1px solid var(--steel);}
+  .why-head{
+    font-family:'Arial Black', sans-serif;
+    font-size:clamp(28px,4vw,44px);
+    text-transform:uppercase;
+    max-width:640px;
+    margin-bottom:60px;
+    line-height:1.1;
+  }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0;
+    border-top:1px solid var(--steel);
+  }
+  .why-item{
+    padding:34px 30px 34px 0;
+    border-right:1px solid var(--steel);
+    padding-right:30px;
+  }
+  .why-item:last-child{border-right:none;}
+  .why-num{
+    font-size:13px;
+    color:var(--ember);
+    font-weight:800;
+    letter-spacing:0.1em;
+    margin-bottom:14px;
+    display:block;
+  }
+  .why-item h3{
+    font-size:21px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .why-item p{color:#b7b1a1; font-size:15px;}
+
+  /* TESTIMONIAL */
+  .testimonial{
+    padding:100px 24px;
+    background:var(--iron-2);
+    border-top:1px solid var(--steel);
+    border-bottom:1px solid var(--steel);
+  }
+  .quote{
+    max-width:760px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .quote-mark{
+    font-family:Georgia, serif;
+    font-size:80px;
+    color:var(--ember-dim);
+    line-height:1;
+    margin-bottom:10px;
+  }
+  .quote p{
+    font-size:clamp(22px, 3vw, 32px);
+    font-weight:300;
+    line-height:1.35;
+    color:var(--bone);
+  }
+  .quote-by{
+    margin-top:28px;
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:700;
+  }
+
+  /* FINAL CTA */
+  .final{
+    padding:130px 24px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(216,75,42,0.15), transparent 60%),
+      var(--iron);
+  }
+  .final h2{
+    font-family:'Arial Black', sans-serif;
+    font-size:clamp(32px,6vw,64px);
+    text-transform:uppercase;
+    line-height:1.05;
+    margin-bottom:30px;
+  }
+  .final h2 span{color:var(--ember);}
+  .final .cta{margin:0 auto;}
+
+  footer{
+    text-align:center;
+    padding:30px 24px;
+    color:#68624f;
+    font-size:13px;
+    border-top:1px solid var(--steel);
+  }
+
+  @media (max-width:720px){
+    .why-grid{grid-template-columns:1fr;}
+    .why-item{border-right:none; border-bottom:1px solid var(--steel); padding:26px 0;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="plate-row">
+      <div class="plate on"></div>
+      <div class="plate on"></div>
+      <div class="plate on"></div>
+      <div class="plate"></div>
+      <div class="plate"></div>
+    </div>
+    <div class="eyebrow">Strength Coaching · In-Person &amp; Remote</div>
+    <h1>Get strong.<br>On <span>purpose.</span></h1>
+    <p class="hero-sub">Forge & Form builds no-nonsense strength programs for people done guessing at the gym. One coach, one plan, real progress you can measure.</p>
+    <a href="#book" class="cta">Book Free Consult →</a>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h2 class="why-head">Coaching built like a program, not a pep talk.</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <span class="why-num">01</span>
+        <h3>Programmed, not improvised</h3>
+        <p>Every session ties back to a plan built around your goals, your schedule, and your recovery — not whatever feels good that day.</p>
+      </div>
+      <div class="why-item">
+        <span class="why-num">02</span>
+        <h3>Numbers you can track</h3>
+        <p>Lifts, load, and progress logged every week. You'll always know exactly where you stand and what's next.</p>
+      </div>
+      <div class="why-item">
+        <span class="why-num">03</span>
+        <h3>Direct access to your coach</h3>
+        <p>Form checks, plan adjustments, and questions answered by a real person — not a rotating cast or a chatbot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="quote">
+    <div class="quote-mark">"</div>
+    <p>I'd been going to the gym for two years with nothing to show for it. Six months with Forge & Form and I finally understand what I'm doing — and why it's working.</p>
+    <div class="quote-by">— Marco D., Client Since 2025</div>
+  </div>
+</section>
+
+<section class="final" id="book">
+  <h2>Stop guessing.<br>Start <span>training.</span></h2>
+  <a href="mailto:hello@forgeandform.co" class="cta">Book Free Consult →</a>
+</section>
+
+<footer>Forge & Form — Strength Coaching. Design sample project.</footer>
+
+</body>
+</html>
