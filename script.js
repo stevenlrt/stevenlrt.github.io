@@ -45,6 +45,7 @@ document.documentElement.classList.add('js');
       access_key: SITE_CONFIG.contactFormAccessKey,
       name: form.name.value,
       email: form.email.value,
+      service: form.service.value,
       message: form.message.value,
       subject: 'New message from portfolio site'
     };
